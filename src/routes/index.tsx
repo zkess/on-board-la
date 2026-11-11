@@ -20,7 +20,6 @@ function Index() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-16">
       <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[28rem] w-[56rem] -translate-x-1/2 rounded-full bg-sunset opacity-40 blur-3xl" aria-hidden />
-      <p className="relative mb-4 text-sm font-medium uppercase tracking-[0.25em] text-secondary">City of Los Angeles</p>
       <h1 className="relative text-center font-display text-6xl font-bold tracking-tight md:text-8xl">
         LA <span className="text-primary italic">Onboarding</span>
       </h1>
