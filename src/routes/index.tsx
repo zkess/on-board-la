@@ -1,23 +1,42 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { AddressSearch } from "@/components/AddressSearch";
+import { LANDMARKS } from "@/lib/la-data";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "LA Onboarding — Your civic welcome to Los Angeles" },
+      { name: "description", content: "Enter your address to meet your Councilmember, Neighborhood Council, trash day, local press and more." },
+      { property: "og:title", content: "LA Onboarding" },
+      { property: "og:description", content: "Everything a new City of Los Angeles resident needs to get civically plugged in." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-16">
+      <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[28rem] w-[56rem] -translate-x-1/2 rounded-full bg-sunset opacity-40 blur-3xl" aria-hidden />
+      <p className="relative mb-4 text-sm font-medium uppercase tracking-[0.25em] text-secondary">City of Los Angeles</p>
+      <h1 className="relative text-center font-display text-6xl font-bold tracking-tight md:text-8xl">
+        LA <span className="text-primary italic">Onboarding</span>
+      </h1>
+      <p className="relative mt-4 max-w-md text-center text-muted-foreground">Your representatives, your trash day, your neighbors. One address away.</p>
+      <div className="relative mt-10 flex w-full justify-center"><AddressSearch /></div>
+      <p className="relative mt-12 text-sm text-muted-foreground">Not sure? Check out the onboarding for these famous spots.</p>
+      <ul className="relative mt-4 flex max-w-3xl flex-wrap justify-center gap-3">
+        {LANDMARKS.map((l) => (
+          <li key={l.name}>
+            <Link to="/explore" search={{ q: l.q }} className="block rounded-2xl border border-border bg-card px-4 py-3 transition hover:-translate-y-0.5 hover:border-primary hover:shadow-soft">
+              <span className="block font-display text-lg font-semibold">{l.name}</span>
+              <span className="block text-xs text-muted-foreground">{l.blurb}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }
