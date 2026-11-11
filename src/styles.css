@@ -71,6 +71,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --font-display: "Fraunces", Georgia, serif;
+  --font-sign: "Bebas Neue", Impact, sans-serif;
   --font-sans: "Space Grotesk", system-ui, sans-serif;
 }
 

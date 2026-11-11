@@ -20,8 +20,8 @@ function Index() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-16">
       <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[28rem] w-[56rem] -translate-x-1/2 rounded-full bg-sunset opacity-40 blur-3xl" aria-hidden />
-      <h1 className="relative text-center font-display text-6xl font-bold tracking-tight md:text-8xl">
-        ON <span className="text-primary italic">BOARD LA</span>
+      <h1 className="relative text-center font-sign text-7xl font-normal tracking-wider md:text-9xl" style={{ textShadow: "0 4px 0 color-mix(in oklab, var(--foreground) 25%, transparent)" }}>
+        ON <span className="text-primary">BOARD LA</span>
       </h1>
       <p className="relative mt-4 max-w-md text-center text-muted-foreground">New or aspiring resident? It's time to get up to speed.</p>
       <div className="relative mt-10 flex w-full justify-center"><AddressSearch /></div>
