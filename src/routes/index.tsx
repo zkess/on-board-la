@@ -21,9 +21,9 @@ function Index() {
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-16">
       <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[28rem] w-[56rem] -translate-x-1/2 rounded-full bg-sunset opacity-40 blur-3xl" aria-hidden />
       <h1 className="relative text-center font-display text-6xl font-bold tracking-tight md:text-8xl">
-        LA <span className="text-primary italic">Onboarding</span>
+        ON <span className="text-primary italic">BOARD LA</span>
       </h1>
-      <p className="relative mt-4 max-w-md text-center text-muted-foreground">Your representatives, your trash day, your neighbors. One address away.</p>
+      <p className="relative mt-4 max-w-md text-center text-muted-foreground">New or aspiring resident? It's time to get up to speed.</p>
       <div className="relative mt-10 flex w-full justify-center"><AddressSearch /></div>
       <p className="relative mt-12 text-sm text-muted-foreground">Not sure? Check out the onboarding for these famous spots.</p>
       <ul className="relative mt-4 flex max-w-3xl flex-wrap justify-center gap-3">
