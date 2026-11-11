@@ -10,33 +10,76 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as ExploreIndexRouteImport } from './routes/explore.index'
+import { Route as ExploreChecklistRouteImport } from './routes/explore.checklist'
+import { Route as ExploreMapRouteImport } from './routes/explore.map'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreIndexRoute = ExploreIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreChecklistRoute = ExploreChecklistRouteImport.update({
+  id: '/checklist',
+  path: '/checklist',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreMapRoute = ExploreMapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => ExploreRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/explore': typeof ExploreRouteWithChildren
+  '/explore/checklist': typeof ExploreChecklistRoute
+  '/explore/map': typeof ExploreMapRoute
+  '/explore/': typeof ExploreIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/explore/checklist': typeof ExploreChecklistRoute
+  '/explore/map': typeof ExploreMapRoute
+  '/explore': typeof ExploreIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/explore': typeof ExploreRouteWithChildren
+  '/explore/checklist': typeof ExploreChecklistRoute
+  '/explore/map': typeof ExploreMapRoute
+  '/explore/': typeof ExploreIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/explore' | '/explore/checklist' | '/explore/map' | '/explore/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/explore/checklist' | '/explore/map' | '/explore'
+  id:
+    | '__root__'
+    | '/'
+    | '/explore'
+    | '/explore/checklist'
+    | '/explore/map'
+    | '/explore/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExploreRoute: typeof ExploreRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +91,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/': {
+      id: '/explore/'
+      path: '/'
+      fullPath: '/explore/'
+      preLoaderRoute: typeof ExploreIndexRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/checklist': {
+      id: '/explore/checklist'
+      path: '/checklist'
+      fullPath: '/explore/checklist'
+      preLoaderRoute: typeof ExploreChecklistRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/map': {
+      id: '/explore/map'
+      path: '/map'
+      fullPath: '/explore/map'
+      preLoaderRoute: typeof ExploreMapRouteImport
+      parentRoute: typeof ExploreRoute
+    }
   }
 }
 
+interface ExploreRouteChildren {
+  ExploreChecklistRoute: typeof ExploreChecklistRoute
+  ExploreMapRoute: typeof ExploreMapRoute
+  ExploreIndexRoute: typeof ExploreIndexRoute
+}
+
+const ExploreRouteChildren: ExploreRouteChildren = {
+  ExploreChecklistRoute: ExploreChecklistRoute,
+  ExploreMapRoute: ExploreMapRoute,
+  ExploreIndexRoute: ExploreIndexRoute,
+}
+
+const ExploreRouteWithChildren =
+  ExploreRoute._addFileChildren(ExploreRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExploreRoute: ExploreRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
