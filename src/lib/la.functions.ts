@@ -56,7 +56,7 @@ export const lookupAddress = createServerFn({ method: "GET" })
     const inCity = cityB.some((a) => a.CITY === "IN");
     if (!inCity) {
       const a = hit.address ?? {};
-      return { status: "outside", query: q, label, city: a.city ?? a.town ?? a.village ?? a.hamlet ?? null, lat, lng };
+      return { status: "outside", query: q, label, city: a["city"] ?? a["town"] ?? a["village"] ?? a["hamlet"] ?? null, lat, lng };
     }
     const c = cd[0];
     const dn = hit.display_name.toUpperCase();
