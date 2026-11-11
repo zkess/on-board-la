@@ -49,7 +49,7 @@ export const lookupAddress = createServerFn({ method: "GET" })
     const hit = hits[0];
     if (!hit) return { status: "notfound", query: q };
     const lat = Number(hit.lat), lng = Number(hit.lon);
-    const label = hit.display_name.split(", ").slice(0, 4).join(", ");
+    const label = hit.display_name.split(", ").slice(0, 3).join(", ");
     const [cityB, cd, ncs, trash] = await Promise.all([
       hubPoint(7, lng, lat), hubPoint(13, lng, lat), hubPoint(18, lng, lat), hubPoint(22, lng, lat),
     ]);
@@ -59,7 +59,8 @@ export const lookupAddress = createServerFn({ method: "GET" })
       return { status: "outside", query: q, label, city: a.city ?? a.town ?? a.village ?? a.hamlet ?? null, lat, lng };
     }
     const c = cd[0];
-    const n = ncs[0];
+    const dn = hit.display_name.toUpperCase();
+    const n = ncs.find((a) => dn.includes(String(a.NAME ?? "").replace(/ NC$/, ""))) ?? ncs[0];
     const t = trash[0];
     return {
       status: "ok", query: q, label, lat, lng,
