@@ -19,11 +19,13 @@ export type Lookup =
       sanitationDistrict: string | null;
     };
 
+type Attrs = Partial<Record<"CITY"|"District"|"NAME"|"WADDRESS"|"DWEBSITE"|"DEMAIL"|"DPHONE"|"SERVICE_RE"|"Day"|"District_Name", string | number>>;
+
 async function hubPoint(layer: number, lng: number, lat: number) {
   const url = `${HUB}/${layer}/query?geometry=${lng},${lat}&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=*&returnGeometry=false&f=json`;
   const r = await fetch(url);
-  if (!r.ok) return [];
-  const j = (await r.json()) as { features?: { attributes: Record<string, unknown> }[] };
+  if (!r.ok) return [] as Attrs[];
+  const j = (await r.json()) as { features?: { attributes: Attrs }[] };
   return (j.features ?? []).map((f) => f.attributes);
 }
 
