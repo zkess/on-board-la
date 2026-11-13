@@ -24,15 +24,15 @@ export function SanitationDetails() {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="permits" className="border-border">
-        <AccordionTrigger>Permits & property rules</AccordionTrigger>
+        <AccordionTrigger>Street parking permits</AccordionTrigger>
         <AccordionContent className="space-y-3 text-muted-foreground">
-          <p>Requirements depend on your exact property and proposed work—not just the neighborhood name.</p>
+          <p>Check the signs on your block for a Preferential Parking District (PPD) or Overnight Parking District number and restricted hours. Permit rules vary by street—not just by neighborhood.</p>
           <ol className="list-decimal space-y-3 pl-5">
-            <li><a href="https://zimas.lacity.org/" target="_blank" rel="noreferrer" className={linkClass}>Search your address in ZIMAS</a> for zoning, historic-preservation restrictions, specific plans and other overlays, plus building-permit history.</li>
-            <li><a href="https://dbs.lacity.gov/services/plan-review-permitting" target="_blank" rel="noreferrer" className={linkClass}>Check Building & Safety permit requirements</a> for construction, remodeling and repairs. Confirm which permits and clearances your project needs before starting.</li>
-            <li><a href="https://planning.lacity.gov/project-review/planning-approvals" target="_blank" rel="noreferrer" className={linkClass}>Check City Planning approvals</a> if zoning or an overlay requires additional review.</li>
+            <li><a href="https://ladotparking.org/permits/" target="_blank" rel="noreferrer" className={linkClass}>Check LADOT parking permit programs</a> for annual resident, visitor and guest options, current fees and application links.</li>
+            <li><a href="https://ladotparking.org/permits/ppd-permits/" target="_blank" rel="noreferrer" className={linkClass}>Apply for a preferential parking permit</a>. LADOT lists the ID, residency and vehicle documents needed.</li>
           </ol>
-          <p>For parking permits, street work or events, the issuing department differs. Call <a href="tel:311" className={linkClass}>3-1-1</a> to find the right office.</p>
+          <p>Not sure whether your address qualifies? Contact the Parking Permits Division at <a href="tel:13108435936" className={linkClass}>(310) 843-5936</a> with your address and the district number shown on nearby signs.</p>
+          <p>A permit only exempts you from the applicable permit-parking restriction. Street sweeping, red curbs and other parking rules still apply.</p>
         </AccordionContent>
       </AccordionItem>
     </Accordion>
