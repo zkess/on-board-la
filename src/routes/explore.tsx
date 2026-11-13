@@ -3,6 +3,7 @@ import { z } from "zod";
 import { lookupAddress } from "@/lib/la.functions";
 import { AddressSearch } from "@/components/AddressSearch";
 import { INDEPENDENT_CITIES } from "@/lib/la-data";
+import { heroFor, heroSrc, heroPage } from "@/lib/hero-images";
 
 export const Route = createFileRoute("/explore")({
   validateSearch: z.object({ q: z.string().catch("") }),
@@ -65,8 +66,7 @@ function ExploreLayout() {
       <main className="mx-auto max-w-6xl px-5 py-8">
         {data.status === "ok" ? (
           <>
-            <p className="text-sm uppercase tracking-widest text-secondary">Welcome to</p>
-            <h1 className="mb-6 font-display text-3xl font-bold md:text-4xl">{data.label}</h1>
+            <Hero label={data.label} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
             <Outlet />
           </>
         ) : data.status === "outside" ? <Outside city={data.city} label={data.label} /> : <NotFound q={data.query} />}
@@ -98,5 +98,23 @@ function NotFound({ q }: { q: string }) {
       <h1 className="font-display text-3xl font-bold">We couldn't find that address</h1>
       <p className="mt-3 text-muted-foreground">{q ? <>No match for “{q}” in LA County. </> : null}Try a street address with a cross-street or ZIP code.</p>
     </div>
+  );
+}
+
+function Hero({ label, nc, region }: { label: string; nc: string; region: string }) {
+  const h = heroFor(nc, region);
+  const hood = nc.replace(/ Neighborhood Council$/i, "").replace(/ NC$/i, "") || "the City of Los Angeles";
+  return (
+    <figure className="relative mb-10 overflow-hidden rounded-3xl shadow-soft">
+      <img src={heroSrc(h)} alt={h.subject} width={1600} height={640} className="h-64 w-full object-cover md:h-80" />
+      <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 p-6 text-background md:p-8">
+        <p className="text-xs uppercase tracking-widest opacity-80">{label}</p>
+        <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">This address is in {hood}.</h1>
+      </div>
+      <figcaption className="absolute right-3 top-3 rounded-full bg-foreground/60 px-2 py-0.5 text-[10px] text-background">
+        <a href={heroPage(h)} target="_blank" rel="noreferrer" className="hover:underline">{h.subject} · {h.author} · {h.license} · Wikimedia Commons</a>
+      </figcaption>
+    </figure>
   );
 }
