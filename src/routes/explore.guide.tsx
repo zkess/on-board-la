@@ -8,7 +8,7 @@ const SECTIONS = [
   { id: "trash", label: "Public Works", icon: Trash2 },
   { id: "reps", label: "Representation", icon: Landmark },
   { id: "history", label: "History & Culture", icon: ScrollText },
-  { id: "press", label: "Local News", icon: Newspaper },
+  { id: "press", label: "Neighborhood News", icon: Newspaper },
 ] as const satisfies readonly { id: Id; label: string; icon: unknown }[];
 
 export const Route = createFileRoute("/explore/guide")({
