@@ -1,7 +1,8 @@
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Landmark, Users, Newspaper, ScrollText, Smartphone, Trash2, ExternalLink } from "lucide-react";
-import { APPS, HYPERLOCAL, LORE, NEWSLETTERS } from "@/lib/la-data";
+import { APPS, LORE } from "@/lib/la-data";
+import { CITY_DEPARTMENTS, CITYWIDE, hyperlocalFor, type Newsletter } from "@/lib/newsletters";
 
 export const Route = createFileRoute("/explore/")({ component: Bento });
 const parent = getRouteApi("/explore");
@@ -23,7 +24,7 @@ function Bento() {
   if (d.status !== "ok") return null;
   const region = d.nc?.region ?? "";
   const lore = LORE.filter((l) => l.match.test(region));
-  const local = HYPERLOCAL.filter((h) => h.match.test(region));
+  const local = hyperlocalFor(d.nc?.name ?? "", region);
   const initials = d.council?.member.split(" ").map((w) => w[0]).join("").slice(0, 2);
   return (
     <div className="grid auto-rows-min grid-cols-1 gap-4 md:grid-cols-6">
@@ -69,24 +70,49 @@ function Bento() {
         ) : <p className="text-sm">No Neighborhood Council found for this point.</p>}
       </Tile>
 
-      <Tile title="Newsletters" icon={<Newspaper className="h-4 w-4" />} className="md:col-span-2">
-        {local.length > 0 && <><p className="mb-1 text-xs font-semibold text-secondary">Hyperlocal</p>
-          <ul className="mb-3 space-y-1 text-sm">{local.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A></li>)}</ul></>}
-        <p className="mb-1 text-xs font-semibold text-secondary">Citywide independent</p>
-        <ul className="space-y-1 text-sm">{NEWSLETTERS.citywide.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A></li>)}</ul>
+      <Tile title="Newsletters" icon={<Newspaper className="h-4 w-4" />} className="md:col-span-6">
+        <div className="grid gap-6 md:grid-cols-3">
+          <div>
+            <p className="mb-2 text-xs font-semibold text-secondary">Your neighborhood</p>
+            {local.length ? <NList items={local} showCovers /> : <p className="text-sm text-muted-foreground">No hyperlocal newsletter found for this area yet — try Crosstown for block-level news.</p>}
+          </div>
+          <div>
+            <p className="mb-2 text-xs font-semibold text-secondary">City of LA departments</p>
+            <ul className="space-y-2 text-sm">
+              {d.council && <li><A href={d.council.url}>Council District {d.council.district} newsletter</A><span className="block text-xs text-muted-foreground">Sign up on {d.council.member}'s site</span></li>}
+            </ul>
+            <div className="mt-2"><NList items={CITY_DEPARTMENTS} /></div>
+          </div>
+          <div>
+            <p className="mb-2 text-xs font-semibold text-secondary">Citywide independent</p>
+            <NList items={CITYWIDE} />
+          </div>
+        </div>
       </Tile>
 
-      <Tile title="Local history & lore" icon={<ScrollText className="h-4 w-4" />} className="md:col-span-2 bg-secondary text-secondary-foreground">
+      <Tile title="Local history & lore" icon={<ScrollText className="h-4 w-4" />} className="md:col-span-3 bg-secondary text-secondary-foreground">
         <div className="space-y-3 font-display text-lg leading-snug">
           {(lore.length ? lore : LORE.slice(-1)).map((l, i) => <p key={i}>{l.text}</p>)}
         </div>
       </Tile>
 
-      <Tile title="Essential apps" icon={<Smartphone className="h-4 w-4" />} className="md:col-span-2">
+      <Tile title="Essential apps" icon={<Smartphone className="h-4 w-4" />} className="md:col-span-3">
         <ul className="space-y-2 text-sm">
           {APPS.map((a) => <li key={a.name}><A href={a.url}>{a.name}</A><span className="block text-xs text-muted-foreground">{a.what}</span></li>)}
         </ul>
       </Tile>
     </div>
+  );
+}
+
+function NList({ items, showCovers = false }: { items: Newsletter[]; showCovers?: boolean }) {
+  return (
+    <ul className="space-y-2 text-sm">
+      {items.map((n) => (
+        <li key={n.name}><A href={n.url}>{n.name}</A>
+          <span className="block text-xs text-muted-foreground">{n.about}{showCovers ? ` · ${n.covers}` : ""}</span>
+        </li>
+      ))}
+    </ul>
   );
 }

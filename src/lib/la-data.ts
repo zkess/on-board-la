@@ -30,27 +30,6 @@ export const APPS = [
   { name: "LADOT Parking", what: "Pay meters from your phone", url: "https://ladotparking.org" },
 ];
 
-export const NEWSLETTERS = {
-  citywide: [
-    { name: "LAist", url: "https://laist.com/newsletters" },
-    { name: "L.A. Taco", url: "https://lataco.com" },
-    { name: "Knock LA", url: "https://knock-la.com" },
-    { name: "Streetsblog LA", url: "https://la.streetsblog.org" },
-    { name: "The LA Local", url: "https://thelalocal.news" },
-    { name: "Crosstown", url: "https://xtown.la" },
-  ],
-} as const;
-
-/** Hyperlocal press keyed by LAPD-style region keywords found in the NC region name. */
-export const HYPERLOCAL: { match: RegExp; name: string; url: string }[] = [
-  { match: /EAST|CENTRAL/i, name: "The Eastsider", url: "https://www.theeastsiderla.com" },
-  { match: /SOUTH/i, name: "LA Sentinel", url: "https://lasentinel.net" },
-  { match: /SOUTH|HARBOR/i, name: "Random Lengths News", url: "https://www.randomlengthsnews.com" },
-  { match: /WEST|NORTH/i, name: "The Argonaut / Westside", url: "https://argonautnews.com" },
-  { match: /VALLEY/i, name: "Valley Vanguard / LA Daily News Valley", url: "https://www.dailynews.com/local-news/" },
-  { match: /CENTRAL|EAST/i, name: "Boyle Heights Beat", url: "https://boyleheightsbeat.com" },
-];
-
 export const LORE: { match: RegExp; text: string }[] = [
   { match: /EAST/i, text: "The Eastside grew around the LA River and the Arroyo Seco — Highland Park's Arroyo Culture artists shaped California's Craftsman look a century ago." },
   { match: /SOUTH/i, text: "South LA's Central Avenue was the West Coast capital of jazz in the 1940s, and Watts Towers took Simon Rodia 33 years to build by hand." },
