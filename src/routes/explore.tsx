@@ -34,7 +34,7 @@ export const Route = createFileRoute("/explore")({
 });
 
 const tabs = [
-  { to: "/explore", label: "Bento Dashboard" },
+  { to: "/explore", label: "Dashboard" },
   // Temporarily hidden while we focus on the dashboard:
   // { to: "/explore/checklist", label: "Newcomer Checklist" },
   // { to: "/explore/map", label: "Interactive Map" },
