@@ -1,3 +1,4 @@
+import { regionKey } from "@/lib/region";
 /** Newsletters researched Nov 2026. A newsletter matches when its `nc` regex hits the Neighborhood Council name, or its `region` regex hits the NC service region. */
 export type Newsletter = { name: string; url: string; about: string; covers: string; nc?: RegExp; region?: RegExp };
 
@@ -40,5 +41,5 @@ export const CITY_DEPARTMENTS: Newsletter[] = [
 ];
 
 export function hyperlocalFor(ncName: string, region: string): Newsletter[] {
-  return HYPERLOCAL.filter((n) => (n.nc && n.nc.test(ncName)) || (n.region && n.region.test(region)));
+  return HYPERLOCAL.filter((n) => (n.nc && n.nc.test(ncName)) || (n.region && n.region.test(regionKey(region))));
 }

@@ -110,7 +110,7 @@ function Hero({ label, nc, region }: { label: string; nc: string; region: string
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 p-6 text-background md:p-8">
         <p className="text-xs uppercase tracking-widest opacity-80">{label}</p>
-        <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">This address is in {hood}.</h1>
+        <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">This address is in <span className="text-accent">{hood}</span>.</h1>
       </div>
       <figcaption className="absolute right-3 top-3 rounded-full bg-foreground/60 px-2 py-0.5 text-[10px] text-background">
         <a href={heroPage(h)} target="_blank" rel="noreferrer" className="hover:underline">{h.subject} · {h.author} · {h.license} · Wikimedia Commons</a>

@@ -13,3 +13,10 @@ describe("pickFacts", () => {
     expect(pickFacts(all, "X", "Nowhere").map((x) => x.fact)).toEqual(["c"]);
   });
 });
+
+describe("region tightening", () => {
+  it("keeps South LA facts out of the South East Valley", () => {
+    const pool = [f("South", null, "s"), f("Valley", "Studio City", "sc")];
+    expect(pickFacts(pool, "Studio City NC", "SOUTH EAST VALLEY", 100).map((x) => x.fact)).toEqual(["sc"]);
+  });
+});
