@@ -17,11 +17,14 @@ export function AddressSearch({ initial = "", compact = false }: { initial?: str
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Type your LA address…"
+        placeholder="Type an LA address…"
         aria-label="Your address"
         className={`min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted-foreground ${compact ? "py-1.5 text-sm" : "py-3 text-lg"}`}
       />
-      <button type="submit" className={`rounded-full bg-primary font-medium text-primary-foreground transition hover:opacity-90 ${compact ? "px-4 py-1.5 text-sm" : "px-6 py-3"}`}>
+      <button
+        type="submit"
+        className={`rounded-full bg-primary font-medium text-primary-foreground transition hover:opacity-90 ${compact ? "px-4 py-1.5 text-sm" : "px-6 py-3"}`}
+      >
         Go
       </button>
     </form>
