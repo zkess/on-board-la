@@ -6,6 +6,7 @@ import { APPS } from "@/lib/la-data";
 import { factsQuery, pickFacts } from "@/lib/facts";
 import { CITY_DEPARTMENTS, CITYWIDE, hyperlocalFor } from "@/lib/newsletters";
 import { subredditsFor } from "@/lib/subreddits";
+import { SanitationDetails } from "@/components/SanitationDetails";
 
 const parent = getRouteApi("/explore");
 export type Id = "trash" | "reps" | "history" | "press" | "city" | "apps";
@@ -26,7 +27,9 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
     <ul className="mt-4 space-y-1 text-sm">
       <li>Street sweeping — <A href="https://ladotlivestreetsweeping.lacity.org">look up your route</A></li>
       <li>Free bulky item pickup — <A href="https://myla311.lacity.gov">request on MyLA311</A></li>
-    </ul></>);
+    </ul>
+    <SanitationDetails />
+    </>);
   if (id === "reps") {
     const Row = ({ label, children }: { label: string; children: ReactNode }) => (
       <li><p className="text-xs uppercase tracking-wider text-muted-foreground">{label}</p><p className="mt-0.5 font-medium">{children}</p></li>
