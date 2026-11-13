@@ -1,7 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { HOUSE, SUPERVISORS, SUPERVISORS_URL } from "@/lib/reps";
 
 const HUB = "https://maps.lacity.org/lahub/rest/services/Boundaries/MapServer";
+const COUNTY = "https://public.gis.lacounty.gov/public/rest/services/LACounty_Dynamic/Political_Boundaries/MapServer";
 const UA = "LA-Onboarding/1.0 (civic newcomer guide)";
 
 export type Lookup =
@@ -17,12 +19,14 @@ export type Lookup =
       nc: { name: string; website: string; empowerla: string; email: string; phone: string; region: string } | null;
       trashDay: string | null;
       sanitationDistrict: string | null;
+      supervisor: { district: number; name: string | null; url: string } | null;
+      congress: { district: number; name: string | null; url: string } | null;
     };
 
-type Attrs = Partial<Record<"CITY"|"District"|"NAME"|"WADDRESS"|"DWEBSITE"|"DEMAIL"|"DPHONE"|"SERVICE_RE"|"Day"|"District_Name", string | number>>;
+type Attrs = Partial<Record<"DISTRICT"|"DIST_CONG"|"CITY"|"District"|"NAME"|"WADDRESS"|"DWEBSITE"|"DEMAIL"|"DPHONE"|"SERVICE_RE"|"Day"|"District_Name", string | number>>;
 
-async function hubPoint(layer: number, lng: number, lat: number) {
-  const url = `${HUB}/${layer}/query?geometry=${lng},${lat}&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=*&returnGeometry=false&f=json`;
+async function hubPoint(layer: number, lng: number, lat: number, base = HUB) {
+  const url = `${base}/${layer}/query?geometry=${lng},${lat}&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=*&returnGeometry=false&f=json`;
   const r = await fetch(url);
   if (!r.ok) return [] as Attrs[];
   const j = (await r.json()) as { features?: { attributes: Attrs }[] };
@@ -50,8 +54,9 @@ export const lookupAddress = createServerFn({ method: "GET" })
     if (!hit) return { status: "notfound", query: q };
     const lat = Number(hit.lat), lng = Number(hit.lon);
     const label = hit.display_name.split(", ").slice(0, 3).join(", ");
-    const [cityB, cd, ncs, trash] = await Promise.all([
+    const [cityB, cd, ncs, trash, sup, cong] = await Promise.all([
       hubPoint(7, lng, lat), hubPoint(13, lng, lat), hubPoint(18, lng, lat), hubPoint(22, lng, lat),
+      hubPoint(27, lng, lat, COUNTY), hubPoint(29, lng, lat, COUNTY),
     ]);
     const inCity = cityB.some((a) => a.CITY === "IN");
     if (!inCity) {
@@ -71,6 +76,8 @@ export const lookupAddress = createServerFn({ method: "GET" })
       } : null,
       trashDay: t ? titleCase(String(t.Day)) : null,
       sanitationDistrict: t ? String(t.District_Name) : null,
+      supervisor: sup[0] ? (() => { const n = Number(sup[0].DISTRICT); return { district: n, name: SUPERVISORS[n] ?? null, url: SUPERVISORS_URL }; })() : null,
+      congress: cong[0] ? (() => { const n = Number(cong[0].DIST_CONG); const h = HOUSE[n]; return { district: n, name: h?.name ?? null, url: h?.url ?? "https://www.house.gov/representatives/find-your-representative" }; })() : null,
     };
   });
 

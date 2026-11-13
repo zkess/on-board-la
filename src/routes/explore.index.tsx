@@ -73,6 +73,8 @@ function Bento() {
             <ul className="mt-4 space-y-1.5 text-sm">
               {d.council && <li>📍 Office: <a className="font-semibold underline" href={d.council.url} target="_blank" rel="noreferrer">cd{d.council.district}.lacity.gov</a></li>}
               <li>☎️ Constituent help: call <strong>3-1-1</strong> or (213) 473-3231</li>
+              {d.supervisor && <li>🏛️ County Supervisor: <a className="font-semibold underline" href={d.supervisor.url} target="_blank" rel="noreferrer">{d.supervisor.name ?? "Board of Supervisors"}</a> (District {d.supervisor.district})</li>}
+              {d.congress && <li>🇺🇸 U.S. Representative: <a className="font-semibold underline" href={d.congress.url} target="_blank" rel="noreferrer">{d.congress.name ?? "Find your representative"}</a> (CA-{d.congress.district})</li>}
               {d.nc && <li>👥 Neighborhood Council: <strong>{d.nc.name}</strong></li>}
               {d.nc?.empowerla && <li>🗓️ <a className="font-semibold underline" href={d.nc.empowerla} target="_blank" rel="noreferrer">NC meetings & agendas</a>{d.nc.website ? <> · <a className="underline" href={d.nc.website} target="_blank" rel="noreferrer">website</a></> : null}</li>}
             </ul>
