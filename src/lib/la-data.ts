@@ -66,3 +66,12 @@ export const CHECKLIST: { phase: string; subtitle: string; items: ChecklistItem[
     { id: "neighbor", text: "Introduce yourself to a neighbor" },
   ]},
 ];
+
+/** Citywide local news radio — same for every LA address. */
+export const RADIO = [
+  { name: "LAist 89.3 FM (KPCC)", url: "https://laist.com/radio", about: "Public radio: local news, AirTalk, Morning Edition" },
+  { name: "KCRW 89.9 FM", url: "https://www.kcrw.com", about: "Public radio: Greater LA, Press Play, NPR news" },
+  { name: "KNX News 97.1 FM", url: "https://www.audacy.com/knxnews", about: "All-news: traffic, weather and breaking news around the clock" },
+  { name: "KPFK 90.7 FM", url: "https://www.kpfk.org", about: "Listener-supported community and public-affairs programming" },
+  { name: "KJLH 102.3 FM", url: "https://www.kjlhradio.com", about: "Community radio serving South LA since 1965" },
+];

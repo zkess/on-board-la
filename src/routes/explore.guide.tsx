@@ -1,7 +1,7 @@
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
-import { Trash2, Landmark, ScrollText, Newspaper, Smartphone, Building2 } from "lucide-react";
+import { Trash2, Landmark, ScrollText, Newspaper, Smartphone, Building2, Radio } from "lucide-react";
 import { Panel, A, type Id } from "./explore.dial";
-import { APPS } from "@/lib/la-data";
+import { APPS, RADIO } from "@/lib/la-data";
 import { CITY_DEPARTMENTS, CITYWIDE } from "@/lib/newsletters";
 
 const SECTIONS = [
@@ -53,13 +53,14 @@ function Toolkit() {
     { title: "Essential LA apps", icon: Smartphone, items: APPS.map((a) => ({ name: a.name, url: a.url, about: a.what })) },
     { title: "City department news", icon: Building2, items: CITY_DEPARTMENTS },
     { title: "Citywide independent press", icon: Newspaper, items: CITYWIDE },
+    { title: "Local news radio", icon: Radio, items: RADIO },
   ];
   return (
     <section className="mt-14 border-t border-border pt-10">
       <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">For every Angeleno</p>
       <h2 className="mt-1 font-display text-3xl font-bold">The citywide toolkit</h2>
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">The same essentials apply wherever you live in LA. Call 3-1-1 for any city service.</p>
-      <div className="mt-6 grid gap-5 md:grid-cols-3">
+      <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {cols.map((c) => (
           <div key={c.title} className="rounded-3xl border border-border bg-muted/40 p-6">
             <h3 className="mb-3 flex items-center gap-2 font-display text-lg font-bold"><c.icon className="h-4 w-4 text-primary" />{c.title}</h3>
