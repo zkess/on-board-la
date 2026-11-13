@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as ExploreChecklistRouteImport } from './routes/explore.checklist'
+import { Route as ExploreDialRouteImport } from './routes/explore.dial'
 import { Route as ExploreMapRouteImport } from './routes/explore.map'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const ExploreChecklistRoute = ExploreChecklistRouteImport.update({
   path: '/checklist',
   getParentRoute: () => ExploreRoute,
 } as any)
+const ExploreDialRoute = ExploreDialRouteImport.update({
+  id: '/dial',
+  path: '/dial',
+  getParentRoute: () => ExploreRoute,
+} as any)
 const ExploreMapRoute = ExploreMapRouteImport.update({
   id: '/map',
   path: '/map',
@@ -45,12 +51,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/explore': typeof ExploreRouteWithChildren
   '/explore/checklist': typeof ExploreChecklistRoute
+  '/explore/dial': typeof ExploreDialRoute
   '/explore/map': typeof ExploreMapRoute
   '/explore/': typeof ExploreIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/explore/checklist': typeof ExploreChecklistRoute
+  '/explore/dial': typeof ExploreDialRoute
   '/explore/map': typeof ExploreMapRoute
   '/explore': typeof ExploreIndexRoute
 }
@@ -59,20 +67,27 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/explore': typeof ExploreRouteWithChildren
   '/explore/checklist': typeof ExploreChecklistRoute
+  '/explore/dial': typeof ExploreDialRoute
   '/explore/map': typeof ExploreMapRoute
   '/explore/': typeof ExploreIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/explore' | '/explore/checklist' | '/explore/map' | '/explore/'
+    | '/'
+    | '/explore'
+    | '/explore/checklist'
+    | '/explore/dial'
+    | '/explore/map'
+    | '/explore/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore/checklist' | '/explore/map' | '/explore'
+  to: '/' | '/explore/checklist' | '/explore/dial' | '/explore/map' | '/explore'
   id:
     | '__root__'
     | '/'
     | '/explore'
     | '/explore/checklist'
+    | '/explore/dial'
     | '/explore/map'
     | '/explore/'
   fileRoutesById: FileRoutesById
@@ -112,6 +127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreChecklistRouteImport
       parentRoute: typeof ExploreRoute
     }
+    '/explore/dial': {
+      id: '/explore/dial'
+      path: '/dial'
+      fullPath: '/explore/dial'
+      preLoaderRoute: typeof ExploreDialRouteImport
+      parentRoute: typeof ExploreRoute
+    }
     '/explore/map': {
       id: '/explore/map'
       path: '/map'
@@ -124,12 +146,14 @@ declare module '@tanstack/react-router' {
 
 interface ExploreRouteChildren {
   ExploreChecklistRoute: typeof ExploreChecklistRoute
+  ExploreDialRoute: typeof ExploreDialRoute
   ExploreMapRoute: typeof ExploreMapRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
 }
 
 const ExploreRouteChildren: ExploreRouteChildren = {
   ExploreChecklistRoute: ExploreChecklistRoute,
+  ExploreDialRoute: ExploreDialRoute,
   ExploreMapRoute: ExploreMapRoute,
   ExploreIndexRoute: ExploreIndexRoute,
 }
