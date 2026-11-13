@@ -17,7 +17,7 @@ export const Route = createFileRoute("/explore/dial")({
 });
 const parent = getRouteApi("/explore");
 
-const SECTIONS = [
+export const SECTIONS = [
   { id: "trash", label: "Trash & streets", icon: Trash2, keys: "trash sweeping sanitation bulky 311 recycling" },
   { id: "reps", label: "Representatives", icon: Landmark, keys: "council councilmember supervisor congress representative neighborhood council meeting" },
   { id: "history", label: "Local history", icon: ScrollText, keys: "history lore facts story past" },
@@ -25,7 +25,7 @@ const SECTIONS = [
   { id: "city", label: "City departments", icon: Users, keys: "city department mayor library housing planning" },
   { id: "apps", label: "Essential apps", icon: Smartphone, keys: "apps download metro tap notify myla311 phone" },
 ] as const;
-type Id = (typeof SECTIONS)[number]["id"];
+export type Id = (typeof SECTIONS)[number]["id"];
 
 const A = ({ href, children }: { href: string; children: ReactNode }) => (
   <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline">{children}<ExternalLink className="h-3 w-3" /></a>
@@ -97,7 +97,7 @@ function Dial() {
   );
 }
 
-function Panel({ id }: { id: Id }) {
+export function Panel({ id }: { id: Id }) {
   const d = parent.useLoaderData();
   const { data: facts = [] } = useQuery(factsQuery);
   const [i, setI] = useState(0);
