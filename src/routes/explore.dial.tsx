@@ -104,19 +104,24 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
   if (d.status !== "ok") return null;
   const region = d.nc?.region ?? "";
   if (id === "trash") return (<>
-    <p className="font-display text-5xl font-bold text-primary">{d.trashDay ?? "—"}</p>
+    <p className="text-xs uppercase tracking-wider text-muted-foreground">Trash day</p><p className="font-display text-2xl font-bold text-primary">{d.trashDay ?? "—"}</p>
     <p className="mt-1 text-sm text-muted-foreground">Bins out by 6 a.m.{d.sanitationDistrict ? ` · ${d.sanitationDistrict} district` : ""}</p>
     <ul className="mt-4 space-y-1 text-sm">
       <li>Street sweeping — <A href="https://ladotlivestreetsweeping.lacity.org">look up your route</A></li>
       <li>Free bulky item pickup — <A href="https://myla311.lacity.gov">request on MyLA311</A></li>
     </ul></>);
-  if (id === "reps") return (<ul className="space-y-3 text-sm">
-    {d.council && <li><p className="font-display text-2xl font-bold">{d.council.member}</p>Council District {d.council.district} · <A href={d.council.url}>office</A></li>}
-    {d.nc && <li>Neighborhood Council: <strong>{d.nc.name}</strong>{d.nc.empowerla ? <> · <A href={d.nc.empowerla}>meetings & agendas</A></> : null}</li>}
-    {d.supervisor && <li>County Supervisor: <A href={d.supervisor.url}>{d.supervisor.name ?? "Board of Supervisors"}</A> (District {d.supervisor.district})</li>}
-    {d.congress && <li>U.S. Representative: <A href={d.congress.url}>{d.congress.name ?? "Find yours"}</A> (CA-{d.congress.district})</li>}
-    <li>Constituent help: call <strong>3-1-1</strong></li>
-  </ul>);
+  if (id === "reps") {
+    const Row = ({ label, children }: { label: string; children: ReactNode }) => (
+      <li><p className="text-xs uppercase tracking-wider text-muted-foreground">{label}</p><p className="mt-0.5 font-medium">{children}</p></li>
+    );
+    return (<ul className="space-y-3 text-sm">
+      {d.council && <Row label={`City Council · District ${d.council.district}`}><A href={d.council.url}>{d.council.member}</A></Row>}
+      {d.supervisor && <Row label={`County Supervisor · District ${d.supervisor.district}`}><A href={d.supervisor.url}>{d.supervisor.name ?? "Board of Supervisors"}</A></Row>}
+      {d.congress && <Row label={`U.S. Congress · CA-${d.congress.district}`}><A href={d.congress.url}>{d.congress.name ?? "Find yours"}</A></Row>}
+      {d.nc && <Row label="Neighborhood Council">{d.nc.empowerla ? <A href={d.nc.empowerla}>{d.nc.name}</A> : d.nc.name}</Row>}
+      <li className="text-xs text-muted-foreground">Constituent help: call <strong className="text-foreground">3-1-1</strong></li>
+    </ul>);
+  }
   if (id === "history") {
     const lore = pickFacts(facts, d.nc?.name ?? "", region, 100);
     const l = lore.length ? lore[i % lore.length] : null;
