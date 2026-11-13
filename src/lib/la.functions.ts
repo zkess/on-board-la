@@ -15,6 +15,7 @@ export type Lookup =
       label: string;
       lat: number;
       lng: number;
+      neighborhood: string | null;
       council: { district: number; member: string; url: string } | null;
       nc: { name: string; website: string; empowerla: string; email: string; phone: string; region: string } | null;
       trashDay: string | null;
@@ -67,8 +68,10 @@ export const lookupAddress = createServerFn({ method: "GET" })
     const dn = hit.display_name.toUpperCase();
     const n = ncs.find((a) => dn.includes(String(a.NAME ?? "").replace(/ NC$/, ""))) ?? ncs[0];
     const t = trash[0];
+    const { mappingLaNeighborhood } = await import("@/lib/mapping-la.server");
     return {
       status: "ok", query: q, label, lat, lng,
+      neighborhood: mappingLaNeighborhood(lng, lat),
       council: c ? { district: Number(c.District), member: String(c.NAME), url: `https://cd${Number(c.District)}.lacity.gov/` } : null,
       nc: n ? {
         name: titleCase(String(n.NAME)), website: String(n.WADDRESS ?? ""), empowerla: String(n.DWEBSITE ?? ""),

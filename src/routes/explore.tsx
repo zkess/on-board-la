@@ -66,7 +66,7 @@ function ExploreLayout() {
       <main className="mx-auto max-w-6xl px-5 py-8">
         {data.status === "ok" ? (
           <>
-            <Hero label={data.label} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
+            <Hero label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
             <Outlet />
           </>
         ) : data.status === "outside" ? <Outside city={data.city} label={data.label} /> : <NotFound q={data.query} />}
@@ -101,9 +101,9 @@ function NotFound({ q }: { q: string }) {
   );
 }
 
-function Hero({ label, nc, region }: { label: string; nc: string; region: string }) {
-  const h = heroFor(nc, region);
-  const hood = nc.replace(/ Neighborhood Council$/i, "").replace(/ NC$/i, "") || "the City of Los Angeles";
+function Hero({ label, neighborhood, nc, region }: { label: string; neighborhood: string | null; nc: string; region: string }) {
+  const hood = neighborhood ?? (nc.replace(/ Neighborhood Council$/i, "").replace(/ NC$/i, "") || "the City of Los Angeles");
+  const h = heroFor(hood, region);
   return (
     <figure className="relative mb-10 overflow-hidden rounded-3xl shadow-soft">
       <img src={heroSrc(h)} alt={h.subject} width={1600} height={640} className="h-64 w-full object-cover md:h-80" />
@@ -111,6 +111,7 @@ function Hero({ label, nc, region }: { label: string; nc: string; region: string
       <div className="absolute inset-x-0 bottom-0 p-6 text-background md:p-8">
         <p className="text-xs uppercase tracking-widest opacity-80">{label}</p>
         <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">We're in&nbsp;<span className="text-accent">{hood}</span>.</h1>
+        {neighborhood && <a href="https://maps.latimes.com/about/" target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs opacity-80 hover:underline">Neighborhood boundaries: Los Angeles Times Mapping L.A.</a>}
       </div>
       <figcaption className="absolute right-3 top-3 rounded-full bg-foreground/60 px-2 py-0.5 text-[10px] text-background">
         <a href={heroPage(h)} target="_blank" rel="noreferrer" className="hover:underline">{h.subject} · {h.author} · {h.license} · Wikimedia Commons</a>
