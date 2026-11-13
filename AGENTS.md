@@ -33,3 +33,4 @@ use the editor.
 - Address lookups run in a server function (OpenStreetMap geocoding + LA City GeoHub boundary layers) so third-party calls stay off the browser and need no keys.
 - The map uses Leaflet with OpenStreetMap tiles, loaded lazily behind ClientOnly because Leaflet touches `window` on import.
 - Neighborhood history facts live in the neighborhood_facts table, each row carrying its source credit (publisher, author, date, URL, original-record note) so every fact shown is attributable.
+- Neighborhood subreddit links use a curated directory with coverage evidence and neighborhood-name matching, not regional fallbacks, to avoid unrelated communities.

@@ -5,6 +5,7 @@ import { Trash2, Landmark, ScrollText, Newspaper, Users, Smartphone, Search, Ext
 import { APPS } from "@/lib/la-data";
 import { factsQuery, pickFacts } from "@/lib/facts";
 import { CITY_DEPARTMENTS, CITYWIDE, hyperlocalFor } from "@/lib/newsletters";
+import { subredditsFor } from "@/lib/subreddits";
 
 export const Route = createFileRoute("/explore/dial")({
   head: () => ({ meta: [
@@ -12,6 +13,8 @@ export const Route = createFileRoute("/explore/dial")({
     { name: "description", content: "Click through your LA neighborhood one topic at a time." },
     { property: "og:title", content: "Explore by topic — LA Onboarding" },
     { property: "og:description", content: "A topic dial for your Los Angeles address." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
   ] }),
   component: Dial,
 });
@@ -133,7 +136,19 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
     </>);
   }
   const list = (items: { name: string; url: string; about: string }[]) => <ul className="space-y-2 text-sm">{items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="block text-xs text-muted-foreground">{n.about}</span></li>)}</ul>;
-  if (id === "press") { const local = hyperlocalFor(d.nc?.name ?? "", region); return <>{local.length ? list(local) : <p className="text-sm text-muted-foreground">No hyperlocal newsletter here yet.</p>}{!localOnly && <><p className="mb-2 mt-4 text-xs font-semibold text-secondary">Citywide independent</p>{list(CITYWIDE)}</>}</>; }
+  if (id === "press") {
+    const local = hyperlocalFor(d.nc?.name ?? "", region);
+    const communities = subredditsFor(d.nc?.name ?? "");
+    return <>
+      {local.length ? list(local) : <p className="text-sm text-muted-foreground">No hyperlocal newsletter here yet.</p>}
+      {communities.length > 0 && <>
+        <h3 className="mb-2 mt-4 text-xs font-semibold text-secondary">Neighborhood Reddit</h3>
+        {list(communities.map((community) => ({ ...community, about: `${community.about} · Community discussion` })))}
+        <p className="mt-2 text-xs text-muted-foreground">Resident-run communities, not official news sources.</p>
+      </>}
+      {!localOnly && <><p className="mb-2 mt-4 text-xs font-semibold text-secondary">Citywide independent</p>{list(CITYWIDE)}</>}
+    </>;
+  }
   if (id === "city") return list(CITY_DEPARTMENTS);
   return list(APPS.map((a) => ({ name: a.name, url: a.url, about: a.what })));
 }

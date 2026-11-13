@@ -1,1 +1,3 @@
 - [ ] Add a nearby libraries & parks section to the Field guide (waiting on go-ahead)
+- [x] Add verified neighborhood subreddit links to Neighborhood News.
+- [x] Add 211 LA to Essential LA apps.

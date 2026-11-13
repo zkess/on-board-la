@@ -23,6 +23,7 @@ export const INDEPENDENT_CITIES: Record<string, string> = {
 
 export const APPS = [
   { name: "MyLA311", what: "Report potholes, graffiti, bulky-item pickup", url: "https://myla311.lacity.gov" },
+  { name: "211 LA", what: "Food, housing & healthcare referrals · Call 2-1-1", url: "https://211la.org/needhelp" },
   { name: "NotifyLA", what: "Official emergency alerts for the City", url: "https://emergency.lacity.gov/notifyla" },
   { name: "Metro TAP", what: "Load fare & ride bus and rail", url: "https://www.taptogo.net" },
   { name: "LA Public Library", what: "Free card: books, museum passes, Kanopy", url: "https://www.lapl.org/apps" },
