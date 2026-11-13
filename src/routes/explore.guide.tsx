@@ -1,7 +1,17 @@
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, BookOpen, List } from "lucide-react";
-import { Panel, SECTIONS, type Id } from "./explore.dial";
+import { ChevronLeft, ChevronRight, BookOpen, List, Trash2, Landmark, ScrollText, Newspaper, Smartphone, Building2 } from "lucide-react";
+import { Panel, A, type Id } from "./explore.dial";
+import { APPS } from "@/lib/la-data";
+import { CITY_DEPARTMENTS, CITYWIDE } from "@/lib/newsletters";
+
+const SECTIONS = [
+  { id: "trash", label: "Public Works", icon: Trash2 },
+  { id: "reps", label: "Representation", icon: Landmark },
+  { id: "history", label: "History & Culture", icon: ScrollText },
+  { id: "press", label: "Local News", icon: Newspaper },
+] as const satisfies readonly { id: Id; label: string; icon: unknown }[];
+type CId = (typeof SECTIONS)[number]["id"];
 
 export const Route = createFileRoute("/explore/guide")({
   head: () => ({ meta: [
@@ -34,13 +44,11 @@ function Guide() {
   }, [mode]);
   if (d.status !== "ok") return null;
 
-  const teaser: Record<Id, string> = {
+  const teaser: Record<CId, string> = {
     trash: d.trashDay ? `Trash: ${d.trashDay}` : "Pickup & sweeping",
     reps: d.council ? `${d.council.member.split(" ").slice(-1)[0]} · CD ${d.council.district}` : "Who represents you",
     history: "Stories & lore",
-    press: "Newsletters to join",
-    city: "City updates",
-    apps: "Apps to download",
+    press: "Neighborhood newsletters",
   };
   const s = SECTIONS[i] ?? SECTIONS[0];
   const num = (n: number) => String(n + 1).padStart(2, "0");
@@ -60,7 +68,7 @@ function Guide() {
           {SECTIONS.map((x, n) => (
             <section key={x.id} className="rounded-3xl border border-border bg-card p-6 shadow-soft">
               <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{num(n)} · {x.label}</p>
-              <Panel id={x.id} />
+              <Panel id={x.id} localOnly />
             </section>
           ))}
         </div>
@@ -89,7 +97,7 @@ function Guide() {
             </div>
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Chapter {num(i)}</p>
             <h2 className="mb-5 font-display text-3xl font-bold">{s.label}</h2>
-            <Panel id={s.id} />
+            <Panel id={s.id} localOnly />
             <div className="mt-8 flex items-center justify-between gap-3 border-t border-border pt-5">
               <button disabled={i === 0} onClick={() => setI(i - 1)} className="inline-flex items-center gap-1 rounded-full border border-border px-4 py-2 text-sm disabled:opacity-30">
                 <ChevronLeft className="h-4 w-4" />{i > 0 ? SECTIONS[i - 1]?.label : "Back"}
@@ -101,6 +109,30 @@ function Guide() {
           </section>
         </div>
       )}
+      <Toolkit />
     </div>
+  );
+}
+
+function Toolkit() {
+  const cols = [
+    { title: "Essential LA apps", icon: Smartphone, items: APPS.map((a) => ({ name: a.name, url: a.url, about: a.what })) },
+    { title: "City department news", icon: Building2, items: CITY_DEPARTMENTS },
+    { title: "Citywide independent press", icon: Newspaper, items: CITYWIDE },
+  ];
+  return (
+    <section className="mt-14 border-t border-border pt-10">
+      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">For every Angeleno</p>
+      <h2 className="mt-1 font-display text-3xl font-bold">The citywide toolkit</h2>
+      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">The same essentials apply wherever you live in LA. Call 3-1-1 for any city service.</p>
+      <div className="mt-6 grid gap-5 md:grid-cols-3">
+        {cols.map((c) => (
+          <div key={c.title} className="rounded-3xl border border-border bg-muted/40 p-6">
+            <h3 className="mb-3 flex items-center gap-2 font-display text-lg font-bold"><c.icon className="h-4 w-4 text-primary" />{c.title}</h3>
+            <ul className="space-y-2 text-sm">{c.items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="block text-xs text-muted-foreground">{n.about}</span></li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

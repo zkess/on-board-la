@@ -27,7 +27,7 @@ export const SECTIONS = [
 ] as const;
 export type Id = (typeof SECTIONS)[number]["id"];
 
-const A = ({ href, children }: { href: string; children: ReactNode }) => (
+export const A = ({ href, children }: { href: string; children: ReactNode }) => (
   <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline">{children}<ExternalLink className="h-3 w-3" /></a>
 );
 
@@ -97,7 +97,7 @@ function Dial() {
   );
 }
 
-export function Panel({ id }: { id: Id }) {
+export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }) {
   const d = parent.useLoaderData();
   const { data: facts = [] } = useQuery(factsQuery);
   const [i, setI] = useState(0);
@@ -128,7 +128,7 @@ export function Panel({ id }: { id: Id }) {
     </>);
   }
   const list = (items: { name: string; url: string; about: string }[]) => <ul className="space-y-2 text-sm">{items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="block text-xs text-muted-foreground">{n.about}</span></li>)}</ul>;
-  if (id === "press") { const local = hyperlocalFor(d.nc?.name ?? "", region); return <>{local.length ? list(local) : <p className="text-sm text-muted-foreground">No hyperlocal newsletter here yet.</p>}<p className="mb-2 mt-4 text-xs font-semibold text-secondary">Citywide independent</p>{list(CITYWIDE)}</>; }
+  if (id === "press") { const local = hyperlocalFor(d.nc?.name ?? "", region); return <>{local.length ? list(local) : <p className="text-sm text-muted-foreground">No hyperlocal newsletter here yet.</p>}{!localOnly && <><p className="mb-2 mt-4 text-xs font-semibold text-secondary">Citywide independent</p>{list(CITYWIDE)}</>}</>; }
   if (id === "city") return list(CITY_DEPARTMENTS);
   return list(APPS.map((a) => ({ name: a.name, url: a.url, about: a.what })));
 }
