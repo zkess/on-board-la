@@ -42,7 +42,7 @@ function Guide() {
     city: "City updates",
     apps: "Apps to download",
   };
-  const s = SECTIONS[i];
+  const s = SECTIONS[i] ?? SECTIONS[0];
   const num = (n: number) => String(n + 1).padStart(2, "0");
 
   return (
@@ -92,10 +92,10 @@ function Guide() {
             <Panel id={s.id} />
             <div className="mt-8 flex items-center justify-between gap-3 border-t border-border pt-5">
               <button disabled={i === 0} onClick={() => setI(i - 1)} className="inline-flex items-center gap-1 rounded-full border border-border px-4 py-2 text-sm disabled:opacity-30">
-                <ChevronLeft className="h-4 w-4" />{i > 0 ? SECTIONS[i - 1].label : "Back"}
+                <ChevronLeft className="h-4 w-4" />{i > 0 ? SECTIONS[i - 1]?.label : "Back"}
               </button>
               {i < SECTIONS.length - 1
-                ? <button onClick={() => setI(i + 1)} className="inline-flex items-center gap-1 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">Next: {SECTIONS[i + 1].label}<ChevronRight className="h-4 w-4" /></button>
+                ? <button onClick={() => setI(i + 1)} className="inline-flex items-center gap-1 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">Next: {SECTIONS[i + 1]?.label}<ChevronRight className="h-4 w-4" /></button>
                 : <button onClick={() => pick("all")} className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">See everything at once</button>}
             </div>
           </section>
