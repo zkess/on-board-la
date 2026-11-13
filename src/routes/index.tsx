@@ -25,7 +25,7 @@ function Index() {
       </h1>
       <p className="relative mt-4 max-w-md text-center text-muted-foreground">New or aspiring resident? It's time to get up to speed.</p>
       <div className="relative mt-10 flex w-full justify-center"><AddressSearch /></div>
-      <p className="relative mt-12 text-sm text-muted-foreground">Not sure? Check out the onboarding for these famous spots.</p>
+      <p className="relative mt-12 text-sm text-muted-foreground">Check out the onboarding for these famous spots.</p>
       <ul className="relative mt-4 flex max-w-3xl flex-wrap justify-center gap-3">
         {LANDMARKS.map((l) => (
           <li key={l.name}>
