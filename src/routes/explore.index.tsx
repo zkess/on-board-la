@@ -1,7 +1,9 @@
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Landmark, Users, Newspaper, ScrollText, Smartphone, Trash2, ExternalLink } from "lucide-react";
-import { APPS, LORE } from "@/lib/la-data";
+import { useQuery } from "@tanstack/react-query";
+import { APPS } from "@/lib/la-data";
+import { factsQuery, pickFacts } from "@/lib/facts";
 import { CITY_DEPARTMENTS, CITYWIDE, hyperlocalFor, type Newsletter } from "@/lib/newsletters";
 
 export const Route = createFileRoute("/explore/")({ component: Bento });
@@ -23,7 +25,8 @@ function Bento() {
   const d = parent.useLoaderData();
   if (d.status !== "ok") return null;
   const region = d.nc?.region ?? "";
-  const lore = LORE.filter((l) => l.match.test(region));
+  const { data: facts = [] } = useQuery(factsQuery);
+  const lore = pickFacts(facts, d.nc?.name ?? "", region);
   const local = hyperlocalFor(d.nc?.name ?? "", region);
   const initials = d.council?.member.split(" ").map((w) => w[0]).join("").slice(0, 2);
   return (
@@ -92,7 +95,15 @@ function Bento() {
 
       <Tile title="Local history & lore" icon={<ScrollText className="h-4 w-4" />} className="md:col-span-3 bg-secondary text-secondary-foreground">
         <div className="space-y-3 font-display text-lg leading-snug">
-          {(lore.length ? lore : LORE.slice(-1)).map((l, i) => <p key={i}>{l.text}</p>)}
+          {lore.map((l) => (
+            <div key={l.id}>
+              <p>{l.fact}</p>
+              <p className="mt-1 font-sans text-xs opacity-80">
+                Source: <a href={l.source_url} target="_blank" rel="noreferrer" className="underline underline-offset-2">{l.source_title}</a>, {l.source_publisher}{l.source_author ? ` (${l.source_author})` : ""}{l.source_date ? `, ${l.source_date.slice(0, 4)}` : ""}
+                {l.source_note ? <span className="block">{l.source_note}</span> : null}
+              </p>
+            </div>
+          ))}
         </div>
       </Tile>
 

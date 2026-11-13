@@ -30,15 +30,6 @@ export const APPS = [
   { name: "LADOT Parking", what: "Pay meters from your phone", url: "https://ladotparking.org" },
 ];
 
-export const LORE: { match: RegExp; text: string }[] = [
-  { match: /EAST/i, text: "The Eastside grew around the LA River and the Arroyo Seco — Highland Park's Arroyo Culture artists shaped California's Craftsman look a century ago." },
-  { match: /SOUTH/i, text: "South LA's Central Avenue was the West Coast capital of jazz in the 1940s, and Watts Towers took Simon Rodia 33 years to build by hand." },
-  { match: /WEST/i, text: "Abbot Kinney dug Venice's canals in 1905 to recreate Italy on the Pacific; most were paved over for cars in 1929." },
-  { match: /VALLEY/i, text: "The San Fernando Valley joined LA in 1915 for Owens Valley water — and in 2002 voted to secede, a measure that failed citywide." },
-  { match: /HARBOR/i, text: "San Pedro and Wilmington were annexed in 1909 via a 'shoestring' strip of land so LA could own a deep-water port." },
-  { match: /CENTRAL/i, text: "El Pueblo de Los Ángeles was founded in 1781 by 44 settlers, most of African, Indigenous and mixed heritage, on Tongva land called Yaanga." },
-];
-
 export const CIVIC_POIS = [
   { name: "LA City Hall", kind: "Government", lat: 34.0537, lng: -118.2427 },
   { name: "Central Library", kind: "Library", lat: 34.0503, lng: -118.2546 },
