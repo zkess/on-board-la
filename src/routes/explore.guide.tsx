@@ -5,8 +5,8 @@ import { APPS, RADIO } from "@/lib/la-data";
 import { CITY_DEPARTMENTS, CITYWIDE } from "@/lib/newsletters";
 
 const SECTIONS = [
-  { id: "trash", label: "Public Works", icon: Trash2 },
-  { id: "reps", label: "Representation", icon: Landmark },
+  { id: "trash", label: "Streets and Sanitation", icon: Trash2 },
+  { id: "reps", label: "Representatives", icon: Landmark },
   { id: "history", label: "History & Culture", icon: ScrollText },
   { id: "press", label: "Neighborhood News", icon: Newspaper },
 ] as const satisfies readonly { id: Id; label: string; icon: unknown }[];
