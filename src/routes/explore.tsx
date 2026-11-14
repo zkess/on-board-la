@@ -110,7 +110,7 @@ function Hero({ label, neighborhood, nc, region }: { label: string; neighborhood
       <div className="pointer-events-none absolute inset-0 bg-accent/10" />
       <div className="absolute inset-x-0 bottom-0 bg-twilight/80 p-6 text-background md:p-8">
         <p className="text-xs uppercase tracking-widest">{label}</p>
-        <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">We're in <mark className="rounded-sm bg-accent/60 px-1 text-accent-foreground">{hood}</mark>.</h1>
+        <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">We're in <mark className="rounded-sm bg-accent px-1 text-accent-foreground">{hood}</mark>.</h1>
         {neighborhood && <a href="https://maps.latimes.com/about/" target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs text-background underline underline-offset-4">Neighborhood boundaries: Los Angeles Times Mapping L.A.</a>}
       </div>
       <figcaption className="absolute right-3 top-3 max-w-[calc(100%-1.5rem)] rounded-md bg-background px-2 py-1 text-xs text-muted-foreground">
