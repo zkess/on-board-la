@@ -6,6 +6,7 @@ import { AddressSearch } from "@/components/AddressSearch";
 import { INDEPENDENT_CITIES } from "@/lib/la-data";
 import { heroFor, heroSrc, heroPage, landmarkHero } from "@/lib/hero-images";
 import { useEffect, useRef } from "react";
+import { useRememberedAddress } from "@/hooks/use-remembered-address";
 
 export const Route = createFileRoute("/explore")({
   validateSearch: zodValidator(z.object({ q: fallback(z.string(), "").default("") })),
@@ -40,6 +41,7 @@ export const Route = createFileRoute("/explore")({
 function ExploreLayout() {
   const data = Route.useLoaderData();
   const { q } = Route.useSearch();
+  useRememberedAddress(q);
   const pageRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   useEffect(() => {
