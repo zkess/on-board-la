@@ -64,7 +64,7 @@ function ExploreLayout() {
             <Hero approximate={!!data.approximate} label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
             <Outlet />
           </>
-        ) : data.status === "outside" ? <Outside city={data.city} label={data.label} /> : <NotFound q={data.query} />}
+        ) : data.status === "outside" ? <Outside city={data.city} label={data.label} unincorporated={data.unincorporated} /> : <NotFound q={data.query} />}
       </main>
       <footer className="border-t border-border">
         <div className="mx-auto max-w-6xl px-5 py-6 text-[15px] text-muted-foreground">
@@ -76,18 +76,20 @@ function ExploreLayout() {
   );
 }
 
-function Outside({ city, label }: { city: string | null; label: string }) {
-  const portal = city ? INDEPENDENT_CITIES[city] : undefined;
+function Outside({ city, label, unincorporated }: { city: string | null; label: string; unincorporated: boolean }) {
+  const portal = unincorporated ? "https://lacounty.gov/government/geography-statistics/unincorporated-areas/" : city ? INDEPENDENT_CITIES[city] : undefined;
   return (
     <div className="mx-auto max-w-xl rounded-3xl border border-border bg-card p-8 text-center shadow-soft">
       <p className="text-4xl" aria-hidden>🌴</p>
       <h1 className="mt-3 font-display text-3xl font-bold">You're just outside the City of LA</h1>
       <p className="mt-3 text-muted-foreground">
-        <strong className="text-foreground">{label}</strong> is in {city ? <>the independent city of <strong className="text-foreground">{city}</strong></> : "an area outside City of Los Angeles limits"}. It has its own city council, services and trash schedule — so our LA City guide won't fit quite right.
+        <strong className="text-foreground">{label}</strong> {unincorporated
+          ? <>is in {city ? <strong className="text-foreground">{city}</strong> : "an area"}, an unincorporated part of LA County. There's no city government here: the County Board of Supervisors acts as your local government and county departments handle services like trash — so our LA City guide won't fit quite right.</>
+          : <>is in {city ? <>the independent city of <strong className="text-foreground">{city}</strong></> : "an area outside City of Los Angeles limits"}. It has its own city council, services and trash schedule — so our LA City guide won't fit quite right.</>}
       </p>
       <a href={portal ?? "https://lacounty.gov/government/geography-statistics/cities-and-communities/"} target="_blank" rel="noreferrer"
         className="mt-6 inline-block rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground">
-        {portal ? `Visit ${city}'s civic portal` : "Find your local government"}
+        {unincorporated ? "Explore LA County services" : portal ? `Visit ${city}'s civic portal` : "Find your local government"}
       </a>
     </div>
   );

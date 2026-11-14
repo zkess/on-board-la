@@ -9,7 +9,7 @@ const UA = "LA-Onboarding/1.0 (civic newcomer guide)";
 
 export type Lookup =
   | { status: "notfound"; query: string }
-  | { status: "outside"; query: string; label: string; approximate?: boolean; city: string | null; lat: number; lng: number }
+  | { status: "outside"; query: string; label: string; approximate?: boolean; city: string | null; unincorporated: boolean; lat: number; lng: number }
   | {
       status: "ok";
       query: string;
@@ -71,7 +71,9 @@ export const lookupAddress = createServerFn({ method: "GET" })
     const inCity = cityB.some((a) => a.CITY === "IN");
     if (!inCity) {
       const a = hit.address ?? {};
-      return { status: "outside", query: q, label, approximate, city: a["city"] ?? a["town"] ?? a["village"] ?? a["hamlet"] ?? null, lat, lng };
+      const { mappingLaArea } = await import("@/lib/mapping-la.server");
+      const area = mappingLaArea(lng, lat);
+      return { status: "outside", query: q, label, approximate, city: area?.name ?? a["city"] ?? a["town"] ?? a["village"] ?? a["hamlet"] ?? null, unincorporated: !!area?.unincorporated, lat, lng };
     }
     const c = cd[0];
     const dn = hit.display_name.toUpperCase();
