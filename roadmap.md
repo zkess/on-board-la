@@ -4,3 +4,4 @@
 - [x] Promote the field guide to the main Dashboard and remove the topic dial test.
 - [x] Use Mapping L.A. for the header neighborhood while preserving EmpowerLA council mapping.
 - [x] Add sourced recycling, composting and property permit guidance to Streets and Sanitation.
+- [x] Apply Golden Hour visual styling without changing page layouts or generating images.

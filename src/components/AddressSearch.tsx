@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function AddressSearch({ initial = "", compact = false }: { initial?: string; compact?: boolean }) {
   const [q, setQ] = useState(initial);
@@ -21,12 +22,12 @@ export function AddressSearch({ initial = "", compact = false }: { initial?: str
         aria-label="Your address"
         className={`min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted-foreground ${compact ? "py-1.5 text-sm" : "py-3 text-lg"}`}
       />
-      <button
+      <Button
         type="submit"
-        className={`rounded-full bg-primary font-medium text-primary-foreground transition hover:opacity-90 ${compact ? "px-4 py-1.5 text-sm" : "px-6 py-3"}`}
+        className={`min-h-12 rounded-full bg-accent font-bold text-accent-foreground shadow-none transition hover:-translate-y-0.5 hover:bg-accent hover:shadow-soft ${compact ? "px-4 text-base" : "px-7 text-base"}`}
       >
         Go
-      </button>
+      </Button>
     </form>
   );
 }

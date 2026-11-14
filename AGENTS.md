@@ -37,3 +37,4 @@ use the editor.
 - The neighborhood dashboard lives at /explore with shared content panels outside the routes; /explore/guide redirects there to preserve old links.
 - Header neighborhood matching runs server-side against bundled original Mapping L.A. V6 GeoJSON using Turf point-in-polygon; return it separately from EmpowerLA council data, with a council-name fallback only when no Times polygon matches.
 - Streets and sanitation guidance lives in an expandable SanitationDetails component with official source links, keeping the address-specific pickup summary visible.
+- Visual palette and typography are mapped centrally through semantic CSS tokens; header photo captions use solid surfaces for contrast without changing the page structure.

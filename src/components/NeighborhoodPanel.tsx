@@ -7,12 +7,13 @@ import { factsQuery, pickFacts } from "@/lib/facts";
 import { CITY_DEPARTMENTS, CITYWIDE, hyperlocalFor } from "@/lib/newsletters";
 import { subredditsFor } from "@/lib/subreddits";
 import { SanitationDetails } from "@/components/SanitationDetails";
+import { Button } from "@/components/ui/button";
 
 const parent = getRouteApi("/explore");
 export type Id = "trash" | "reps" | "history" | "press" | "city" | "apps";
 
 export const A = ({ href, children }: { href: string; children: ReactNode }) => (
-  <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline">{children}<ExternalLink className="h-3 w-3" /></a>
+  <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-medium text-primary underline underline-offset-4 hover:text-sunset-text">{children}<ExternalLink className="h-3 w-3 shrink-0" /></a>
 );
 
 export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }) {
@@ -47,9 +48,9 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
     const l = lore.length ? lore[i % lore.length] : null;
     if (!l) return <p>Loading local history…</p>;
     return (<>
-      <blockquote className="font-display text-2xl leading-snug">“{l.fact}”</blockquote>
+      <blockquote className="max-w-[68ch] border-l-[6px] border-accent pl-5 font-display text-2xl italic leading-snug">“{l.fact}”</blockquote>
       <p className="mt-3 text-xs text-muted-foreground">Source: <a className="underline" href={l.source_url} target="_blank" rel="noreferrer">{l.source_title}</a>, {l.source_publisher}</p>
-      {lore.length > 1 && <button onClick={() => setI(Math.floor(Math.random() * lore.length))} className="mt-4 inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-xs"><Shuffle className="h-3 w-3" />Another fact</button>}
+      {lore.length > 1 && <Button variant="outline" onClick={() => setI(Math.floor(Math.random() * lore.length))} className="mt-4 min-h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"><Shuffle className="h-4 w-4" />Another fact</Button>}
     </>);
   }
   const list = (items: { name: string; url: string; about: string }[]) => <ul className="space-y-2 text-sm">{items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="block text-xs text-muted-foreground">{n.about}</span></li>)}</ul>;

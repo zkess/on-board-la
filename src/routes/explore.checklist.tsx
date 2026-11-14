@@ -3,7 +3,17 @@ import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { CHECKLIST } from "@/lib/la-data";
 
-export const Route = createFileRoute("/explore/checklist")({ component: Checklist });
+export const Route = createFileRoute("/explore/checklist")({
+  head: () => ({ meta: [
+    { title: "Newcomer checklist — ON BOARD LA" },
+    { name: "description", content: "Your first 30 days of civic life in Los Angeles." },
+    { property: "og:title", content: "Newcomer checklist — ON BOARD LA" },
+    { property: "og:description", content: "Track your first month of getting connected in Los Angeles." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
+  component: Checklist,
+});
 const KEY = "la-onboarding-checklist";
 const total = CHECKLIST.reduce((n, p) => n + p.items.length, 0);
 

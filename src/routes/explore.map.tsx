@@ -2,7 +2,17 @@ import { ClientOnly, createFileRoute, getRouteApi } from "@tanstack/react-router
 import { lazy, Suspense } from "react";
 import { CIVIC_POIS } from "@/lib/la-data";
 
-export const Route = createFileRoute("/explore/map")({ component: MapPage });
+export const Route = createFileRoute("/explore/map")({
+  head: () => ({ meta: [
+    { title: "Civic map — ON BOARD LA" },
+    { name: "description", content: "Explore council boundaries and civic places near your Los Angeles address." },
+    { property: "og:title", content: "Civic map — ON BOARD LA" },
+    { property: "og:description", content: "Find nearby civic places and your Los Angeles council districts." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
+  component: MapPage,
+});
 const parent = getRouteApi("/explore");
 const CivicMap = lazy(() => import("@/components/CivicMap"));
 
