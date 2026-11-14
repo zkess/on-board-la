@@ -1,10 +1,10 @@
 export const LANDMARKS = [
-  { name: "Griffith Observatory", q: "Griffith Observatory, Los Angeles", blurb: "Los Feliz · hilltop stargazing" },
-  { name: "Venice Canals", q: "Venice Canals, Los Angeles", blurb: "Venice · Abbot Kinney's waterways" },
-  { name: "Watts Towers", q: "Watts Towers, 1761 East 107th Street, Los Angeles", blurb: "Watts · Simon Rodia's masterpiece" },
-  { name: "Union Station", q: "Union Station, 800 North Alameda Street, Los Angeles", blurb: "Downtown · the last great train station" },
-  { name: "Leimert Park", q: "Leimert Park Village, Los Angeles", blurb: "Crenshaw · Black arts & culture hub" },
-  { name: "Olvera Street", q: "Olvera Street, Los Angeles", blurb: "El Pueblo · birthplace of LA" },
+  { name: "Griffith Observatory", q: "Griffith Observatory, Los Angeles", blurb: "El Pueblo · Birthplace of LA" },
+  { name: "Venice Canals", q: "Venice Canals, Los Angeles", blurb: "Venice · Urban oasis" },
+  { name: "Watts Towers", q: "Watts Towers, 1761 East 107th Street, Los Angeles", blurb: "Watts · Folk art masterpiece" },
+  { name: "Union Station", q: "Union Station, 800 North Alameda Street, Los Angeles", blurb: "Downtown · Iconic arrival" },
+  { name: "Leimert Park", q: "Leimert Park Village, Los Angeles", blurb: "Crenshaw · Black arts & culture" },
+  { name: "Olvera Street", q: "Olvera Street, Los Angeles", blurb: "El Pueblo · Birthplace of LA" },
 ];
 
 export const INDEPENDENT_CITIES: Record<string, string> = {

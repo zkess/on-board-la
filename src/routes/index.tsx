@@ -39,7 +39,7 @@ function Index() {
           <ol className="home-step-grid">
             <li><span className="home-step-number font-sign" aria-hidden="true">1</span><h3>Type any LA address</h3><p>A street address, a landmark, or just a neighborhood you are curious about. Start anywhere.</p></li>
             <li><span className="home-step-number font-sign" aria-hidden="true">2</span><h3>Get your neighborhood dashboard</h3><p>Trash and recycling day, your council member and county supervisor, local news, and a bit of history.</p></li>
-            <li><span className="home-step-number font-sign" aria-hidden="true">3</span><h3>Keep the essentials handy</h3><p>Quick links to MyLA311, 211 LA, Metro TAP, and local radio, the same for every neighborhood.</p></li>
+            <li><span className="home-step-number font-sign" aria-hidden="true">3</span><h3>Download the essentials </h3><p>Quick links to MyLA311, 211 LA, Metro TAP, and local radio, the same for every neighborhood.</p></li>
           </ol>
         </div>
       </section>
@@ -47,7 +47,7 @@ function Index() {
         <div className="home-wrap home-section-inner">
           <p className="home-eyebrow text-accent">Famous spots</p>
           <h2 className="home-section-title text-sand">Start with a place you already know</h2>
-          <p className="home-section-description">Check out the onboarding for these famous spots.</p>
+          <p className="home-section-description">Check out the onboarding for the neighborhoods of these famous spots.</p>
           <ul className="home-spot-grid">
             {LANDMARKS.map((l, i) => {
               const Icon = spotIcons[i] ?? Landmark;
