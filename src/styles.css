@@ -215,8 +215,8 @@
 .home-intro { padding-top: 64px; text-align: center; }
 .home-eyebrow { margin: 0 0 8px; max-width: none; font-size: 13px; font-weight: 700; text-transform: uppercase; line-height: 1.4; letter-spacing: 0; }
 .home-title { font-size: 184px; font-weight: 400; line-height: .9; text-shadow: var(--home-title-shadow); }
-.home-subtitle { max-width: 30em; margin: 28px auto 0; font-size: 26px; line-height: 1.4; }
-.home-summary { max-width: 36em; margin: 8px auto 0; font-size: 17px; line-height: 1.55; }
+.home-subtitle { max-width: 30em; margin: 28px auto 0; font-size: 26px; line-height: 1.4; font-weight: 600; color: var(--ink); }
+.home-summary { max-width: 36em; margin: 8px auto 0; font-size: 18px; line-height: 1.55; font-weight: 500; color: var(--ink); }
 .home-search { max-width: 760px; margin: 32px auto 0; }
 .home-search form { max-width: none; border: 0; background: var(--tile-light); padding: 8px; box-shadow: var(--shadow-lifted); }
 .home-search input { font-size: 19px; }
@@ -274,4 +274,4 @@
 @media (prefers-reduced-motion: reduce) { .home-spot, .home-spot-chip { transition: none; } .home-spot:hover, .home-spot:hover .home-spot-chip { transform: none; } }
 
 /* Minimalist line map of LA neighborhoods (Mapping L.A., MIT) woven into the welcome gradient. */
-.home-welcome::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url("/la-line-map.svg") center 30% / min(1100px, 130%) auto no-repeat; opacity: .3; -webkit-mask-image: radial-gradient(ellipse at center, #000 45%, transparent 85%); mask-image: radial-gradient(ellipse at center, #000 45%, transparent 85%); }
+.home-welcome::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url("/la-line-map.svg") center 30% / min(1100px, 130%) auto no-repeat; opacity: .3; -webkit-mask-image: radial-gradient(ellipse 38% 45% at center, transparent 40%, #000 85%); mask-image: radial-gradient(ellipse 38% 45% at center, transparent 40%, #000 85%); }

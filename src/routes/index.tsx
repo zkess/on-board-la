@@ -25,11 +25,10 @@ function Index() {
       <section className="home-welcome">
         <div className="home-wrap home-intro">
           <p className="home-eyebrow">For new and aspiring Angelenos</p>
-          <h1 className="home-title font-sign">ON <span className="text-primary">BOARD</span> LA</h1>
+          <h1 className="home-title font-sign">ON <span className="text-twilight">BOARD</span> LA</h1>
           <div className="home-search"><AddressSearch /></div>
           <p className="home-subtitle">It's time to feel like a local.</p>
-          <p className="home-summary">Type any Los Angeles address and get trash day, your elected officials, neighborhood news, and a little history lesson.{"\n\n"}No address handy? Try one of the famous spots below.</p>
-          <p className="home-search-note">{"\n\n"}</p>
+          <p className="home-summary">Type any address for trash day, your representatives, and neighborhood news.</p>
         </div>
       </section>
       <section className="home-steps">
