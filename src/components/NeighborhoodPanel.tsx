@@ -24,7 +24,7 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
   const region = d.nc?.region ?? "";
   if (id === "trash") return (<>
     <p className="text-xs uppercase tracking-wider text-muted-foreground">Trash day</p><p className="font-display text-2xl font-bold text-primary">{d.trashDay ?? "—"}</p>
-    <p className="resource-description mt-1">Bins out by 6 a.m.&nbsp;</p>
+    <p className="resource-description mt-1">{"\n"}</p>
     <ul className="resource-list mt-4">
       <li><A href="https://ladotlivestreetsweeping.lacity.org">look up your route</A><span className="resource-description block">Street sweeping</span></li>
       <li><A href="https://myla311.lacity.gov">request on MyLA311</A><span className="resource-description block">Free bulky item pickup</span></li>
