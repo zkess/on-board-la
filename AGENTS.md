@@ -37,6 +37,7 @@ use the editor.
 - Neighborhood history facts live in src/data/neighborhood-facts.json (exported from the old table), each carrying its source credit, so they can be audited and edited without admin credentials.
 - Neighborhood subreddit links use a curated directory with coverage evidence and neighborhood-name matching, not regional fallbacks, to avoid unrelated communities.
 - The neighborhood dashboard lives at /explore with shared content panels outside the routes; /explore/guide redirects there to preserve old links.
+- The explore parent retains its validated address search parameter across child-page navigation so the checklist and map keep the selected address.
 - Header neighborhood matching runs server-side against bundled original Mapping L.A. V6 GeoJSON using Turf point-in-polygon; return it separately from EmpowerLA council data; the server does no council-name inference, and only the Hero component falls back to the council name when no Times polygon matches.
 - Streets and sanitation guidance lives in an expandable SanitationDetails component with official source links, keeping the address-specific pickup summary visible.
 - Visual palette and typography are mapped centrally through semantic CSS tokens; header photo captions use solid surfaces for contrast without changing the page structure.

@@ -14,4 +14,24 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("preserves the selected address when navigating to the checklist", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    const q = "13050 Borden Ave, Sylmar, Los Angeles";
+    const dashboard = router.buildLocation({ to: "/explore", search: { q } });
+    const checklist = router.buildLocation({
+      to: "/explore/checklist",
+      _fromLocation: dashboard,
+    });
+
+    expect(checklist.search).toMatchObject({ q });
+    expect(router.matchRoutes(checklist.pathname, checklist.search).at(-1)?.search).toMatchObject({ q });
+
+    const replacement = router.buildLocation({
+      to: "/explore",
+      search: { q: "638 S Beacon St, San Pedro, Los Angeles" },
+      _fromLocation: checklist,
+    });
+    expect(replacement.search).toMatchObject({ q: "638 S Beacon St, San Pedro, Los Angeles" });
+  });
 });

@@ -1,4 +1,5 @@
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, retainSearchParams } from "@tanstack/react-router";
+import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { lookupAddress } from "@/lib/la.functions";
 import { AddressSearch } from "@/components/AddressSearch";
@@ -7,7 +8,8 @@ import { heroFor, heroSrc, heroPage, landmarkHero } from "@/lib/hero-images";
 import { useEffect, useRef } from "react";
 
 export const Route = createFileRoute("/explore")({
-  validateSearch: z.object({ q: z.string().catch("") }),
+  validateSearch: zodValidator(z.object({ q: fallback(z.string(), "").default("") })),
+  search: { middlewares: [retainSearchParams(["q"])] },
   loaderDeps: ({ search }) => ({ q: search.q }),
   loader: async ({ deps }) => {
     if (deps.q.trim().length < 2) return { status: "notfound" as const, query: deps.q };
