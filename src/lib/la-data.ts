@@ -44,27 +44,31 @@ export const CIVIC_POIS = [
   { name: "LA County Registrar (voting)", kind: "Elections", lat: 33.9172, lng: -118.1156 },
 ];
 
-export type ChecklistItem = { id: string; text: string; link?: string };
+export type ChecklistItem = { id: string; text: string; tag: "Safety" | "Utilities" | "Streets" | "Transit" | "Civic" | "Legal" | "Perks" | "Community"; tip?: string; link?: string };
 export const CHECKLIST: { phase: string; subtitle: string; items: ChecklistItem[] }[] = [
-  { phase: "Day 1", subtitle: "Get safe and informed", items: [
-    { id: "notifyla", text: "Sign up for NotifyLA emergency alerts", link: "https://emergency.lacity.gov/notifyla" },
-    { id: "311", text: "Download MyLA311 and save 3-1-1 in your phone", link: "https://myla311.lacity.gov" },
-    { id: "trash", text: "Find your trash day (see your dashboard)" },
-    { id: "sweep", text: "Look up your street sweeping schedule", link: "https://ladotlivestreetsweeping.lacity.org" },
+  { phase: "Day 1", subtitle: "Get safe and settled", items: [
+    { id: "notifyla", tag: "Safety", text: "Sign up for NotifyLA emergency alerts", tip: "The City's official texts for fires, evacuations and other emergencies.", link: "https://emergency.lacity.gov/notifyla" },
+    { id: "myshake", tag: "Safety", text: "Install the MyShake earthquake warning app", tip: "California's early warning can give you seconds to drop, cover and hold on.", link: "https://myshake.berkeley.edu" },
+    { id: "311", tag: "Civic", text: "Download MyLA311 and save 3-1-1 in your phone", tip: "Use it for potholes, graffiti, dumped items and free bulky pickups.", link: "https://myla311.lacity.gov" },
+    { id: "ladwp", tag: "Utilities", text: "Start or transfer water and power with LADWP", tip: "The City runs its own utility, so most LA addresses don't use Edison.", link: "https://www.ladwp.com/residential-services/start-stop-move-service" },
+    { id: "sweep", tag: "Streets", text: "Check your block's street sweeping and parking signs", tip: "Sweeping tickets are one of the most common surprises for newcomers.", link: "https://ladotlivestreetsweeping.lacity.org" },
+    { id: "water", tag: "Safety", text: "Store emergency water", tip: "Plan for at least one gallon per person and pet per day.", link: "https://www.ready.gov/water" },
   ]},
   { phase: "Week 1", subtitle: "Plug into your neighborhood", items: [
-    { id: "vote", text: "Register to vote at your new address", link: "https://registertovote.ca.gov" },
-    { id: "lapl", text: "Get a free LA Public Library card", link: "https://www.lapl.org/new-card" },
-    { id: "tap", text: "Get a TAP card for Metro", link: "https://www.taptogo.net" },
-    { id: "news", text: "Subscribe to one citywide and one hyperlocal newsletter" },
-    { id: "cd", text: "Follow your Councilmember's newsletter" },
+    { id: "vote", tag: "Civic", text: "Register to vote at your new address", tip: "You need to update it every time you move.", link: "https://registertovote.ca.gov" },
+    { id: "lapl", tag: "Perks", text: "Get a free LA Public Library card", tip: "Unlocks free museum passes, e-books, movies and more.", link: "https://www.lapl.org/new-card" },
+    { id: "tap", tag: "Transit", text: "Add a TAP card to your phone wallet", tip: "Works on Metro buses and trains, plus many local bus lines.", link: "https://www.taptogo.net" },
+    { id: "cd", tag: "Civic", text: "Subscribe to your Councilmember's newsletter", tip: "The best way to hear about local projects and community meetings." },
+    { id: "compost", tag: "Streets", text: "Learn the green bin food scrap rules", tip: "Food scraps go in the green bin with yard trimmings.", link: "https://sanitation.lacity.gov/san/faces/home/portal/s-lsh-wwd/s-lsh-wwd-s/s-lsh-wwd-s-r/s-lsh-wwd-s-r-fwr" },
+    { id: "news", tag: "Community", text: "Follow one neighborhood news source", tip: "Try a hyperlocal newsletter or your neighborhood subreddit." },
   ]},
-  { phase: "Month 1", subtitle: "Show up", items: [
-    { id: "nc", text: "Attend a Neighborhood Council meeting" },
-    { id: "dmv", text: "Update your driver's license address", link: "https://www.dmv.ca.gov/portal/dmv-virtual-office/change-of-address/" },
-    { id: "council", text: "Watch or attend a City Council meeting", link: "https://clerk.lacity.gov/calendar" },
-    { id: "ready", text: "Build an earthquake kit (ReadyLA)", link: "https://emergency.lacity.gov/readyla" },
-    { id: "neighbor", text: "Introduce yourself to a neighbor" },
+  { phase: "Month 1", subtitle: "Make it official and show up", items: [
+    { id: "dmv", tag: "Legal", text: "Update your driver's license address", tip: "California asks you to report a move within 10 days.", link: "https://www.dmv.ca.gov/portal/dmv-virtual-office/change-of-address/" },
+    { id: "car", tag: "Legal", text: "Register an out-of-state car in California", tip: "New residents have 20 days after moving here.", link: "https://www.dmv.ca.gov/portal/vehicle-registration/new-registration/" },
+    { id: "nc", tag: "Civic", text: "Attend a Neighborhood Council meeting", tip: "Find the date on your dashboard. Anyone who lives here can speak." },
+    { id: "council", tag: "Civic", text: "Watch or attend a City Council meeting", link: "https://clerk.lacity.gov/calendar" },
+    { id: "ready", tag: "Safety", text: "Build an earthquake go-bag", tip: "Pack food, water, a flashlight, first aid and copies of key documents.", link: "https://emergency.lacity.gov/readyla" },
+    { id: "neighbor", tag: "Community", text: "Swap numbers with a neighbor", tip: "Neighbors are often the first help after a disaster." },
   ]},
 ];
 
