@@ -183,6 +183,7 @@
 .dashboard-page [data-slot="accordion-content"] p { font-size: 18px; line-height: 1.7; }
 .dashboard-page [data-slot="accordion-content"] a { font-size: 17px; font-weight: 600; color: var(--ocean); }
 .hero-warm-tint { background: var(--hero-tint); }
+.hero-credit { font-size: 13px; line-height: 1.5; }
 .civic-tile { border-radius: 20px; border-top-width: 6px; transition: transform 180ms ease, box-shadow 180ms ease; }
 .civic-tile-trash { border-top-color: var(--sun); background: var(--tile-light); }
 .civic-tile-reps { border-top-color: var(--ocean); background: var(--tile-light); }
