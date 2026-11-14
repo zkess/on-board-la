@@ -15,7 +15,7 @@ export const Route = createFileRoute("/explore")({
   },
   staleTime: 5 * 60_000,
   head: ({ loaderData }) => {
-    const title = loaderData && loaderData.status !== "notfound" ? `${loaderData.label.split(",")[0]} — LA Onboarding` : "Your neighborhood — LA Onboarding";
+    const title = loaderData && loaderData.status !== "notfound" ? `${loaderData.label.split(",")[0]} — ON BOARD LA` : "Your neighborhood — ON BOARD LA";
     return {
       meta: [
         { title },
@@ -54,7 +54,7 @@ function ExploreLayout() {
     <div ref={pageRef} className="dashboard-page min-h-screen">
       <header ref={headerRef} className="dashboard-header sticky top-0 z-[1000] border-b border-border bg-background">
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-4 px-5 py-3 md:grid-cols-[auto_minmax(0,1fr)]">
-          <Link to="/" className="min-w-0 font-display text-xl font-bold">LA <span className="italic text-primary">Onboarding</span></Link>
+          <Link to="/" className="min-w-0 font-sign text-3xl tracking-wider">ON <span className="text-twilight">BOARD</span> LA</Link>
           <div className="min-w-0 w-full md:justify-self-end md:max-w-lg"><AddressSearch key={q} initial={q} compact /></div>
         </div>
       </header>
