@@ -1,8 +1,9 @@
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
-import { Trash2, Landmark, ScrollText, Newspaper, Smartphone, Building2, Radio } from "lucide-react";
+import { Trash2, Landmark, ScrollText, Newspaper, Smartphone, Building2, Radio, Phone, TrainFront } from "lucide-react";
 import { Panel, A, type Id } from "@/components/NeighborhoodPanel";
 import { APPS, RADIO } from "@/lib/la-data";
 import { CITY_DEPARTMENTS, CITYWIDE } from "@/lib/newsletters";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const SECTIONS = [
   { id: "trash", label: "Streets and Sanitation", icon: Trash2 },
@@ -52,24 +53,42 @@ function Guide() {
 
 function Toolkit() {
   const cols = [
-    { title: "Essential LA apps", icon: Smartphone, items: APPS.map((a) => ({ name: a.name, url: a.url, about: a.what })) },
-    { title: "City news", icon: Building2, items: CITY_DEPARTMENTS },
-    { title: "Citywide independent press", icon: Newspaper, items: CITYWIDE },
-    { title: "Local news radio", icon: Radio, items: RADIO },
+    { id: "apps", title: "Apps", icon: Smartphone, items: APPS.map((a) => ({ name: a.name, url: a.url, about: a.what })) },
+    { id: "city", title: "City news", icon: Building2, items: CITY_DEPARTMENTS },
+    { id: "press", title: "Independent press", icon: Newspaper, items: CITYWIDE },
+    { id: "radio", title: "Local radio", icon: Radio, items: RADIO },
+  ];
+  const featured = [
+    { name: "MyLA311", icon: Smartphone, chip: "bg-accent text-accent-foreground", about: "Report issues & pickups" },
+    { name: "211 LA", icon: Phone, chip: "bg-primary text-primary-foreground", about: "Food & housing referrals" },
+    { name: "Metro TAP", icon: TrainFront, chip: "bg-bloom/15 text-sunset-text", about: "Load fare for bus & rail" },
   ];
   return (
     <section id="toolkit" className="mt-14 border-t-2 border-border pt-10">
       <p className="text-xs font-semibold uppercase tracking-widest text-sunset-text">For every Angeleno</p>
       <h2 className="mt-1 font-display text-3xl font-bold text-foreground">The citywide toolkit</h2>
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">The same essentials apply wherever you live in LA. Call 3-1-1 for any city service.</p>
-      <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {cols.map((c) => (
-          <div key={c.title} className="rounded-[20px] border border-border bg-muted p-6">
-            <h3 className="card-heading mb-3 flex items-start gap-2 font-bold"><c.icon className="mt-1 h-5 w-5 shrink-0 text-primary" /><span className="min-w-0">{c.title}</span></h3>
-            <ul className="resource-list">{c.items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="resource-description block">{n.about}</span></li>)}</ul>
-          </div>
-        ))}
+      <div className="mt-6 grid gap-5 md:grid-cols-3">
+        {featured.map((f) => {
+          const app = APPS.find((a) => a.name === f.name);
+          if (!app) return null;
+          return <div key={f.name} className="rounded-[20px] border border-border bg-tile-light p-5 shadow-soft">
+            <span className={`mb-3 inline-flex h-11 w-11 items-center justify-center rounded-full ${f.chip}`}><f.icon className="h-5 w-5" /></span>
+            <div><A href={app.url}>{f.name}</A></div>
+            <p className="resource-description mt-1">{f.about}</p>
+          </div>;
+        })}
       </div>
+      <Tabs defaultValue="apps" className="mt-6 rounded-[20px] border border-border bg-tile-light p-5 md:p-6">
+        <TabsList aria-label="Citywide resources" className="grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0 sm:grid-cols-4">
+          {cols.map((c) => <TabsTrigger key={c.id} value={c.id} className="min-h-11 gap-2 whitespace-normal px-3 py-2 text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground focus-visible:ring-[3px]"><c.icon className="h-4 w-4 shrink-0" />{c.title}</TabsTrigger>)}
+        </TabsList>
+        {cols.map((c) => <TabsContent key={c.id} value={c.id} className="mt-6">
+          <ul className="grid grid-cols-1 gap-x-8 gap-y-[14px] md:grid-cols-2">
+            {c.items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="resource-description block">{n.about}</span></li>)}
+          </ul>
+        </TabsContent>)}
+      </Tabs>
     </section>
   );
 }

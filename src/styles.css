@@ -41,6 +41,7 @@
   --color-twilight: var(--twilight);
   --color-sunset: var(--sunset);
   --color-bloom: var(--bloom);
+  --color-tile-light: var(--tile-light);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
