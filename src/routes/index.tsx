@@ -35,7 +35,7 @@ function Index() {
       <section className="home-steps">
         <div className="home-wrap home-section-inner">
           <p className="home-eyebrow text-sunset-text">How it works</p>
-          <h2 className="home-section-title">Three steps to feeling like a local</h2>
+          <h2 className="home-section-title">Three steps to settling in</h2>
           <ol className="home-step-grid">
             <li><span className="home-step-number font-sign" aria-hidden="true">1</span><h3>Type any LA address</h3><p>A street address, a landmark, or just a neighborhood you are curious about. Start anywhere.</p></li>
             <li><span className="home-step-number font-sign" aria-hidden="true">2</span><h3>Get your neighborhood dashboard</h3><p>Trash and recycling day, your council member and county supervisor, local news, and a bit of history.</p></li>
