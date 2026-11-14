@@ -8,11 +8,12 @@ export const HERO_IMAGES = {
   watts: { file: "Watts Towers Arts Center pano.jpg", subject: "Watts Towers", author: "Bjlee2020", license: "CC BY-SA 4.0" },
   bridge: { file: "Ever Mach and Vincent Thomas Bridge.jpg", subject: "Vincent Thomas Bridge, San Pedro", author: "DanielMichaelPerry", license: "CC0" },
   ventura: { file: "Studio City's Ventura Boulevard Shopping District.JPG", subject: "Ventura Boulevard, Studio City", author: "Cbl62", license: "CC BY-SA 3.0" },
+  angelinoHeights: { file: "Angelino Heights Victorian.jpg", subject: "Victorian house, Angelino Heights", author: "Konrad Summers from Santa Clarita (Valencia), California, USA", license: "CC BY-SA 2.0" },
 } satisfies Record<string, HeroImage>;
 
 /** Neighborhood-specific matches first (by NC name), then by service region. */
 export const HERO_BY_NC: [RegExp, HeroImage][] = [
-  [/LOS FELIZ/i, HERO_IMAGES.griffith], [/VENICE/i, HERO_IMAGES.venice], [/WATTS/i, HERO_IMAGES.watts],
+  [/ANGELINO HEIGHTS/i, HERO_IMAGES.angelinoHeights], [/LOS FELIZ/i, HERO_IMAGES.griffith], [/VENICE/i, HERO_IMAGES.venice], [/WATTS/i, HERO_IMAGES.watts],
   [/SAN PEDRO|HARBOR|WILMINGTON/i, HERO_IMAGES.bridge], [/STUDIO CITY/i, HERO_IMAGES.ventura], [/DOWNTOWN|HISTORIC CULTURAL/i, HERO_IMAGES.cityHall],
 ];
 export const HERO_BY_REGION: [RegExp, HeroImage][] = [
