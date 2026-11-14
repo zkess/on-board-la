@@ -43,24 +43,26 @@ function Checklist() {
         </div>
         <p className="mt-3 text-muted-foreground">Your progress is saved on this device.</p>
       </div>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="space-y-8">
         {CHECKLIST.map((p) => {
           const n = p.items.filter((i) => done[i.id]).length;
           return (
-            <section key={p.phase} className="rounded-[20px] border border-border bg-card p-6">
-              <div className="flex items-baseline justify-between">
-                <h3 className="card-heading text-primary">{p.phase}</h3>
+            <section key={p.phase} className="border-t border-border pt-6">
+              <div className="mb-5 flex flex-wrap items-baseline justify-between gap-3">
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <h3 className="card-heading text-primary">{p.phase}</h3>
+                  <p className="text-muted-foreground">{p.subtitle}</p>
+                </div>
                 <span className="text-muted-foreground">{n}/{p.items.length}</span>
               </div>
-              <p className="mb-4 text-muted-foreground">{p.subtitle}</p>
-              <ul className="resource-list">
+              <ul className="grid gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
                 {p.items.map((it) => (
                   <li key={it.id} className="flex gap-3">
                     <button onClick={() => toggle(it.id)} aria-pressed={!!done[it.id]} aria-label={it.text}
                       className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 transition ${done[it.id] ? "border-primary bg-primary text-primary-foreground" : "border-border"}`}>
                       {done[it.id] && <Check className="h-4 w-4" />}
                     </button>
-                    <div className={done[it.id] ? "opacity-60" : ""}>
+                    <div className={`min-w-0 ${done[it.id] ? "opacity-60" : ""}`}>
                       <span className="mb-1 inline-block rounded-full bg-muted px-2 py-0.5 text-xs uppercase">{it.tag}</span>
                       <div className={`font-semibold ${done[it.id] ? "line-through" : ""}`}>
                         {it.link ? <a className="resource-link" href={it.link} target="_blank" rel="noreferrer">{it.text}</a> : it.text}
