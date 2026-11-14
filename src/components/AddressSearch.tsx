@@ -43,7 +43,7 @@ export function AddressSearch({ initial = "", compact = false }: { initial?: str
       <Search className="ml-3 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden />
       <input
         value={q}
-        onChange={(e) => { typed.current = true; setQ(e.target.value); }}
+        onChange={(e) => { typed.current = true; setItems([]); setActive(-1); setOpen(false); setQ(e.target.value); }}
         onKeyDown={(e) => {
           if (!showList) return;
           if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => (a + 1) % items.length); }

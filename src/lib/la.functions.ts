@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { HOUSE, SUPERVISORS, SUPERVISORS_URL } from "@/lib/reps";
+import { addressLabel, matchesHouseNumber, selectGeocodingHit, type GeocodingHit } from "@/lib/address-geocoding";
 
 const HUB = "https://maps.lacity.org/lahub/rest/services/Boundaries/MapServer";
 const COUNTY = "https://public.gis.lacounty.gov/public/rest/services/LACounty_Dynamic/Political_Boundaries/MapServer";
@@ -43,18 +44,15 @@ export const lookupAddress = createServerFn({ method: "GET" })
     const q = data.q;
     // Bias to LA County (viewbox) so short queries resolve locally.
     const geo = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&countrycodes=us&viewbox=-118.95,34.82,-117.65,33.70&bounded=1&q=${encodeURIComponent(q)}`,
+      `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&countrycodes=us&viewbox=-118.95,34.82,-117.65,33.70&bounded=1&q=${encodeURIComponent(q)}`,
       { headers: { "User-Agent": UA, "Accept-Language": "en" } },
     );
     if (!geo.ok) return { status: "notfound", query: q };
-    const hits = (await geo.json()) as {
-      lat: string; lon: string; display_name: string;
-      address?: Record<string, string>;
-    }[];
-    const hit = hits[0];
+    const hits = (await geo.json()) as GeocodingHit[];
+    const hit = selectGeocodingHit(q, hits);
     if (!hit) return { status: "notfound", query: q };
     const lat = Number(hit.lat), lng = Number(hit.lon);
-    const label = hit.display_name.split(", ").slice(0, 3).join(", ");
+    const label = addressLabel(hit);
     const [cityB, cd, ncs, trash, sup, cong] = await Promise.all([
       hubPoint(7, lng, lat), hubPoint(13, lng, lat), hubPoint(18, lng, lat), hubPoint(22, lng, lat),
       hubPoint(27, lng, lat, COUNTY), hubPoint(29, lng, lat, COUNTY),
@@ -110,6 +108,9 @@ export const suggestAddresses = createServerFn({ method: "GET" })
       const seen = new Set<string>();
       const out: Suggestion[] = [];
       for (const { properties: p } of j.features ?? []) {
+        // Photon may return the street when its index has no matching house.
+        // Never offer that result as a replacement for a numbered address.
+        if (!matchesHouseNumber(data.q, p["housenumber"])) continue;
         const street = [p["housenumber"], p["street"]].filter(Boolean).join(" ");
         const label = p["name"] && p["name"] !== street ? p["name"] : street || p["name"];
         if (!label) continue;
