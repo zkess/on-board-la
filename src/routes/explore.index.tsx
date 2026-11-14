@@ -67,7 +67,7 @@ function Toolkit() {
     <section id="toolkit" className="mt-14 border-t-2 border-border pt-10">
       <p className="text-xs font-semibold uppercase tracking-widest text-sunset-text">For every Angeleno</p>
       <h2 className="mt-1 font-display text-3xl font-bold text-foreground">The citywide toolkit</h2>
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">The same essentials apply wherever you live in LA. Cal</p>
+      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">The same essentials apply wherever you live in LA.&nbsp;</p>
       <div className="mt-6 grid gap-5 md:grid-cols-3">
         {featured.map((f) => {
           const app = APPS.find((a) => a.name === f.name);
