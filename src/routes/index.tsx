@@ -26,9 +26,9 @@ function Index() {
         <div className="home-wrap home-intro">
           <p className="home-eyebrow">For new and aspiring Angelenos</p>
           <h1 className="home-title font-sign">ON <span className="text-primary">BOARD</span> LA</h1>
+          <div className="home-search"><AddressSearch /></div>
           <p className="home-subtitle">It's time to feel like a local.</p>
           <p className="home-summary">Type any Los Angeles address and get trash day, your elected officials, neighborhood news, and a little history lesson.{"\n\n"}No address handy? Try one of the famous spots below.</p>
-          <div className="home-search"><AddressSearch /></div>
           <p className="home-search-note">{"\n\n"}</p>
         </div>
       </section>
