@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AddressSearch } from "@/components/AddressSearch";
 import { LANDMARKS } from "@/lib/la-data";
 import { Star, Waves, TowerControl, TrainFront, Music, Landmark } from "lucide-react";
-import observatory from "@/assets/griffith-observatory-home.asset.json";
 
 const spotIcons = [Star, Waves, TowerControl, TrainFront, Music, Landmark];
 
@@ -31,12 +30,6 @@ function Index() {
           <p className="home-summary">Type any LA address and get trash day, your elected officials, neighborhood news, and a little history of the block.</p>
           <div className="home-search"><AddressSearch /></div>
           <p className="home-search-note">No address handy? Try one of the famous spots below.</p>
-        </div>
-        <div className="home-wrap home-photo-wrap">
-          <figure className="home-photo">
-            <img src={observatory.url} alt="Griffith Observatory at dusk, its illuminated white walls and three domes against a pink and lavender sky" fetchPriority="high" />
-            <figcaption>Griffith Observatory, Los Feliz · Photo: <a href="https://commons.wikimedia.org/wiki/File:Griffith_Observatory,_Los_Angeles_2011.jpg" className="underline">Pedro Szekely</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0" className="underline">CC BY-SA 2.0</a>, via Wikimedia Commons</figcaption>
-          </figure>
         </div>
       </section>
       <section id="spots" className="home-spots">
