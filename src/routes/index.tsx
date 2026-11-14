@@ -28,7 +28,7 @@ function Index() {
           <h1 className="home-title font-sign">ON <span className="text-twilight">BOARD</span> LA</h1>
           <div className="home-search"><AddressSearch /></div>
           <p className="home-subtitle">It's time to feel like a local.</p>
-          <p className="home-summary">Type any address for trash day, your representatives, neighborhood history, and more.</p>
+          <p className="home-summary">Type any address in Los Angeles for trash day, your representatives, neighborhood history, and more.</p>
         </div>
       </section>
       <section className="home-steps">
