@@ -26,8 +26,8 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
     <p className="text-xs uppercase tracking-wider text-muted-foreground">Trash day</p><p className="font-display text-2xl font-bold text-primary">{d.trashDay ?? "—"}</p>
     <p className="resource-description mt-1">{"\n"}</p>
     <ul className="resource-list mt-4">
-      <li><A href="https://ladotlivestreetsweeping.lacity.org">Street sweeping route lookup</A><span className="resource-description block">Street sweeping</span></li>
-      <li><A href="https://myla311.lacity.gov">Bulky item pickup (MyLA311)</A><span className="resource-description block">Free bulky item pickup</span></li>
+      <li><A href="https://ladotlivestreetsweeping.lacity.org">Street sweeping route lookup</A></li>
+      <li><A href="https://myla311.lacity.gov">Bulky item pickup (MyLA311)</A></li>
     </ul>
     <SanitationDetails />
     </>);

@@ -8,3 +8,4 @@
 - [x] Apply uploaded sunny dashboard styling, fix header and heading overlap, and add Venice sunset time.
 - [x] Recreate the homepage from the uploaded HTML reference while retaining address search and dashboard links.
 - [x] Remove the sunset chip and Dashboard menu item.
+- [x] Remove the selected bulky-item and street-sweeping descriptions while retaining their links.
