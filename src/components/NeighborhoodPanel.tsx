@@ -40,7 +40,6 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
       {d.supervisor && <Row label={`County Supervisor · District ${d.supervisor.district}`}><A href={d.supervisor.url}>{d.supervisor.name ?? "Board of Supervisors"}</A></Row>}
       {d.congress && <Row label={`U.S. Congress · CA-${d.congress.district}`}><A href={d.congress.url}>{d.congress.name ?? "Find yours"}</A></Row>}
       {d.nc && <Row label="Neighborhood Council">{d.nc.empowerla ? <A href={d.nc.empowerla}>{d.nc.name}</A> : d.nc.name}</Row>}
-      <li><A href="https://lacity.gov/neighborhoodinfo">City of LA Neighborhood Info</A><span className="resource-description block">Official lookup for your districts and city services</span></li>
       <li className="text-xs text-muted-foreground">Constituent help: call <strong className="text-foreground">3-1-1</strong></li>
     </ul>);
   }

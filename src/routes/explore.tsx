@@ -66,6 +66,12 @@ function ExploreLayout() {
           </>
         ) : data.status === "outside" ? <Outside city={data.city} label={data.label} /> : <NotFound q={data.query} />}
       </main>
+      <footer className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-5 py-6 text-[15px] text-muted-foreground">
+          Want the official version? Check the{" "}
+          <a href="https://lacity.gov/neighborhoodinfo" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">City of LA Neighborhood Info lookup</a>.
+        </div>
+      </footer>
     </div>
   );
 }
