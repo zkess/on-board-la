@@ -4,6 +4,9 @@ import { useEffect, useId, useRef, useState } from "react";
 import { MapPin, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { suggestAddresses, type Suggestion } from "@/lib/la.functions";
+import { requestedHouseNumber } from "@/lib/address-geocoding";
+
+const cache = new Map<string, Suggestion[]>();
 
 export function AddressSearch({ initial = "", compact = false }: { initial?: string; compact?: boolean }) {
   const [q, setQ] = useState(initial);
@@ -16,12 +19,16 @@ export function AddressSearch({ initial = "", compact = false }: { initial?: str
   const listId = useId();
 
   useEffect(() => {
-    if (!typed.current || q.trim().length < 3) { setItems([]); return; }
+    const key = q.trim().toLowerCase();
+    if (!typed.current || key.length < 3) { setItems([]); return; }
+    const hit = cache.get(key);
+    if (hit) { setItems(hit); setActive(-1); setOpen(true); return; }
     let cancelled = false;
     const t = setTimeout(async () => {
-      const res = await suggest({ data: { q: q.trim() } }).catch(() => []);
+      const res = await suggest({ data: { q: q.trim() } }).catch(() => [] as Suggestion[]);
+      cache.set(key, res);
       if (!cancelled) { setItems(res); setActive(-1); setOpen(true); }
-    }, 300);
+    }, 120);
     return () => { cancelled = true; clearTimeout(t); };
   }, [q, suggest]);
 
@@ -43,7 +50,7 @@ export function AddressSearch({ initial = "", compact = false }: { initial?: str
       <Search className="ml-3 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden />
       <input
         value={q}
-        onChange={(e) => { typed.current = true; setItems([]); setActive(-1); setOpen(false); setQ(e.target.value); }}
+        onChange={(e) => { typed.current = true; if (requestedHouseNumber(e.target.value) !== requestedHouseNumber(q)) { setItems([]); setOpen(false); } setActive(-1); setQ(e.target.value); }}
         onKeyDown={(e) => {
           if (!showList) return;
           if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => (a + 1) % items.length); }
