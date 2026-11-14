@@ -1,18 +1,28 @@
 import { queryOptions } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
 import { regionKey } from "@/lib/region";
-import type { Tables } from "@/integrations/supabase/types";
+import factsData from "@/data/neighborhood-facts.json";
 
-export type Fact = Tables<"neighborhood_facts">;
+export type Fact = {
+  id: string;
+  region: string;
+  neighborhood: string | null;
+  fact: string;
+  source_title: string;
+  source_publisher: string;
+  source_author: string | null;
+  source_date: string | null;
+  source_url: string;
+  source_note: string | null;
+  created_at: string;
+};
+
+/** All facts, read from the bundled JSON file so they can be audited and edited directly. */
+export const FACTS = factsData as Fact[];
 
 export const factsQuery = queryOptions({
   queryKey: ["neighborhood_facts"],
-  queryFn: async () => {
-    const { data, error } = await supabase.from("neighborhood_facts").select("*");
-    if (error) throw error;
-    return data;
-  },
-  staleTime: 60 * 60 * 1000,
+  queryFn: async () => FACTS,
+  staleTime: Infinity,
 });
 
 /** Facts for an area: this neighborhood's own facts first, then region-wide ones, then others in the region. */

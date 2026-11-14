@@ -32,7 +32,7 @@ use the editor.
 ## Project rules
 - Address lookups run in a server function (OpenStreetMap geocoding + LA City GeoHub boundary layers) so third-party calls stay off the browser and need no keys.
 - The map uses Leaflet with OpenStreetMap tiles, loaded lazily behind ClientOnly because Leaflet touches `window` on import.
-- Neighborhood history facts live in the neighborhood_facts table, each row carrying its source credit (publisher, author, date, URL, original-record note) so every fact shown is attributable.
+- Neighborhood history facts live in src/data/neighborhood-facts.json (exported from the old table), each carrying its source credit, so they can be audited and edited without admin credentials.
 - Neighborhood subreddit links use a curated directory with coverage evidence and neighborhood-name matching, not regional fallbacks, to avoid unrelated communities.
 - The neighborhood dashboard lives at /explore with shared content panels outside the routes; /explore/guide redirects there to preserve old links.
 - Header neighborhood matching runs server-side against bundled original Mapping L.A. V6 GeoJSON using Turf point-in-polygon; return it separately from EmpowerLA council data, with a council-name fallback only when no Times polygon matches.

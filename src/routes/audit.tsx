@@ -66,6 +66,7 @@ function Facts() {
           {regions.map((r) => <option key={r}>{r}</option>)}
         </select>
         <span className="self-center resource-description">{rows.length} of {data.length}</span>
+        <Button variant="outline" onClick={() => { const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" })); const a = document.createElement("a"); a.href = url; a.download = "neighborhood-facts.json"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 30000); }}>Download facts JSON</Button>
       </div>
       <ol className="mt-6 space-y-4">
         {rows.map((f) => (
