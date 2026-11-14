@@ -39,6 +39,8 @@
   --radius-4xl: calc(var(--radius) + 16px);
   --color-sunset-text: var(--sunset-text);
   --color-twilight: var(--twilight);
+  --color-dashboard-contrast: var(--dashboard-contrast);
+  --color-dashboard-contrast-surface: var(--dashboard-contrast-surface);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -89,6 +91,8 @@
   --sun: oklch(0.85369677 0.15720698 84.12997828);
   --bloom: oklch(0.63721718 0.20166279 5.34641453);
   --twilight: oklch(0.28831937 0.05029678 265.90019347);
+  --dashboard-contrast: var(--twilight);
+  --dashboard-contrast-surface: color-mix(in oklab, var(--twilight) 8%, var(--sand));
   --radius: 0.5rem;
   --background: var(--sand);
   --foreground: var(--ink);

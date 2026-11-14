@@ -34,14 +34,14 @@ function Guide() {
     <div>
       <div className="grid gap-5 md:grid-cols-3">
         {tiles.map((x) => (
-          <section key={x.id} className="rounded-3xl border border-border bg-card p-6 shadow-soft">
-            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold"><x.icon className="h-5 w-5 text-primary" />{x.label}</h2>
+          <section key={x.id} className="rounded-3xl border border-border border-t-4 border-t-dashboard-contrast bg-card p-6 shadow-soft">
+            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-dashboard-contrast"><x.icon className="h-5 w-5 shrink-0 text-dashboard-contrast" />{x.label}</h2>
             <Panel id={x.id} localOnly />
           </section>
         ))}
       </div>
-      <section className="mt-10 rounded-3xl border border-border bg-card p-6 shadow-soft md:p-10">
-        <h2 className="mb-5 flex items-center gap-2 font-display text-3xl font-bold"><history.icon className="h-6 w-6 text-primary" />{history.label}</h2>
+      <section className="mt-10 rounded-3xl border border-dashboard-contrast/25 bg-dashboard-contrast-surface p-6 shadow-soft md:p-10">
+        <h2 className="mb-5 flex items-center gap-2 font-display text-3xl font-bold text-dashboard-contrast"><history.icon className="h-6 w-6 shrink-0 text-dashboard-contrast" />{history.label}</h2>
         <Panel id="history" localOnly />
       </section>
       <Toolkit />
@@ -57,9 +57,9 @@ function Toolkit() {
     { title: "Local news radio", icon: Radio, items: RADIO },
   ];
   return (
-    <section className="mt-14 border-t border-border pt-10">
+    <section className="mt-14 border-t-2 border-dashboard-contrast/30 pt-10">
       <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">For every Angeleno</p>
-      <h2 className="mt-1 font-display text-3xl font-bold">The citywide toolkit</h2>
+      <h2 className="mt-1 font-display text-3xl font-bold text-dashboard-contrast">The citywide toolkit</h2>
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">The same essentials apply wherever you live in LA. Call 3-1-1 for any city service.</p>
       <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {cols.map((c) => (
