@@ -9,3 +9,5 @@
 - [x] Recreate the homepage from the uploaded HTML reference while retaining address search and dashboard links.
 - [x] Remove the sunset chip and Dashboard menu item.
 - [x] Remove the selected bulky-item and street-sweeping descriptions while retaining their links.
+- [x] Add an audit dashboard for facts, photos, trash and representatives.
+- [x] Add an About page.
