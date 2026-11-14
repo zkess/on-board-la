@@ -6,3 +6,5 @@
 - [x] Add sourced recycling, composting and property permit guidance to Streets and Sanitation.
 - [x] Apply Golden Hour visual styling without changing page layouts or generating images.
 - [x] Apply uploaded sunny dashboard styling, fix header and heading overlap, and add Venice sunset time.
+- [x] Recreate the homepage from the uploaded HTML reference while retaining address search and dashboard links.
+- [x] Remove the sunset chip and Dashboard menu item.

@@ -4,7 +4,6 @@ import { lookupAddress } from "@/lib/la.functions";
 import { AddressSearch } from "@/components/AddressSearch";
 import { INDEPENDENT_CITIES } from "@/lib/la-data";
 import { heroFor, heroSrc, heroPage } from "@/lib/hero-images";
-import { SunsetChip } from "@/components/SunsetChip";
 import { useEffect, useRef } from "react";
 
 export const Route = createFileRoute("/explore")({
@@ -36,13 +35,6 @@ export const Route = createFileRoute("/explore")({
   component: ExploreLayout,
 });
 
-const tabs = [
-  { to: "/explore", label: "Dashboard" },
-  // Temporarily hidden while we focus on the dashboard:
-  // { to: "/explore/checklist", label: "Newcomer Checklist" },
-  // { to: "/explore/map", label: "Interactive Map" },
-] as const;
-
 function ExploreLayout() {
   const data = Route.useLoaderData();
   const { q } = Route.useSearch();
@@ -61,20 +53,9 @@ function ExploreLayout() {
   return (
     <div ref={pageRef} className="dashboard-page min-h-screen">
       <header ref={headerRef} className="dashboard-header sticky top-0 z-[1000] border-b border-border bg-background">
-        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3 md:grid-cols-[auto_auto_minmax(0,1fr)]">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-4 px-5 py-3 md:grid-cols-[auto_minmax(0,1fr)]">
           <Link to="/" className="min-w-0 font-display text-xl font-bold">LA <span className="italic text-primary">Onboarding</span></Link>
-          {data.status === "ok" && (
-            <nav className="flex shrink-0 gap-1 rounded-full bg-muted p-1 text-sm">
-              {tabs.map((t) => (
-                <Link key={t.to} to={t.to} search={{ q }} activeOptions={{ exact: true, includeSearch: false }}
-                  className="rounded-full px-3 py-1.5 text-muted-foreground transition hover:text-foreground"
-                  activeProps={{ className: "bg-card text-foreground shadow-soft underline decoration-accent decoration-[3px] underline-offset-8" }}>
-                  {t.label}
-                </Link>
-              ))}
-            </nav>
-          )}
-          <div className="col-span-2 min-w-0 w-full md:col-span-1 md:justify-self-end md:max-w-lg"><AddressSearch key={q} initial={q} compact /></div>
+          <div className="min-w-0 w-full md:justify-self-end md:max-w-lg"><AddressSearch key={q} initial={q} compact /></div>
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-5 py-8">
@@ -123,7 +104,6 @@ function Hero({ label, neighborhood, nc, region }: { label: string; neighborhood
       <div className="relative overflow-hidden rounded-[20px]">
         <img src={heroSrc(h)} alt={h.subject} width={1600} height={640} className="h-[320px] w-full object-cover" />
         <div className="hero-warm-tint pointer-events-none absolute inset-0" />
-        {hood === "Venice" && <div className="absolute left-3 top-3"><SunsetChip /></div>}
         <figcaption className="hero-credit absolute bottom-9 right-3 max-w-[calc(100%-1.5rem)] rounded-md bg-tile-light px-2 py-1 text-right text-muted-foreground">
           <a href={heroPage(h)} target="_blank" rel="noreferrer" className="hover:underline"><span className="inline-block">{h.subject} · {h.author}</span>{" · "}<span className="inline-block">{h.license} · Wikimedia Commons</span></a>
         </figcaption>

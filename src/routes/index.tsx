@@ -1,13 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AddressSearch } from "@/components/AddressSearch";
 import { LANDMARKS } from "@/lib/la-data";
+import { Star, Waves, TowerControl, TrainFront, Music, Landmark } from "lucide-react";
+import observatory from "@/assets/griffith-observatory-home.asset.json";
+
+const spotIcons = [Star, Waves, TowerControl, TrainFront, Music, Landmark];
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LA Onboarding — Your civic welcome to Los Angeles" },
+      { title: "ON BOARD LA — Your civic welcome to Los Angeles" },
       { name: "description", content: "Enter your address to meet your Councilmember, Neighborhood Council, trash day, local press and more." },
-      { property: "og:title", content: "LA Onboarding" },
+      { property: "og:title", content: "ON BOARD LA — Your civic welcome to Los Angeles" },
       { property: "og:description", content: "Everything a new City of Los Angeles resident needs to get civically plugged in." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -18,23 +22,59 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-16">
-      <h1 className="relative text-center font-sign text-7xl font-normal md:text-9xl sign-title">
-        ON <span className="text-primary">BOARD LA</span>
-      </h1>
-      <p className="relative mt-4 max-w-md text-center text-muted-foreground">New or aspiring resident? It's time to get up to speed.</p>
-      <div className="relative mt-10 flex w-full justify-center"><AddressSearch /></div>
-      <p className="relative mt-12 text-sm text-muted-foreground">Check out the onboarding for these famous spots.</p>
-      <ul className="relative mt-4 flex max-w-3xl flex-wrap justify-center gap-3">
-        {LANDMARKS.map((l) => (
-          <li key={l.name}>
-            <Link to="/explore" search={{ q: l.q }} className="block rounded-2xl border border-border bg-card px-4 py-3 transition hover:-translate-y-0.5 hover:border-primary hover:shadow-soft">
-              <span className="block font-display text-lg font-semibold">{l.name}</span>
-              <span className="block text-xs text-muted-foreground">{l.blurb}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <main className="home-page" id="top">
+      <section className="home-welcome">
+        <div className="home-wrap home-intro">
+          <p className="home-eyebrow">For new and aspiring Angelenos</p>
+          <h1 className="home-title font-sign">ON <span className="text-primary">BOARD</span> LA</h1>
+          <p className="home-subtitle">New or aspiring resident? It's time to get up to speed.</p>
+          <p className="home-summary">Type any LA address and get trash day, your elected officials, neighborhood news, and a little history of the block.</p>
+          <div className="home-search"><AddressSearch /></div>
+          <p className="home-search-note">No address handy? Try one of the famous spots below.</p>
+        </div>
+        <div className="home-wrap home-photo-wrap">
+          <figure className="home-photo">
+            <img src={observatory.url} alt="Griffith Observatory at dusk, its illuminated white walls and three domes against a pink and lavender sky" fetchPriority="high" />
+            <figcaption>Griffith Observatory, Los Feliz · Photo: <a href="https://commons.wikimedia.org/wiki/File:Griffith_Observatory,_Los_Angeles_2011.jpg" className="underline">Pedro Szekely</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0" className="underline">CC BY-SA 2.0</a>, via Wikimedia Commons</figcaption>
+          </figure>
+        </div>
+      </section>
+      <section id="spots" className="home-spots">
+        <div className="home-wrap home-section-inner">
+          <p className="home-eyebrow text-accent">Famous spots</p>
+          <h2 className="home-section-title text-sand">Start with a place you already know</h2>
+          <p className="home-section-description">Check out the onboarding for these famous spots.</p>
+          <ul className="home-spot-grid">
+            {LANDMARKS.map((l, i) => {
+              const Icon = spotIcons[i] ?? Landmark;
+              return <li key={l.name}>
+                <Link to="/explore" search={{ q: l.q }} className="home-spot">
+                  <span className={`home-spot-chip home-spot-chip-${i}`}><Icon size={28} aria-hidden="true" /></span>
+                  <span className="min-w-0"><span className="home-spot-name">{l.name}</span><span className="resource-description block">{l.blurb}</span></span>
+                </Link>
+              </li>;
+            })}
+          </ul>
+        </div>
+      </section>
+      <section className="home-steps">
+        <div className="home-wrap home-section-inner">
+          <p className="home-eyebrow text-sunset-text">How it works</p>
+          <h2 className="home-section-title">Three steps to feeling like a local</h2>
+          <ol className="home-step-grid">
+            <li><span className="home-step-number font-sign" aria-hidden="true">1</span><h3>Type any LA address</h3><p>A street address, a landmark, or just a neighborhood you are curious about. Start anywhere.</p></li>
+            <li><span className="home-step-number font-sign" aria-hidden="true">2</span><h3>Get your neighborhood dashboard</h3><p>Trash and recycling day, your council member and county supervisor, local news, and a bit of history.</p></li>
+            <li><span className="home-step-number font-sign" aria-hidden="true">3</span><h3>Keep the essentials handy</h3><p>Quick links to MyLA311, 211 LA, Metro TAP, and local radio, the same for every neighborhood.</p></li>
+          </ol>
+        </div>
+      </section>
+      <footer className="home-footer">
+        <div className="home-wrap home-footer-inner">
+          <p className="font-sign text-[32px]">ON BOARD LA</p>
+          <p>For every Angeleno. Call <strong>3-1-1</strong> for any city service.</p>
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2"><a href="#spots">Famous spots</a><a href="#top">Search an address</a></nav>
+        </div>
+      </footer>
     </main>
   );
 }
