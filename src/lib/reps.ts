@@ -5,16 +5,21 @@ export const SUPERVISORS: Record<number, string> = {
 export const SUPERVISORS_URL = "https://bos.lacounty.gov/";
 
 export const HOUSE: Record<number, { name: string; url: string }> = {
+  23: { name: "Jay Obernolte", url: "https://obernolte.house.gov" },
+  26: { name: "Julia Brownley", url: "https://juliabrownley.house.gov" },
   27: { name: "George Whitesides", url: "https://whitesides.house.gov" },
   28: { name: "Judy Chu", url: "https://chu.house.gov" },
   29: { name: "Luz Rivas", url: "https://rivas.house.gov" },
   30: { name: "Laura Friedman", url: "https://friedman.house.gov" },
+  31: { name: "Gil Cisneros", url: "https://cisneros.house.gov" },
   32: { name: "Brad Sherman", url: "https://sherman.house.gov" },
   34: { name: "Jimmy Gomez", url: "https://gomez.house.gov" },
+  35: { name: "Norma Torres", url: "https://torres.house.gov" },
   36: { name: "Ted Lieu", url: "https://lieu.house.gov" },
   37: { name: "Sydney Kamlager-Dove", url: "https://kamlager-dove.house.gov" },
   38: { name: "Linda Sánchez", url: "https://lindasanchez.house.gov" },
   42: { name: "Robert Garcia", url: "https://robertgarcia.house.gov" },
   43: { name: "Maxine Waters", url: "https://waters.house.gov" },
   44: { name: "Nanette Barragán", url: "https://barragan.house.gov" },
+  45: { name: "Derek Tran", url: "https://tran.house.gov" },
 };
