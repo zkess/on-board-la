@@ -61,10 +61,10 @@ function ExploreLayout() {
   return (
     <div ref={pageRef} className="dashboard-page min-h-screen">
       <header ref={headerRef} className="dashboard-header sticky top-0 z-[1000] border-b border-border bg-background">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-5 py-3">
-          <Link to="/" className="font-display text-xl font-bold">LA <span className="italic text-primary">Onboarding</span></Link>
+        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3 md:grid-cols-[auto_auto_minmax(0,1fr)]">
+          <Link to="/" className="min-w-0 font-display text-xl font-bold">LA <span className="italic text-primary">Onboarding</span></Link>
           {data.status === "ok" && (
-            <nav className="flex gap-1 rounded-full bg-muted p-1 text-sm">
+            <nav className="flex shrink-0 gap-1 rounded-full bg-muted p-1 text-sm">
               {tabs.map((t) => (
                 <Link key={t.to} to={t.to} search={{ q }} activeOptions={{ exact: true, includeSearch: false }}
                   className="rounded-full px-3 py-1.5 text-muted-foreground transition hover:text-foreground"
@@ -74,7 +74,7 @@ function ExploreLayout() {
               ))}
             </nav>
           )}
-          <div className="ml-auto w-full md:w-auto"><AddressSearch key={q} initial={q} compact /></div>
+          <div className="col-span-2 min-w-0 w-full md:col-span-1 md:justify-self-end md:max-w-lg"><AddressSearch key={q} initial={q} compact /></div>
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-5 py-8">

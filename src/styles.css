@@ -195,4 +195,8 @@
 .civic-tile-press .civic-icon { background: color-mix(in oklab, var(--bloom) 15%, var(--sand)); color: var(--sunset); }
 @media (hover: hover) { .civic-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow-lifted); } }
 @media (max-width: 767px) { .dashboard-page { --header-height: 160px; } }
+@media (max-width: 639px) {
+  .dashboard-page .uppercase { font-size: 15px; }
+  .dashboard-page .hero-credit { font-size: 15px; }
+}
 @media (prefers-reduced-motion: reduce) { .civic-tile { transition: none; } .civic-tile:hover { transform: none; } }

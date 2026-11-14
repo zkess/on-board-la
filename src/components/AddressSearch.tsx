@@ -12,7 +12,7 @@ export function AddressSearch({ initial = "", compact = false }: { initial?: str
         e.preventDefault();
         if (q.trim().length > 1) navigate({ to: "/explore", search: { q: q.trim() } });
       }}
-      className={`flex w-full items-center gap-2 rounded-full border border-border bg-card p-1.5 shadow-soft ${compact ? "max-w-md" : "max-w-xl"}`}
+      className={`flex w-full items-center gap-2 rounded-full border border-border bg-card p-1.5 shadow-soft ${compact ? "max-w-lg" : "max-w-xl"}`}
     >
       <Search className="ml-3 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden />
       <input
