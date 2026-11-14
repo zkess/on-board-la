@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { HOUSE, SUPERVISORS, SUPERVISORS_URL } from "@/lib/reps";
-import { addressLabel, matchesHouseNumber, selectGeocodingHit, type GeocodingHit } from "@/lib/address-geocoding";
+import { addressLabel, matchesHouseNumber, selectGeocodingHit, selectStreetFallback, streetOnlyQuery, requestedHouseNumber, type GeocodingHit } from "@/lib/address-geocoding";
 
 const HUB = "https://maps.lacity.org/lahub/rest/services/Boundaries/MapServer";
 const COUNTY = "https://public.gis.lacounty.gov/public/rest/services/LACounty_Dynamic/Political_Boundaries/MapServer";
@@ -9,11 +9,13 @@ const UA = "LA-Onboarding/1.0 (civic newcomer guide)";
 
 export type Lookup =
   | { status: "notfound"; query: string }
-  | { status: "outside"; query: string; label: string; city: string | null; lat: number; lng: number }
+  | { status: "outside"; query: string; label: string; approximate?: boolean; city: string | null; lat: number; lng: number }
   | {
       status: "ok";
       query: string;
       label: string;
+      /** True when the exact house number wasn't mapped and we used the street instead. */
+      approximate?: boolean;
       lat: number;
       lng: number;
       neighborhood: string | null;
@@ -43,16 +45,25 @@ export const lookupAddress = createServerFn({ method: "GET" })
   .handler(async ({ data }): Promise<Lookup> => {
     const q = data.q;
     // Bias to LA County (viewbox) so short queries resolve locally.
-    const geo = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&countrycodes=us&viewbox=-118.95,34.82,-117.65,33.70&bounded=1&q=${encodeURIComponent(q)}`,
-      { headers: { "User-Agent": UA, "Accept-Language": "en" } },
-    );
-    if (!geo.ok) return { status: "notfound", query: q };
-    const hits = (await geo.json()) as GeocodingHit[];
-    const hit = selectGeocodingHit(q, hits);
+    const search = async (text: string) => {
+      const r = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&countrycodes=us&viewbox=-118.95,34.82,-117.65,33.70&bounded=1&q=${encodeURIComponent(text)}`,
+        { headers: { "User-Agent": UA, "Accept-Language": "en" } },
+      );
+      return r.ok ? ((await r.json()) as GeocodingHit[]) : [];
+    };
+    const hits = await search(q);
+    let hit = selectGeocodingHit(q, hits);
+    let approximate = false;
+    if (!hit && requestedHouseNumber(q)) {
+      // Exact building isn't in OpenStreetMap: fall back to the street, clearly flagged as approximate.
+      hit = selectStreetFallback(hits);
+      if (!hit) { const street = streetOnlyQuery(q); if (street && street.length >= 2) hit = selectStreetFallback(await search(street)); }
+      approximate = !!hit;
+    }
     if (!hit) return { status: "notfound", query: q };
     const lat = Number(hit.lat), lng = Number(hit.lon);
-    const label = addressLabel(hit);
+    const label = approximate ? q : addressLabel(hit);
     const [cityB, cd, ncs, trash, sup, cong] = await Promise.all([
       hubPoint(7, lng, lat), hubPoint(13, lng, lat), hubPoint(18, lng, lat), hubPoint(22, lng, lat),
       hubPoint(27, lng, lat, COUNTY), hubPoint(29, lng, lat, COUNTY),
@@ -60,7 +71,7 @@ export const lookupAddress = createServerFn({ method: "GET" })
     const inCity = cityB.some((a) => a.CITY === "IN");
     if (!inCity) {
       const a = hit.address ?? {};
-      return { status: "outside", query: q, label, city: a["city"] ?? a["town"] ?? a["village"] ?? a["hamlet"] ?? null, lat, lng };
+      return { status: "outside", query: q, label, approximate, city: a["city"] ?? a["town"] ?? a["village"] ?? a["hamlet"] ?? null, lat, lng };
     }
     const c = cd[0];
     const dn = hit.display_name.toUpperCase();
@@ -68,7 +79,7 @@ export const lookupAddress = createServerFn({ method: "GET" })
     const t = trash[0];
     const { mappingLaNeighborhood } = await import("@/lib/mapping-la.server");
     return {
-      status: "ok", query: q, label, lat, lng,
+      status: "ok", query: q, label, approximate, lat, lng,
       neighborhood: mappingLaNeighborhood(lng, lat),
       council: c ? { district: Number(c.District), member: String(c.NAME), url: `https://cd${Number(c.District)}.lacity.gov/` } : null,
       nc: n ? {

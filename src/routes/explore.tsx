@@ -61,7 +61,7 @@ function ExploreLayout() {
       <main className="mx-auto max-w-6xl px-5 py-8">
         {data.status === "ok" ? (
           <>
-            <Hero label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
+            <Hero approximate={!!data.approximate} label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
             <Outlet />
           </>
         ) : data.status === "outside" ? <Outside city={data.city} label={data.label} /> : <NotFound q={data.query} />}
@@ -96,7 +96,7 @@ function NotFound({ q }: { q: string }) {
   );
 }
 
-function Hero({ label, neighborhood, nc, region }: { label: string; neighborhood: string | null; nc: string; region: string }) {
+function Hero({ approximate, label, neighborhood, nc, region }: { approximate: boolean; label: string; neighborhood: string | null; nc: string; region: string }) {
   const hood = neighborhood ?? (nc.replace(/ Neighborhood Council$/i, "").replace(/ NC$/i, "") || "the City of Los Angeles");
   const h = heroFor(hood, region);
   return (
@@ -111,6 +111,7 @@ function Hero({ label, neighborhood, nc, region }: { label: string; neighborhood
       <div className="hero-headline relative z-10 mx-3 -mt-6 rounded-[20px] bg-tile-light p-6 text-foreground shadow-soft md:mx-6 md:p-8">
         <p className="text-xs uppercase tracking-widest">{label}</p>
         <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">We're in <mark className="rounded-sm bg-accent px-1 text-accent-foreground">{hood}</mark>.</h1>
+        {approximate && <p role="note" className="mt-3 rounded-lg border border-border bg-muted px-3 py-2 text-[15px] leading-normal text-foreground">Approximate: we couldn't verify that exact building number, so this shows the general area for the street. Districts can change along a long street, so double-check with <a href="https://lacity.gov/neighborhoodinfo" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">the City's Neighborhood Info lookup</a>.</p>}
         {neighborhood && <a href="https://maps.latimes.com/about/" target="_blank" rel="noreferrer" className="mt-2 inline-block text-[15px] leading-normal text-primary underline underline-offset-4">Neighborhood boundaries: <span className="inline-block">Mapping L.A.</span></a>}
       </div>
     </figure>

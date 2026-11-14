@@ -32,7 +32,7 @@ use the editor.
 ## Project rules
 - Address lookups run in a server function (OpenStreetMap geocoding + LA City GeoHub boundary layers) so third-party calls stay off the browser and need no keys.
 - Address autofill uses Photon (komoot) through a server function, debounced; Nominatim forbids autocomplete use, so it stays for final lookups only.
-- Numbered address searches require matching house numbers in suggestions and final geocoding; never substitute street centroids because civic boundaries may differ along a street.
+- Numbered address searches require matching house numbers in suggestions; final lookup may fall back to the street only when flagged `approximate` and shown with a visible notice, because civic boundaries may differ along a street.
 - The map uses Leaflet with OpenStreetMap tiles, loaded lazily behind ClientOnly because Leaflet touches `window` on import.
 - Neighborhood history facts live in src/data/neighborhood-facts.json (exported from the old table), each carrying its source credit, so they can be audited and edited without admin credentials.
 - Neighborhood subreddit links use a curated directory with coverage evidence and neighborhood-name matching, not regional fallbacks, to avoid unrelated communities.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addressLabel, matchesHouseNumber, selectGeocodingHit, type GeocodingHit } from "@/lib/address-geocoding";
+import { selectStreetFallback, streetOnlyQuery, addressLabel, matchesHouseNumber, selectGeocodingHit, type GeocodingHit } from "@/lib/address-geocoding";
 
 const query = "24642 Rod Place, Los Angeles";
 const street: GeocodingHit = {
@@ -31,5 +31,15 @@ describe("Numbered address resolution", () => {
   it("still allows street and landmark searches without a house number", () => {
     expect(selectGeocodingHit("Rod Place, Los Angeles", [street])).toEqual(street);
     expect(matchesHouseNumber("Griffith Observatory", undefined)).toBe(true);
+  });
+});
+describe("Approximate street fallback", () => {
+  it("strips the house number to search the street", () => {
+    expect(streetOnlyQuery("13201 Bradley Ave, Sylmar")).toBe("Bradley Ave, Sylmar");
+    expect(streetOnlyQuery("Bradley Ave")).toBeUndefined();
+  });
+  it("falls back to the street hit, never a different house", () => {
+    expect(selectStreetFallback([house, street])).toEqual(street);
+    expect(selectStreetFallback([house])).toBeUndefined();
   });
 });
