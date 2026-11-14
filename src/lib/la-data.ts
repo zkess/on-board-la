@@ -1,5 +1,5 @@
 export const LANDMARKS = [
-  { name: "Griffith Observatory", q: "Griffith Observatory, Los Angeles", blurb: "El Pueblo · Birthplace of LA" },
+  { name: "Griffith Observatory", q: "Griffith Observatory, Los Angeles", blurb: "Los Feliz · Art Deco stargazing" },
   { name: "Venice Canals", q: "Venice Canals, Los Angeles", blurb: "Venice · Urban oasis" },
   { name: "Watts Towers", q: "Watts Towers, 1761 East 107th Street, Los Angeles", blurb: "Watts · Folk art masterpiece" },
   { name: "Union Station", q: "Union Station, 800 North Alameda Street, Los Angeles", blurb: "Downtown · Iconic arrival" },
