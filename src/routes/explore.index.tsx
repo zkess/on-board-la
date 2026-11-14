@@ -42,8 +42,8 @@ function Guide() {
         ))}
       </div>
       <section id="history" className="history-showpiece relative mt-10 overflow-hidden rounded-[20px] bg-accent p-6 text-accent-foreground shadow-soft md:p-10">
-        <span aria-hidden="true" className="pointer-events-none absolute left-4 top-0 font-display text-[120px] leading-none text-bloom">“</span>
-        <h2 className="relative mb-5 flex items-center gap-2 font-display text-3xl font-bold text-foreground"><history.icon className="h-6 w-6 shrink-0" />{history.label}</h2>
+        <span aria-hidden="true" className="pointer-events-none absolute right-4 top-0 w-16 text-right font-display text-[120px] leading-none text-bloom opacity-30">“</span>
+        <h2 className="relative mb-5 flex items-center gap-2 pr-20 font-display text-3xl font-bold text-foreground"><history.icon className="h-6 w-6 shrink-0" />{history.label}</h2>
         <Panel id="history" localOnly />
       </section>
       <Toolkit />

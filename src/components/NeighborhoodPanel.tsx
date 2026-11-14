@@ -48,9 +48,9 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
     const l = lore.length ? lore[i % lore.length] : null;
     if (!l) return <p>Loading local history…</p>;
     return (<>
-      <blockquote className="relative max-w-[68ch] font-display text-[32px] italic leading-snug">“{l.fact}”</blockquote>
+      <blockquote className="relative max-w-[68ch] font-display text-[28px] italic leading-snug">“{l.fact}”</blockquote>
       <p className="mt-3 text-xs text-muted-foreground">Source: <a className="underline" href={l.source_url} target="_blank" rel="noreferrer">{l.source_title}</a>, {l.source_publisher}</p>
-      {lore.length > 1 && <Button variant="outline" onClick={() => setI(Math.floor(Math.random() * lore.length))} className="mt-4 min-h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"><Shuffle className="h-4 w-4" />Another fact</Button>}
+      {lore.length > 1 && <Button variant="ink" onClick={() => setI(Math.floor(Math.random() * lore.length))} className="mt-4 min-h-12 rounded-full"><Shuffle className="h-4 w-4" />Another fact</Button>}
     </>);
   }
   const list = (items: { name: string; url: string; about: string }[]) => <ul className="resource-list">{items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="resource-description block">{n.about}</span></li>)}</ul>;
