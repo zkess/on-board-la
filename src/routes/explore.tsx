@@ -4,6 +4,8 @@ import { lookupAddress } from "@/lib/la.functions";
 import { AddressSearch } from "@/components/AddressSearch";
 import { INDEPENDENT_CITIES } from "@/lib/la-data";
 import { heroFor, heroSrc, heroPage } from "@/lib/hero-images";
+import { SunsetChip } from "@/components/SunsetChip";
+import { useEffect, useRef } from "react";
 
 export const Route = createFileRoute("/explore")({
   validateSearch: z.object({ q: z.string().catch("") }),
@@ -44,9 +46,21 @@ const tabs = [
 function ExploreLayout() {
   const data = Route.useLoaderData();
   const { q } = Route.useSearch();
+  const pageRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const header = headerRef.current;
+    const page = pageRef.current;
+    if (!header || !page) return;
+    const update = () => page.style.setProperty("--header-height", `${header.getBoundingClientRect().height}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-[1000] border-b border-border bg-background/90 backdrop-blur">
+    <div ref={pageRef} className="dashboard-page min-h-screen">
+      <header ref={headerRef} className="dashboard-header sticky top-0 z-[1000] border-b border-border bg-background">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-5 py-3">
           <Link to="/" className="font-display text-xl font-bold">LA <span className="italic text-primary">Onboarding</span></Link>
           {data.status === "ok" && (
@@ -105,17 +119,21 @@ function Hero({ label, neighborhood, nc, region }: { label: string; neighborhood
   const hood = neighborhood ?? (nc.replace(/ Neighborhood Council$/i, "").replace(/ NC$/i, "") || "the City of Los Angeles");
   const h = heroFor(hood, region);
   return (
-    <figure className="relative mb-10 overflow-hidden rounded-3xl shadow-soft">
-      <img src={heroSrc(h)} alt={h.subject} width={1600} height={640} className="h-64 w-full object-cover md:h-80" />
-      <div className="pointer-events-none absolute inset-0 bg-accent/10" />
-      <div className="absolute inset-x-0 bottom-0 bg-twilight/80 p-6 text-background md:p-8">
+    <figure className="relative mb-10">
+      <div className="relative overflow-hidden rounded-[20px]">
+        <img src={heroSrc(h)} alt={h.subject} width={1600} height={640} className="h-64 w-full object-cover md:h-80" />
+        <div className="hero-warm-tint pointer-events-none absolute inset-0" />
+        <svg aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-12 w-full text-background" viewBox="0 0 1200 48" preserveAspectRatio="none"><path fill="currentColor" d="M0 24 Q150 0 300 24 T600 24 T900 24 T1200 24 V48 H0Z" /></svg>
+        {hood === "Venice" && <div className="absolute left-3 top-3"><SunsetChip /></div>}
+      </div>
+      <div className="relative z-10 mx-3 -mt-12 rounded-[20px] bg-background p-6 text-foreground shadow-soft md:mx-6 md:p-8">
         <p className="text-xs uppercase tracking-widest">{label}</p>
         <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">We're in <mark className="rounded-sm bg-accent px-1 text-accent-foreground">{hood}</mark>.</h1>
-        {neighborhood && <a href="https://maps.latimes.com/about/" target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs text-background underline underline-offset-4">Neighborhood boundaries: Los Angeles Times Mapping L.A.</a>}
+        {neighborhood && <a href="https://maps.latimes.com/about/" target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs text-primary underline underline-offset-4">Neighborhood boundaries: Los Angeles Times Mapping L.A.</a>}
+        <figcaption className="mt-3 text-xs text-muted-foreground">
+          <a href={heroPage(h)} target="_blank" rel="noreferrer" className="hover:underline">{h.subject} · {h.author} · {h.license} · Wikimedia Commons</a>
+        </figcaption>
       </div>
-      <figcaption className="absolute right-3 top-3 max-w-[calc(100%-1.5rem)] rounded-md bg-background px-2 py-1 text-xs text-muted-foreground">
-        <a href={heroPage(h)} target="_blank" rel="noreferrer" className="hover:underline">{h.subject} · {h.author} · {h.license} · Wikimedia Commons</a>
-      </figcaption>
     </figure>
   );
 }

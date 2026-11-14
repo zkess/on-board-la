@@ -34,14 +34,15 @@ function Guide() {
     <div>
       <div className="grid gap-5 md:grid-cols-3">
         {tiles.map((x) => (
-          <section key={x.id} className="rounded-3xl border border-border border-t-4 border-t-dashboard-contrast bg-card p-6 shadow-soft">
-            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-dashboard-contrast"><x.icon className="h-5 w-5 shrink-0 text-dashboard-contrast" />{x.label}</h2>
+          <section key={x.id} id={x.id} className={`civic-tile civic-tile-${x.id} border border-border p-6 shadow-soft`}>
+            <h2 className="mb-4 flex items-start gap-3 font-display text-xl font-bold text-foreground"><span className="civic-icon inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><x.icon className="h-5 w-5" /></span><span className="min-w-0 self-center">{x.label}</span></h2>
             <Panel id={x.id} localOnly />
           </section>
         ))}
       </div>
-      <section className="mt-10 rounded-3xl border border-dashboard-contrast/25 bg-dashboard-contrast-surface p-6 shadow-soft md:p-10">
-        <h2 className="mb-5 flex items-center gap-2 font-display text-3xl font-bold text-dashboard-contrast"><history.icon className="h-6 w-6 shrink-0 text-dashboard-contrast" />{history.label}</h2>
+      <section id="history" className="history-showpiece relative mt-10 overflow-hidden rounded-[20px] bg-accent p-6 text-accent-foreground shadow-soft md:p-10">
+        <span aria-hidden="true" className="pointer-events-none absolute left-4 top-0 font-display text-[120px] leading-none text-bloom">“</span>
+        <h2 className="relative mb-5 flex items-center gap-2 font-display text-3xl font-bold text-foreground"><history.icon className="h-6 w-6 shrink-0" />{history.label}</h2>
         <Panel id="history" localOnly />
       </section>
       <Toolkit />
@@ -52,19 +53,19 @@ function Guide() {
 function Toolkit() {
   const cols = [
     { title: "Essential LA apps", icon: Smartphone, items: APPS.map((a) => ({ name: a.name, url: a.url, about: a.what })) },
-    { title: "City department news", icon: Building2, items: CITY_DEPARTMENTS },
+    { title: "City news", icon: Building2, items: CITY_DEPARTMENTS },
     { title: "Citywide independent press", icon: Newspaper, items: CITYWIDE },
     { title: "Local news radio", icon: Radio, items: RADIO },
   ];
   return (
-    <section className="mt-14 border-t-2 border-dashboard-contrast/30 pt-10">
-      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">For every Angeleno</p>
-      <h2 className="mt-1 font-display text-3xl font-bold text-dashboard-contrast">The citywide toolkit</h2>
+    <section id="toolkit" className="mt-14 border-t-2 border-border pt-10">
+      <p className="text-xs font-semibold uppercase tracking-widest text-sunset-text">For every Angeleno</p>
+      <h2 className="mt-1 font-display text-3xl font-bold text-foreground">The citywide toolkit</h2>
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">The same essentials apply wherever you live in LA. Call 3-1-1 for any city service.</p>
       <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {cols.map((c) => (
-          <div key={c.title} className="rounded-3xl border border-border bg-muted/40 p-6">
-            <h3 className="mb-3 flex items-center gap-2 font-display text-lg font-bold"><c.icon className="h-4 w-4 text-primary" />{c.title}</h3>
+          <div key={c.title} className="rounded-[20px] border border-border bg-muted p-6">
+            <h3 className="mb-3 flex items-start gap-2 text-lg font-bold"><c.icon className="mt-1 h-5 w-5 shrink-0 text-primary" /><span className="min-w-0">{c.title}</span></h3>
             <ul className="space-y-2 text-sm">{c.items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="block text-xs text-muted-foreground">{n.about}</span></li>)}</ul>
           </div>
         ))}
