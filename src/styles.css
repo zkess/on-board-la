@@ -185,7 +185,7 @@
 .hero-warm-tint { background: var(--hero-tint); }
 .civic-tile { border-radius: 20px; border-top-width: 6px; transition: transform 180ms ease, box-shadow 180ms ease; }
 .civic-tile-trash { border-top-color: var(--sun); background: var(--tile-light); }
-.civic-tile-reps { border-top-color: var(--ocean); background: var(--sand-deep); }
+.civic-tile-reps { border-top-color: var(--ocean); background: var(--tile-light); }
 .civic-tile-press { border-top-color: var(--bloom); background: var(--tile-light); }
 .civic-tile-trash .civic-icon { background: color-mix(in oklab, var(--sun) 25%, var(--sand)); color: var(--ink); }
 .civic-tile-reps .civic-icon { background: color-mix(in oklab, var(--ocean) 12%, var(--sand)); color: var(--ocean); }

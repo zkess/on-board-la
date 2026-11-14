@@ -33,7 +33,7 @@ function Guide() {
   if (!history) return null;
   return (
     <div>
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="grid auto-rows-fr items-stretch gap-5 md:grid-cols-3">
         {tiles.map((x) => (
           <section key={x.id} id={x.id} className={`civic-tile civic-tile-${x.id} border border-border p-6 shadow-soft`}>
             <h2 className="card-heading mb-4 flex items-start gap-3 font-bold text-foreground"><span className="civic-icon inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><x.icon className="h-5 w-5" /></span><span className="min-w-0 self-center">{x.label}</span></h2>
