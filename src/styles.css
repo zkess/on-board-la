@@ -171,8 +171,16 @@
 
 .dashboard-page { --header-height: 88px; }
 .dashboard-page section[id] { scroll-margin-top: var(--header-height); }
-.dashboard-page .text-xs { font-size: 1.125rem; line-height: 1.6; }
-.dashboard-page .uppercase { letter-spacing: 0; }
+.dashboard-page .text-xs { font-size: 15px; line-height: 1.5; }
+.dashboard-page .text-sm { font-size: 15px; line-height: 1.5; }
+.dashboard-page .uppercase { font-size: 12px; letter-spacing: 0.1em; color: var(--ink-soft); }
+.resource-link { font-size: 17px; font-weight: 600; line-height: 1.5; color: var(--ocean); }
+.resource-description { font-size: 15px; font-weight: 400; line-height: 1.5; color: var(--ink-soft); }
+.resource-list { display: flex; flex-direction: column; gap: 14px; }
+.resource-list > li { margin-block: 0; }
+.dashboard-page .card-heading { font-family: var(--font-display); font-size: 22px; line-height: 1.25; }
+.dashboard-page [data-slot="accordion-content"] p { font-size: 18px; line-height: 1.7; }
+.dashboard-page [data-slot="accordion-content"] a { font-size: 17px; font-weight: 600; color: var(--ocean); }
 .hero-warm-tint { background: var(--hero-tint); }
 .civic-tile { border-radius: 20px; border-top-width: 6px; transition: transform 180ms ease, box-shadow 180ms ease; }
 .civic-tile-trash { border-top-color: var(--sun); background: var(--tile-light); }

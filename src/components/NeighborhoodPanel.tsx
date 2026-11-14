@@ -13,7 +13,7 @@ const parent = getRouteApi("/explore");
 export type Id = "trash" | "reps" | "history" | "press" | "city" | "apps";
 
 export const A = ({ href, children }: { href: string; children: ReactNode }) => (
-  <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-medium text-primary underline underline-offset-4 hover:text-sunset-text">{children}<ExternalLink className="h-3 w-3 shrink-0" /></a>
+  <a href={href} target="_blank" rel="noreferrer" className="resource-link inline-flex items-center gap-1 text-primary underline underline-offset-4">{children}<ExternalLink className="h-3 w-3 shrink-0" /></a>
 );
 
 export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }) {
@@ -24,10 +24,10 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
   const region = d.nc?.region ?? "";
   if (id === "trash") return (<>
     <p className="text-xs uppercase tracking-wider text-muted-foreground">Trash day</p><p className="font-display text-2xl font-bold text-primary">{d.trashDay ?? "—"}</p>
-    <p className="mt-1 text-sm text-muted-foreground">Bins out by 6 a.m.&nbsp;</p>
-    <ul className="mt-4 space-y-1 text-sm">
-      <li>Street sweeping — <A href="https://ladotlivestreetsweeping.lacity.org">look up your route</A></li>
-      <li>Free bulky item pickup — <A href="https://myla311.lacity.gov">request on MyLA311</A></li>
+    <p className="resource-description mt-1">Bins out by 6 a.m.&nbsp;</p>
+    <ul className="resource-list mt-4">
+      <li><A href="https://ladotlivestreetsweeping.lacity.org">look up your route</A><span className="resource-description block">Street sweeping</span></li>
+      <li><A href="https://myla311.lacity.gov">request on MyLA311</A><span className="resource-description block">Free bulky item pickup</span></li>
     </ul>
     <SanitationDetails />
     </>);
@@ -35,7 +35,7 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
     const Row = ({ label, children }: { label: string; children: ReactNode }) => (
       <li><p className="text-xs uppercase tracking-wider text-muted-foreground">{label}</p><p className="mt-0.5 font-medium">{children}</p></li>
     );
-    return (<ul className="space-y-3 text-sm">
+    return (<ul className="resource-list">
       {d.council && <Row label={`City Council · District ${d.council.district}`}><A href={d.council.url}>{d.council.member}</A></Row>}
       {d.supervisor && <Row label={`County Supervisor · District ${d.supervisor.district}`}><A href={d.supervisor.url}>{d.supervisor.name ?? "Board of Supervisors"}</A></Row>}
       {d.congress && <Row label={`U.S. Congress · CA-${d.congress.district}`}><A href={d.congress.url}>{d.congress.name ?? "Find yours"}</A></Row>}
@@ -53,7 +53,7 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
       {lore.length > 1 && <Button variant="outline" onClick={() => setI(Math.floor(Math.random() * lore.length))} className="mt-4 min-h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"><Shuffle className="h-4 w-4" />Another fact</Button>}
     </>);
   }
-  const list = (items: { name: string; url: string; about: string }[]) => <ul className="space-y-2 text-sm">{items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="block text-xs text-muted-foreground">{n.about}</span></li>)}</ul>;
+  const list = (items: { name: string; url: string; about: string }[]) => <ul className="resource-list">{items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="resource-description block">{n.about}</span></li>)}</ul>;
   if (id === "press") {
     const local = hyperlocalFor(d.nc?.name ?? "", region);
     const communities = subredditsFor(d.nc?.name ?? "");

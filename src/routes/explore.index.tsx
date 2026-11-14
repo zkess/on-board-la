@@ -35,7 +35,7 @@ function Guide() {
       <div className="grid gap-5 md:grid-cols-3">
         {tiles.map((x) => (
           <section key={x.id} id={x.id} className={`civic-tile civic-tile-${x.id} border border-border p-6 shadow-soft`}>
-            <h2 className="mb-4 flex items-start gap-3 font-display text-xl font-bold text-foreground"><span className="civic-icon inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><x.icon className="h-5 w-5" /></span><span className="min-w-0 self-center">{x.label}</span></h2>
+            <h2 className="card-heading mb-4 flex items-start gap-3 font-bold text-foreground"><span className="civic-icon inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><x.icon className="h-5 w-5" /></span><span className="min-w-0 self-center">{x.label}</span></h2>
             <Panel id={x.id} localOnly />
           </section>
         ))}
@@ -65,8 +65,8 @@ function Toolkit() {
       <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {cols.map((c) => (
           <div key={c.title} className="rounded-[20px] border border-border bg-muted p-6">
-            <h3 className="mb-3 flex items-start gap-2 text-lg font-bold"><c.icon className="mt-1 h-5 w-5 shrink-0 text-primary" /><span className="min-w-0">{c.title}</span></h3>
-            <ul className="space-y-2 text-sm">{c.items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="block text-xs text-muted-foreground">{n.about}</span></li>)}</ul>
+            <h3 className="card-heading mb-3 flex items-start gap-2 font-bold"><c.icon className="mt-1 h-5 w-5 shrink-0 text-primary" /><span className="min-w-0">{c.title}</span></h3>
+            <ul className="resource-list">{c.items.map((n) => <li key={n.name}><A href={n.url}>{n.name}</A><span className="resource-description block">{n.about}</span></li>)}</ul>
           </div>
         ))}
       </div>
