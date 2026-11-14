@@ -216,7 +216,7 @@
 .home-eyebrow { margin: 0 0 8px; max-width: none; font-size: 13px; font-weight: 700; text-transform: uppercase; line-height: 1.4; letter-spacing: 0; }
 .home-title { font-size: 184px; font-weight: 400; line-height: .9; text-shadow: var(--home-title-shadow); }
 .home-subtitle { max-width: 30em; margin: 28px auto 0; font-size: 26px; line-height: 1.4; font-weight: 600; color: var(--ink); }
-.home-summary { max-width: 36em; margin: 8px auto 0; font-size: 18px; line-height: 1.55; font-weight: 500; color: var(--ink); }
+.home-summary { max-width: none; margin: 8px auto 0; font-size: 18px; line-height: 1.55; font-weight: 500; color: var(--ink); }
 .home-search { max-width: 760px; margin: 32px auto 0; }
 .home-search form { max-width: none; border: 0; background: var(--tile-light); padding: 8px; box-shadow: var(--shadow-lifted); }
 .home-search input { font-size: 19px; }
