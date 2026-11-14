@@ -3,7 +3,7 @@ import { z } from "zod";
 import { lookupAddress } from "@/lib/la.functions";
 import { AddressSearch } from "@/components/AddressSearch";
 import { INDEPENDENT_CITIES } from "@/lib/la-data";
-import { heroFor, heroSrc, heroPage } from "@/lib/hero-images";
+import { heroFor, heroSrc, heroPage, landmarkHero } from "@/lib/hero-images";
 import { useEffect, useRef } from "react";
 
 export const Route = createFileRoute("/explore")({
@@ -61,7 +61,7 @@ function ExploreLayout() {
       <main className="mx-auto max-w-6xl px-5 py-8">
         {data.status === "ok" ? (
           <>
-            <Hero approximate={!!data.approximate} label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
+            <Hero query={q} approximate={!!data.approximate} label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
             <Outlet />
           </>
         ) : data.status === "outside" ? <Outside city={data.city} label={data.label} unincorporated={data.unincorporated} /> : <NotFound q={data.query} />}
@@ -104,9 +104,9 @@ function NotFound({ q }: { q: string }) {
   );
 }
 
-function Hero({ approximate, label, neighborhood, nc, region }: { approximate: boolean; label: string; neighborhood: string | null; nc: string; region: string }) {
+function Hero({ query, approximate, label, neighborhood, nc, region }: { query: string; approximate: boolean; label: string; neighborhood: string | null; nc: string; region: string }) {
   const hood = neighborhood ?? (nc.replace(/ Neighborhood Council$/i, "").replace(/ NC$/i, "") || "the City of Los Angeles");
-  const h = heroFor(hood, region);
+  const h = landmarkHero(query) ?? heroFor(hood, region);
   return (
     <figure className="relative mb-10">
       <div className="relative overflow-hidden rounded-[20px]">

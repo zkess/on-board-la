@@ -9,7 +9,17 @@ export const HERO_IMAGES = {
   bridge: { file: "Ever Mach and Vincent Thomas Bridge.jpg", subject: "Vincent Thomas Bridge, San Pedro", author: "DanielMichaelPerry", license: "CC0" },
   ventura: { file: "Studio City's Ventura Boulevard Shopping District.JPG", subject: "Ventura Boulevard, Studio City", author: "Cbl62", license: "CC BY-SA 3.0" },
   angelinoHeights: { file: "Angelino Heights Victorian.jpg", subject: "Victorian house, Angelino Heights", author: "Konrad Summers from Santa Clarita (Valencia), California, USA", license: "CC BY-SA 2.0" },
+  unionStation: { file: "Los Angeles (California, USA), Union Station -- 2012 -- 4938.jpg", subject: "Union Station", author: "Dietmar Rabich", license: "CC BY-SA 4.0" },
+  leimert: { file: "Leimert Plaza Park 2026 March 02.jpg", subject: "Leimert Plaza Park", author: "Jengod", license: "CC BY-SA 4.0" },
+  olvera: { file: "Olvera Street P1000569.jpg", subject: "Olvera Street", author: "NewtonCourt", license: "CC BY-SA 4.0" },
 } satisfies Record<string, HeroImage>;
+
+/** Famous spots from the home page get their own landmark photo, matched by the searched text. */
+export const HERO_BY_LANDMARK: [RegExp, HeroImage][] = [
+  [/GRIFFITH OBSERVATORY/i, HERO_IMAGES.griffith], [/VENICE CANALS?/i, HERO_IMAGES.venice], [/WATTS TOWERS/i, HERO_IMAGES.watts],
+  [/UNION STATION/i, HERO_IMAGES.unionStation], [/LEIMERT PARK/i, HERO_IMAGES.leimert], [/OLVERA/i, HERO_IMAGES.olvera],
+];
+export const landmarkHero = (query: string): HeroImage | undefined => HERO_BY_LANDMARK.find(([r]) => r.test(query))?.[1];
 
 /** Neighborhood-specific matches first (by NC name), then by service region. */
 export const HERO_BY_NC: [RegExp, HeroImage][] = [
