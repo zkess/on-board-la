@@ -211,7 +211,7 @@
 /* Uploaded homepage reference; scoped to preserve the neighborhood dashboard. */
 .home-page { min-width: 0; }
 .home-wrap { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: 32px; }
-.home-welcome { background: var(--home-welcome-fill); }
+.home-welcome { background: var(--home-welcome-fill); padding-bottom: 72px; }
 .home-intro { padding-top: 64px; text-align: center; }
 .home-eyebrow { margin: 0 0 8px; max-width: none; font-size: 13px; font-weight: 700; text-transform: uppercase; line-height: 1.4; letter-spacing: 0; }
 .home-title { font-size: 184px; font-weight: 400; line-height: .9; text-shadow: var(--home-title-shadow); }
@@ -256,6 +256,7 @@
 @media (max-width: 1023px) { .home-title { font-size: 140px; } .home-spot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .home-photo img { height: 360px; } }
 @media (max-width: 639px) {
   .home-wrap { padding-inline: 16px; }
+  .home-welcome { padding-bottom: 48px; }
   .home-intro { padding-top: 40px; }
   .home-title { font-size: 76px; }
   .home-subtitle { font-size: 20px; }
