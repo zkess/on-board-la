@@ -25,10 +25,10 @@ function Index() {
       <section className="home-welcome">
         <div className="home-wrap home-intro">
           <p className="home-eyebrow">For new and aspiring Angelenos</p>
-          <h1 className="home-title font-sign">ON <span className="text-sunset">BOARD</span> LA</h1>
-          <div className="home-search"><AddressSearch /></div>
+          <h1 className="home-title font-sign">ON <span className="text-bloom">BOARD</span> LA</h1>
           <p className="home-subtitle">It's time to feel like a local.</p>
           <p className="home-summary">Type any address in Los Angeles for trash day, your representatives, neighborhood history, and more.</p>
+          <div className="home-search"><AddressSearch /></div>
         </div>
       </section>
       <section className="home-steps">
