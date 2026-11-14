@@ -93,3 +93,34 @@ export const getBoundaries = createServerFn({ method: "GET" }).handler(async () 
   const [council, nc] = await Promise.all([get(13, "District,NAME"), get(18, "NAME")]);
   return { council, nc };
 });
+
+export type Suggestion = { label: string; detail: string };
+
+/** Type-ahead address suggestions within the LA area (Photon allows autocomplete; Nominatim's policy does not). */
+export const suggestAddresses = createServerFn({ method: "GET" })
+  .inputValidator((d: unknown) => z.object({ q: z.string().trim().min(3).max(200) }).parse(d))
+  .handler(async ({ data }): Promise<Suggestion[]> => {
+    try {
+      const r = await fetch(
+        `https://photon.komoot.io/api/?q=${encodeURIComponent(data.q)}&limit=6&lang=en&bbox=-118.67,33.70,-118.15,34.34`,
+        { headers: { "User-Agent": UA } },
+      );
+      if (!r.ok) return [];
+      const j = (await r.json()) as { features?: { properties: Record<string, string | undefined> }[] };
+      const seen = new Set<string>();
+      const out: Suggestion[] = [];
+      for (const { properties: p } of j.features ?? []) {
+        const street = [p["housenumber"], p["street"]].filter(Boolean).join(" ");
+        const label = p["name"] && p["name"] !== street ? p["name"] : street || p["name"];
+        if (!label) continue;
+        const detail = [p["name"] && street && p["name"] !== street ? street : null, p["district"] ?? p["locality"], p["city"], p["postcode"]].filter(Boolean).join(", ");
+        const key = `${label}|${detail}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push({ label, detail });
+      }
+      return out;
+    } catch {
+      return [];
+    }
+  });
