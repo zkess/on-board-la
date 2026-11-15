@@ -1,4 +1,5 @@
 - [ ] Add a nearby libraries & parks section to the Field guide (waiting on go-ahead)
+- [x] Import the final Northeast LA, South LA and Harbor institution batch without duplicates.
 - [x] Import the supplied San Fernando Valley institutions, deduplicate The Ford and match smaller areas to Mapping L.A. neighborhoods.
 - [x] Import the supplied Westside institutions, deduplicate Beyond Baroque and match neighborhood names.
 - [x] Import the supplied Hollywood & Mid-Wilshire institutions, avoid duplicates and retain the clean display.

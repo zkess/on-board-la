@@ -66,4 +66,21 @@ describe("Neighborhood institutions", () => {
     expect(institutionsFor("Woodland Hills").map((place) => place.name)).toContain("Warner Center Park (Lou Bredlow Pavilion)");
     expect(institutionsFor("Griffith Park").map((place) => place.name)).toContain("Cahuenga Peak");
   });
+  it("imports the final Northeast LA, South LA and Harbor batch without duplicates", () => {
+    const batch = INSTITUTIONS.filter((place) => place.sourceCredit?.startsWith("Supplied Northeast LA, South LA & Harbor"));
+    expect(batch).toHaveLength(74);
+    expect(INSTITUTIONS.filter((place) => place.name === "Leimert Plaza Park")).toHaveLength(1);
+    expect(INSTITUTIONS.filter((place) => place.name === "Watts Towers Arts Center")).toHaveLength(1);
+    expect(INSTITUTIONS.filter((place) => place.name.startsWith("WLCAC"))).toHaveLength(1);
+    expect(batch.every((place) => place.linkKind === "map" && place.lat === undefined && place.lng === undefined)).toBe(true);
+    expect(new Set(INSTITUTIONS.map((place) => place.id)).size).toBe(INSTITUTIONS.length);
+    expect(institutionsFor("San Pedro").map((place) => place.name)).toContain("Cabrillo Marine Aquarium");
+    expect(institutionsFor("Watts").map((place) => place.name)).toContain("Hawkins House of Burgers");
+  });
+  it("matches smaller NELA and South LA districts to their Mapping L.A. parents", () => {
+    expect(institutionsFor("Highland Park").map((place) => place.name)).toEqual(expect.arrayContaining(["Garvanza Park", "Hermon Dog Park"]));
+    expect(institutionsFor("El Sereno").map((place) => place.name)).toContain("Budd Wiener Park");
+    expect(institutionsFor("Baldwin Hills/Crenshaw").map((place) => place.name)).toContain("Destination Crenshaw");
+    expect(institutionsFor("Hyde Park").map((place) => place.name)).toContain("Leimert Plaza Park");
+  });
 });
