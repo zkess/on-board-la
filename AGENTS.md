@@ -45,4 +45,4 @@ use the editor.
 - Visual palette and typography are mapped centrally through semantic CSS tokens; header photo captions use solid surfaces for contrast without changing the page structure.
 - Imported homepage references are recreated in the native index route with home-scoped styles and shared address search, so exported scripts cannot replace application behavior or alter dashboard styling.
 - The /audit page reads the same data modules and lookup function as the dashboard so reviewers see exactly what users see.
-- Neighborhood institutions use a sourced bundled JSON directory and exact Mapping L.A. neighborhood matching; coordinate boundary tests prevent nearby or region-wide places being mislabeled as local.
+- Neighborhood institutions match exact Mapping L.A. names; supplied smaller districts retain district labels under explicit Times parents. Coordinate tests apply to located entries; unaudited imports carry provenance and map-search links instead of invented addresses or coordinates.

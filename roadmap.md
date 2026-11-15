@@ -1,5 +1,6 @@
 - [ ] Add a nearby libraries & parks section to the Field guide (waiting on go-ahead)
 - [x] Add a neighborhood institutions section with sourced parks, restaurants, buildings and cultural centers; initial coverage uses the famous-spot neighborhoods and Chinatown.
+- [x] Import the supplied Downtown & Central LA institutions, deduplicate existing entries and preserve smaller-district labels with unaudited provenance.
 - [x] Add verified neighborhood subreddit links to Neighborhood News.
 - [x] Add 211 LA to Essential LA apps.
 - [x] Promote the field guide to the main Dashboard and remove the topic dial test.

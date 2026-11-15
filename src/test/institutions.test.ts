@@ -5,8 +5,18 @@ import { mappingLaNeighborhood } from "@/lib/mapping-la.server";
 describe("Neighborhood institutions", () => {
   it("keeps every listed institution inside its Mapping L.A. neighborhood", () => {
     for (const place of INSTITUTIONS) {
+      if (place.lat === undefined || place.lng === undefined) continue;
       expect(mappingLaNeighborhood(place.lng, place.lat), place.name).toBe(place.neighborhood);
     }
+  });
+  it("imports all 51 supplied anchors without duplicating Philippe", () => {
+    expect(INSTITUTIONS.filter((place) => place.sourceCredit?.startsWith("Supplied Downtown")).length).toBe(50);
+    expect(INSTITUTIONS.filter((place) => place.name.toLowerCase() === "philippe the original")).toHaveLength(1);
+  });
+  it("keeps smaller district labels under the corresponding Times neighborhood", () => {
+    expect(institutionsFor("Downtown").find((place) => place.name === "Bavel")?.district).toBe("Arts District");
+    expect(institutionsFor("Echo Park").find((place) => place.name === "Carroll Avenue Historic District")?.district).toBe("Angelino Heights");
+    expect(institutionsFor("Mid-Wilshire").map((place) => place.name)).toContain("Republique");
   });
   it("shows Griffith Park institutions for the observatory neighborhood", () => {
     expect(institutionsFor("Griffith Park").map((p) => p.name)).toContain("Griffith Observatory");

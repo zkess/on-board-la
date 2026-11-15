@@ -7,9 +7,12 @@ export type Institution = {
   name: string;
   neighborhood: string;
   category: string;
-  address: string;
-  lat: number;
-  lng: number;
+  address?: string;
+  lat?: number;
+  lng?: number;
+  district?: string;
+  sourceCredit?: string;
+  linkKind?: string;
   about: string;
   url: string;
   sourceUrl?: string;
