@@ -27,6 +27,9 @@ describe("App routing", () => {
     expect(checklist.search).toMatchObject({ q });
     expect(router.matchRoutes(checklist.pathname, checklist.search).at(-1)?.search).toMatchObject({ q });
 
+    const back = router.buildLocation({ to: "/explore", _fromLocation: checklist });
+    expect(back.search).toMatchObject({ q });
+
     const replacement = router.buildLocation({
       to: "/explore",
       search: { q: "638 S Beacon St, San Pedro, Los Angeles" },

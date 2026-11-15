@@ -7,6 +7,8 @@ import { INDEPENDENT_CITIES } from "@/lib/la-data";
 import { heroFor, heroSrc, heroPage, landmarkHero } from "@/lib/hero-images";
 import { useEffect, useRef } from "react";
 import { useRememberedAddress } from "@/hooks/use-remembered-address";
+import { Button } from "@/components/ui/button";
+import { LayoutDashboard, ListChecks } from "lucide-react";
 
 export const Route = createFileRoute("/explore")({
   validateSearch: zodValidator(z.object({ q: fallback(z.string(), "").default("") })),
@@ -66,6 +68,18 @@ function ExploreLayout() {
         {data.status === "ok" ? (
           <>
             <Hero query={q} approximate={!!data.approximate} label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
+            <nav aria-label="Neighborhood pages" className="mb-6 flex flex-wrap gap-2 border-b border-border pb-4">
+              <Button asChild variant="ghost" className="h-10 text-[15px]">
+                <Link to="/explore" search={{ q }} activeOptions={{ exact: true }} activeProps={{ className: "bg-accent text-accent-foreground" }}>
+                  <LayoutDashboard aria-hidden="true" /> Dashboard
+                </Link>
+              </Button>
+              <Button asChild variant="ghost" className="h-10 text-[15px]">
+                <Link to="/explore/checklist" search={{ q }} activeProps={{ className: "bg-accent text-accent-foreground" }}>
+                  <ListChecks aria-hidden="true" /> Newcomer checklist
+                </Link>
+              </Button>
+            </nav>
             <Outlet />
           </>
         ) : data.status === "outside" ? <Outside city={data.city} label={data.label} unincorporated={data.unincorporated} /> : <NotFound q={data.query} />}

@@ -38,6 +38,7 @@ use the editor.
 - Neighborhood subreddit links use a curated directory with coverage evidence and neighborhood-name matching, not regional fallbacks, to avoid unrelated communities.
 - The neighborhood dashboard lives at /explore with shared content panels outside the routes; /explore/guide redirects there to preserve old links.
 - The explore parent retains its validated address search parameter across child-page navigation so the checklist and map keep the selected address.
+- Dashboard and checklist navigation lives in the shared explore layout and passes the current address explicitly, keeping both pages connected without exposing the map.
 - Explore remembers the current address in tab-scoped sessionStorage after hydration and restores it into empty URLs without changing the requested page; explicit URL addresses always win, and fresh tabs stay empty.
 - Header neighborhood matching runs server-side against bundled original Mapping L.A. V6 GeoJSON using Turf point-in-polygon; return it separately from EmpowerLA council data; the server does no council-name inference, and only the Hero component falls back to the council name when no Times polygon matches.
 - Streets and sanitation guidance lives in an expandable SanitationDetails component with official source links, keeping the address-specific pickup summary visible.
