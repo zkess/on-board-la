@@ -32,11 +32,10 @@ export function NeighborhoodInstitutions({ neighborhood }: { neighborhood: strin
                       <Icon aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-primary" />
                       <div className="min-w-0">
                         <p className="mb-1 text-[15px] text-muted-foreground">{place.category}</p>
-                        {place.district && place.district !== neighborhood && <p className="mb-1 text-[15px] text-muted-foreground">{place.district}</p>}
                         <A href={place.url}>{place.name}</A>
                         <p className="resource-description mt-1">{place.about}</p>
                         {place.address && <p className="mt-2 text-[15px] text-muted-foreground">{place.address}</p>}
-                        {place.sourceCredit && <p className="mt-2 text-[15px] text-muted-foreground">{place.sourceCredit}</p>}
+                        {place.sourceCredit && !place.sourceCredit.includes("Not yet audited") && <p className="mt-2 text-[15px] text-muted-foreground">{place.sourceCredit}</p>}
                         {place.sourceUrl && <a href={place.sourceUrl} target="_blank" rel="noreferrer" className="mt-1 inline-block text-[15px] text-primary underline underline-offset-4">Source</a>}
                       </div>
                     </li>
