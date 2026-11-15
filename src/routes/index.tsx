@@ -29,6 +29,7 @@ function Index() {
           <p className="home-subtitle">It's time to feel like a local.</p>
           <p className="home-summary">Type any address in Los Angeles for trash day, your representatives, neighborhood history, and more.</p>
           <div className="home-search"><AddressSearch /></div>
+          <p className="home-search-note">Just moved? <Link to="/explore/checklist" search={{ q: "" }} className="font-semibold text-primary underline underline-offset-4">Start your 30-day newcomer checklist</Link>.</p>
         </div>
       </section>
       <section className="home-steps">

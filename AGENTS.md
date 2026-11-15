@@ -49,3 +49,4 @@ use the editor.
 - Empty institution lists offer category-specific Google Maps searches scoped to the selected neighborhood, never neighboring-place substitutions; link labels use the existing linkKind metadata so destinations stay clear.
 - Failed searches reuse the shared landmark directory; the checklist can render without an address so its homepage footer link works for first-time visitors.
 - Missing trash schedules show conditional property-manager/recycLA guidance, never infer a property's hauler from absent civic-layer data.
+- Checklist personalization is a browser-safe transformation of the shared explore lookup, with stable task IDs for progress; compact checklist context preserves address data without the dashboard photo, and outside-city lookups show regional tasks only to avoid recommending inapplicable city services.

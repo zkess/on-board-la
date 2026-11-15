@@ -44,7 +44,7 @@ function ExploreLayout() {
   const data = Route.useLoaderData();
   const { q } = Route.useSearch();
   const pathname = useLocation({ select: (location) => location.pathname });
-  const emptyChecklist = pathname.replace(/\/$/, "") === "/explore/checklist" && q.trim().length < 2;
+  const isChecklist = pathname.replace(/\/$/, "") === "/explore/checklist";
   useRememberedAddress(q);
   const pageRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -67,9 +67,18 @@ function ExploreLayout() {
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-5 py-8">
-        {data.status === "ok" ? (
+        {data.status === "ok" || isChecklist ? (
           <>
-            <Hero query={q} approximate={!!data.approximate} label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} />
+            {isChecklist ? (
+              <div className="mb-4 flex items-start gap-3 border-b border-border pb-4">
+                <MapPin aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-primary" />
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground">{data.status === "ok" ? `Your neighborhood: ${data.neighborhood ?? "City of Los Angeles"}` : data.status === "outside" ? `Regional essentials for ${data.city ?? "LA County"}` : "Your Los Angeles newcomer checklist"}</p>
+                  {data.status !== "notfound" && <p className="resource-description">{data.label}{data.status === "ok" && data.council ? ` · Council District ${data.council.district}` : ""}</p>}
+                  {data.status !== "notfound" && data.approximate && <p role="note" className="resource-description mt-1">Approximate street location; verify address-specific services with <a className="text-primary underline" href="https://lacity.gov/neighborhoodinfo" target="_blank" rel="noreferrer">City Neighborhood Info</a>.</p>}
+                </div>
+              </div>
+            ) : data.status === "ok" ? <Hero query={q} approximate={!!data.approximate} label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} /> : null}
             <nav aria-label="Neighborhood pages" className="mb-6 flex flex-wrap gap-2 border-b border-border pb-4">
               <Button asChild variant="ghost" className="h-10 text-[15px]">
                 <Link to="/explore" search={{ q }} activeOptions={{ exact: true }} activeProps={{ className: "bg-accent text-accent-foreground" }}>
@@ -84,10 +93,7 @@ function ExploreLayout() {
             </nav>
             <Outlet />
           </>
-        ) : emptyChecklist ? <>
-          <Button asChild variant="ghost" className="mb-6"><Link to="/" ><LayoutDashboard aria-hidden="true" /> Search a neighborhood</Link></Button>
-          <Outlet />
-        </> : data.status === "outside" ? <Outside city={data.city} label={data.label} unincorporated={data.unincorporated} /> : <NotFound q={data.query} />}
+         ) : data.status === "outside" ? <><Outside city={data.city} label={data.label} unincorporated={data.unincorporated} /><div className="mt-6 text-center"><Button asChild variant="outline"><Link to="/explore/checklist" search={{ q }}><ListChecks aria-hidden="true" /> Regional newcomer checklist</Link></Button></div></> : <NotFound q={data.query} />}
       </main>
       <footer className="border-t border-border">
         <div className="mx-auto max-w-6xl px-5 py-6 text-[15px] text-muted-foreground">

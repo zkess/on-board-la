@@ -1,3 +1,4 @@
+- [x] Streamline the checklist header, personalize local tasks, allow outside-city access and add homepage discovery.
 - [x] Add failed-search landmark shortcuts, clean homepage footer links, and explain unavailable trash schedules.
 - [x] Improve empty institution listings and distinguish Google Maps searches from website links.
 - [ ] Add a nearby libraries & parks section to the Field guide (waiting on go-ahead)
