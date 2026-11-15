@@ -1,0 +1,191 @@
+[
+  {
+    "id": "griffith-park",
+    "name": "Griffith Park",
+    "neighborhood": "Griffith Park",
+    "category": "Parks",
+    "address": "4730 Crystal Springs Drive",
+    "lat": 34.1343,
+    "lng": -118.2821,
+    "about": "Trails, picnic grounds and recreation in the city's urban wilderness park.",
+    "url": "https://recreation.parks.lacity.gov/griffithpark/"
+  },
+  {
+    "id": "griffith-observatory",
+    "name": "Griffith Observatory",
+    "neighborhood": "Griffith Park",
+    "category": "Buildings",
+    "address": "2800 East Observatory Road",
+    "lat": 34.1184,
+    "lng": -118.3004,
+    "about": "The landmark observatory with astronomy exhibits and views over Los Angeles.",
+    "url": "https://griffithobservatory.lacity.gov/"
+  },
+  {
+    "id": "trails",
+    "name": "The Trails Caf\u00e9",
+    "neighborhood": "Los Feliz",
+    "category": "Restaurants",
+    "address": "2333 Fern Dell Place",
+    "lat": 34.1134,
+    "lng": -118.3075,
+    "about": "The Fern Dell refreshment stand, listed among the park's concessions.",
+    "url": "https://recreation.parks.lacity.gov/concession/griffith"
+  },
+  {
+    "id": "greek",
+    "name": "Greek Theatre",
+    "neighborhood": "Griffith Park",
+    "category": "Cultural centers",
+    "address": "2700 North Vermont Avenue",
+    "lat": 34.1195,
+    "lng": -118.296,
+    "about": "An outdoor performance venue tucked into Griffith Park.",
+    "url": "https://recreation.parks.lacity.gov/concession/griffith"
+  },
+  {
+    "id": "autry",
+    "name": "Autry Museum of the American West",
+    "neighborhood": "Griffith Park",
+    "category": "Cultural centers",
+    "address": "4700 Western Heritage Way",
+    "lat": 34.1486,
+    "lng": -118.2814,
+    "about": "Art, stories and exhibitions exploring the American West.",
+    "url": "https://theautry.org/exhibitions/investigating-griffith-park"
+  },
+  {
+    "id": "beyond-baroque",
+    "name": "Beyond Baroque",
+    "neighborhood": "Venice",
+    "category": "Cultural centers",
+    "address": "681 Venice Boulevard",
+    "lat": 33.9914,
+    "lng": -118.4649,
+    "about": "A literary arts center with writing workshops, readings and a poetry bookstore.",
+    "url": "https://www.beyondbaroque.org/"
+  },
+  {
+    "id": "watts-towers",
+    "name": "Watts Towers",
+    "neighborhood": "Watts",
+    "category": "Buildings",
+    "address": "1727 East 107th Street",
+    "lat": 33.9389,
+    "lng": -118.2413,
+    "about": "Simon Rodia's sculptural landmark, part of the Watts Towers arts campus.",
+    "url": "https://culture.lacity.gov/cultural-centers/watts-towers-campus"
+  },
+  {
+    "id": "watts-arts",
+    "name": "Watts Towers Arts Center",
+    "neighborhood": "Watts",
+    "category": "Cultural centers",
+    "address": "1727 East 107th Street",
+    "lat": 33.9389,
+    "lng": -118.2413,
+    "about": "Community galleries, arts programming and the Charles Mingus Youth Arts Center.",
+    "url": "https://culture.lacity.gov/cultural-centers/watts-towers-campus"
+  },
+  {
+    "id": "wlcac",
+    "name": "WLCAC Cultural Center",
+    "neighborhood": "Watts",
+    "category": "Cultural centers",
+    "address": "10950 South Central Avenue",
+    "lat": 33.9356,
+    "lng": -118.2538,
+    "about": "A community cultural campus with exhibits, murals and performance spaces.",
+    "url": "https://wlcac.org/cultural-facilities/",
+    "sourceUrl": "https://wlcac.org/services/enrichment/"
+  },
+  {
+    "id": "leimert-plaza",
+    "name": "Leimert Plaza Park",
+    "neighborhood": "Hyde Park",
+    "category": "Parks",
+    "address": "4395 Leimert Boulevard",
+    "lat": 34.0034,
+    "lng": -118.3297,
+    "about": "The neighborhood's gathering place, known for its community drum circle.",
+    "url": "https://www.discoverlosangeles.com/print/pdf/node/62398"
+  },
+  {
+    "id": "world-stage",
+    "name": "The World Stage",
+    "neighborhood": "Leimert Park",
+    "category": "Cultural centers",
+    "address": "4321 Degnan Boulevard",
+    "lat": 34.0053,
+    "lng": -118.3316,
+    "about": "A community performance and education space for African American music and literary arts.",
+    "url": "https://www.theworldstage.org/about.html"
+  },
+  {
+    "id": "union-station",
+    "name": "Union Station",
+    "neighborhood": "Downtown",
+    "category": "Buildings",
+    "address": "800 North Alameda Street",
+    "lat": 34.0562,
+    "lng": -118.2365,
+    "about": "The historic rail terminal across Alameda Street from El Pueblo.",
+    "url": "https://camla.org/visit/"
+  },
+  {
+    "id": "el-pueblo",
+    "name": "El Pueblo de Los Angeles",
+    "neighborhood": "Downtown",
+    "category": "Parks",
+    "address": "125 Paseo de la Plaza",
+    "lat": 34.0561,
+    "lng": -118.2387,
+    "about": "The city's historic plaza, with Olvera Street and buildings from early Los Angeles.",
+    "url": "https://elpueblo.lacity.gov/history-el-pueblo"
+  },
+  {
+    "id": "cam",
+    "name": "Chinese American Museum",
+    "neighborhood": "Downtown",
+    "category": "Cultural centers",
+    "address": "425 North Los Angeles Street",
+    "lat": 34.055,
+    "lng": -118.2397,
+    "about": "Exhibitions sharing Chinese American history in the historic Garnier Building.",
+    "url": "https://camla.org/visit/",
+    "sourceUrl": "https://camla.org/mission-and-history/"
+  },
+  {
+    "id": "philippe",
+    "name": "Philippe The Original",
+    "neighborhood": "Chinatown",
+    "category": "Restaurants",
+    "address": "1001 North Alameda Street",
+    "lat": 34.0597,
+    "lng": -118.2369,
+    "about": "A longtime French-dip sandwich institution on North Alameda Street.",
+    "url": "https://philippes.com/about-us/"
+  },
+  {
+    "id": "venice-beach",
+    "name": "Venice Beach Recreation Center",
+    "neighborhood": "Venice",
+    "category": "Parks",
+    "address": "1800 Ocean Front Walk",
+    "lat": 33.9855,
+    "lng": -118.4727,
+    "about": "Beachfront courts, playgrounds, a skate park and community recreation.",
+    "url": "https://recreation.parks.lacity.gov/reccenter/venice-beach"
+  },
+  {
+    "id": "gjusta",
+    "name": "Gjusta",
+    "neighborhood": "Venice",
+    "category": "Restaurants",
+    "address": "320 Sunset Avenue",
+    "lat": 33.9952,
+    "lng": -118.4731,
+    "about": "A neighborhood bakery with dine-in and takeout food.",
+    "url": "https://www.gjusta.com/location/gjusta/"
+  }
+]

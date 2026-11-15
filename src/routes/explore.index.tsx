@@ -4,6 +4,7 @@ import { Panel, A, type Id } from "@/components/NeighborhoodPanel";
 import { APPS, RADIO } from "@/lib/la-data";
 import { CITY_DEPARTMENTS, CITYWIDE } from "@/lib/newsletters";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { NeighborhoodInstitutions } from "@/components/NeighborhoodInstitutions";
 
 const SECTIONS = [
   { id: "trash", label: "Streets and Sanitation", icon: Trash2 },
@@ -46,6 +47,7 @@ function Guide() {
         <h2 className="relative mb-5 flex items-center gap-2 pr-20 font-display text-3xl font-bold text-foreground"><history.icon className="h-6 w-6 shrink-0" />{history.label}</h2>
         <Panel id="history" localOnly />
       </section>
+      <NeighborhoodInstitutions neighborhood={d.neighborhood} />
       <Toolkit />
     </div>
   );
