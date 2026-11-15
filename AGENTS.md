@@ -46,3 +46,4 @@ use the editor.
 - Imported homepage references are recreated in the native index route with home-scoped styles and shared address search, so exported scripts cannot replace application behavior or alter dashboard styling.
 - The /audit page reads the same data modules and lookup function as the dashboard so reviewers see exactly what users see.
 - Neighborhood institutions match exact Mapping L.A. names; supplied smaller districts retain district labels under explicit Times parents. Coordinate tests apply to located entries; unaudited imports carry provenance and map-search links instead of invented addresses or coordinates.
+- Empty institution lists offer category-specific Google Maps searches scoped to the selected neighborhood, never neighboring-place substitutions; link labels use the existing linkKind metadata so destinations stay clear.

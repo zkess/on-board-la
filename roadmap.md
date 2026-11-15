@@ -1,3 +1,4 @@
+- [x] Improve empty institution listings and distinguish Google Maps searches from website links.
 - [ ] Add a nearby libraries & parks section to the Field guide (waiting on go-ahead)
 - [x] Import the final Northeast LA, South LA and Harbor institution batch without duplicates.
 - [x] Import the supplied San Fernando Valley institutions, deduplicate The Ford and match smaller areas to Mapping L.A. neighborhoods.

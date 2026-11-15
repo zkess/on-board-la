@@ -1,8 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { INSTITUTIONS, institutionsFor } from "@/lib/institutions";
+import { INSTITUTIONS, institutionSearchUrl, institutionsFor } from "@/lib/institutions";
 import { mappingLaNeighborhood } from "@/lib/mapping-la.server";
 
 describe("Neighborhood institutions", () => {
+  it("keeps empty-neighborhood discovery searches scoped to the selected neighborhood", () => {
+    expect(institutionsFor("Beverly Grove")).toEqual([]);
+    const url = new URL(institutionSearchUrl("Beverly Grove", "Parks"));
+    expect(url.origin).toBe("https://www.google.com");
+    expect(url.searchParams.get("query")).toBe("Parks in Beverly Grove, Los Angeles");
+    expect(new URL(institutionSearchUrl("Baldwin Hills/Crenshaw", "Cultural centers")).searchParams.get("query")).toBe("Cultural centers in Baldwin Hills/Crenshaw, Los Angeles");
+  });
   it("keeps every listed institution inside its Mapping L.A. neighborhood", () => {
     for (const place of INSTITUTIONS) {
       if (place.lat === undefined || place.lng === undefined) continue;
