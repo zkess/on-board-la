@@ -37,8 +37,17 @@ describe("Neighborhood institutions", () => {
     expect(institutionsFor("Griffith Park").map((p) => p.category)).toEqual(expect.arrayContaining(["Parks", "Buildings", "Cultural centers"]));
     expect(institutionsFor("Los Feliz").map((p) => p.name)).toContain("The Trails Café");
   });
+  it("imports the Westside batch without duplicating Beyond Baroque", () => {
+    const batch = INSTITUTIONS.filter((place) => place.sourceCredit?.startsWith("Supplied Westside"));
+    expect(batch).toHaveLength(52);
+    expect(INSTITUTIONS.filter((place) => /beyond baroque/i.test(place.name))).toHaveLength(1);
+    expect(batch.every((place) => place.linkKind === "map" && place.lat === undefined && place.lng === undefined)).toBe(true);
+    expect(institutionsFor("Bel-Air").map((place) => place.name)).toContain("Hotel Bel-Air Restaurant");
+    expect(institutionsFor("Westwood").map((place) => place.name)).toContain("Holmby Park");
+    expect(institutionsFor("Sawtelle").map((place) => place.name)).toContain("GR2 Gallery (Giant Robot)");
+  });
   it("does not substitute neighboring or citywide places", () => {
-    expect(institutionsFor("Venice").map((p) => p.name)).toEqual(["Beyond Baroque", "Venice Beach Recreation Center", "Gjusta"]);
+    expect(institutionsFor("Venice").map((p) => p.name)).toEqual(["Beyond Baroque", "Venice Beach Recreation Center", "Gjusta", "Venice Beach Boardwalk & Muscle Beach", "The Rose Venice"]);
     expect(institutionsFor("Central Hollywood")).toEqual([]);
     expect(institutionsFor(null)).toEqual([]);
   });

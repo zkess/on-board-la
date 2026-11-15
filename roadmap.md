@@ -1,4 +1,5 @@
 - [ ] Add a nearby libraries & parks section to the Field guide (waiting on go-ahead)
+- [x] Import the supplied Westside institutions, deduplicate Beyond Baroque and match neighborhood names.
 - [x] Import the supplied Hollywood & Mid-Wilshire institutions, avoid duplicates and retain the clean display.
 - [x] Add a neighborhood institutions section with sourced parks, restaurants, buildings and cultural centers; initial coverage uses the famous-spot neighborhoods and Chinatown.
 - [x] Import the supplied Downtown & Central LA institutions, deduplicate existing entries and preserve smaller-district labels with unaudited provenance.
