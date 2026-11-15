@@ -51,4 +51,19 @@ describe("Neighborhood institutions", () => {
     expect(institutionsFor("Central Hollywood")).toEqual([]);
     expect(institutionsFor(null)).toEqual([]);
   });
+  it("imports the Valley batch without duplicating The Ford", () => {
+    const batch = INSTITUTIONS.filter((place) => place.sourceCredit?.startsWith("Supplied San Fernando Valley"));
+    expect(batch).toHaveLength(82);
+    expect(INSTITUTIONS.filter((place) => /^The Ford(?: Amphitheatre)?$/.test(place.name))).toHaveLength(1);
+    expect(batch.every((place) => place.linkKind === "map" && place.lat === undefined && place.lng === undefined)).toBe(true);
+    expect(new Set(INSTITUTIONS.map((place) => place.id)).size).toBe(INSTITUTIONS.length);
+    expect(institutionsFor("Arleta").map((place) => place.name)).toContain("Arleta Branch Library");
+    expect(institutionsFor("Sylmar").map((place) => place.name)).toContain("Nethercutt Collection");
+  });
+  it("places combined Valley districts into their corresponding Mapping L.A. neighborhoods", () => {
+    expect(institutionsFor("Tujunga").map((place) => place.name)).toEqual(expect.arrayContaining(["Bolton Hall Museum", "McGroarty Arts Center"]));
+    expect(institutionsFor("Sunland").map((place) => place.name)).toContain("The Back Door Bakery & Cafe");
+    expect(institutionsFor("Woodland Hills").map((place) => place.name)).toContain("Warner Center Park (Lou Bredlow Pavilion)");
+    expect(institutionsFor("Griffith Park").map((place) => place.name)).toContain("Cahuenga Peak");
+  });
 });
