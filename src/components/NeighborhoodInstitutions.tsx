@@ -10,9 +10,9 @@ export function NeighborhoodInstitutions({ neighborhood }: { neighborhood: strin
   const categories = INSTITUTION_CATEGORIES.filter((category) => places.some((place) => place.category === category));
   const views = ["All", ...categories];
   return (
-    <section id="institutions" aria-labelledby="institutions-heading" className="mt-10 border-t-2 border-border pt-8">
+    <section id="institutions" aria-labelledby="institutions-heading" className="mt-8">
       <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
-        <h2 id="institutions-heading" className="font-display text-3xl font-bold text-foreground">Neighborhood institutions</h2>
+        <h3 id="institutions-heading" className="card-heading font-bold text-foreground">Neighborhood institutions</h3>
         {neighborhood && <p className="text-[15px] text-muted-foreground">{neighborhood}</p>}
       </div>
       {places.length === 0 ? (

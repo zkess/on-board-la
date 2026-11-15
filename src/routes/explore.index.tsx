@@ -42,12 +42,14 @@ function Guide() {
           </section>
         ))}
       </div>
-      <section id="history" className="history-showpiece relative mt-10 overflow-hidden rounded-[20px] bg-accent p-6 text-accent-foreground shadow-soft md:p-10">
-        <span aria-hidden="true" className="pointer-events-none absolute right-4 top-0 w-16 text-right font-display text-[120px] leading-none text-bloom opacity-30">“</span>
-        <h2 className="relative mb-5 flex items-center gap-2 pr-20 font-display text-3xl font-bold text-foreground"><history.icon className="h-6 w-6 shrink-0" />{history.label}</h2>
-        <Panel id="history" localOnly />
+      <section id="history" aria-labelledby="history-heading" className="mt-10 border-t-2 border-border pt-8">
+        <h2 id="history-heading" className="mb-6 flex items-center gap-2 font-display text-3xl font-bold text-foreground"><history.icon aria-hidden="true" className="h-6 w-6 shrink-0" />{history.label}</h2>
+        <div className="history-showpiece relative overflow-hidden rounded-[20px] bg-accent p-6 text-accent-foreground shadow-soft md:p-10">
+          <span aria-hidden="true" className="pointer-events-none absolute right-4 top-0 w-16 text-right font-display text-[120px] leading-none text-bloom opacity-30">“</span>
+          <div className="relative pr-10 md:pr-16"><Panel id="history" localOnly /></div>
+        </div>
+        <NeighborhoodInstitutions neighborhood={d.neighborhood} />
       </section>
-      <NeighborhoodInstitutions neighborhood={d.neighborhood} />
       <Toolkit />
     </div>
   );
