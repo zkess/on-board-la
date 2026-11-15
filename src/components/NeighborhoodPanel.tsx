@@ -8,6 +8,7 @@ import { CITY_DEPARTMENTS, CITYWIDE, hyperlocalFor } from "@/lib/newsletters";
 import { subredditsFor } from "@/lib/subreddits";
 import { SanitationDetails } from "@/components/SanitationDetails";
 import { Button } from "@/components/ui/button";
+import { hasTrashSchedule } from "@/lib/sanitation";
 
 const parent = getRouteApi("/explore");
 export type Id = "trash" | "reps" | "history" | "press" | "city" | "apps";
@@ -23,8 +24,8 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
   if (d.status !== "ok") return null;
   const region = d.nc?.region ?? "";
   if (id === "trash") return (<>
-    <p className="text-xs uppercase tracking-wider text-muted-foreground">Trash day</p><p className="font-display text-2xl font-bold text-primary">{d.trashDay ?? "—"}</p>
-    <p className="resource-description mt-1">{"\n"}</p>
+    <p className="text-xs uppercase tracking-wider text-muted-foreground">Trash day</p><p className="font-display text-2xl font-bold text-primary">{hasTrashSchedule(d.trashDay) ? d.trashDay : "Not available"}</p>
+    {!hasTrashSchedule(d.trashDay) && <p className="resource-description mt-2">No city pickup schedule was found. Apartments may use a private <a href="https://www.recycla.com/" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">recycLA hauler</a>—check with your property manager or collection provider.</p>}
     <ul className="resource-list mt-4">
       <li><A href="https://ladotlivestreetsweeping.lacity.org">Street sweeping route lookup</A></li>
       <li><A href="https://myla311.lacity.gov">Bulky item pickup (MyLA311)</A></li>

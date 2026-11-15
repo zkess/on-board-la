@@ -1,14 +1,14 @@
-import { createFileRoute, Link, Outlet, retainSearchParams } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, retainSearchParams, useLocation } from "@tanstack/react-router";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { lookupAddress } from "@/lib/la.functions";
 import { AddressSearch } from "@/components/AddressSearch";
-import { INDEPENDENT_CITIES } from "@/lib/la-data";
+import { INDEPENDENT_CITIES, LANDMARKS } from "@/lib/la-data";
 import { heroFor, heroSrc, heroPage, landmarkHero } from "@/lib/hero-images";
 import { useEffect, useRef } from "react";
 import { useRememberedAddress } from "@/hooks/use-remembered-address";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, ListChecks } from "lucide-react";
+import { LayoutDashboard, ListChecks, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/explore")({
   validateSearch: zodValidator(z.object({ q: fallback(z.string(), "").default("") })),
@@ -43,6 +43,8 @@ export const Route = createFileRoute("/explore")({
 function ExploreLayout() {
   const data = Route.useLoaderData();
   const { q } = Route.useSearch();
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const emptyChecklist = pathname.replace(/\/$/, "") === "/explore/checklist" && q.trim().length < 2;
   useRememberedAddress(q);
   const pageRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -82,7 +84,10 @@ function ExploreLayout() {
             </nav>
             <Outlet />
           </>
-        ) : data.status === "outside" ? <Outside city={data.city} label={data.label} unincorporated={data.unincorporated} /> : <NotFound q={data.query} />}
+        ) : emptyChecklist ? <>
+          <Button asChild variant="ghost" className="mb-6"><Link to="/" ><LayoutDashboard aria-hidden="true" /> Search a neighborhood</Link></Button>
+          <Outlet />
+        </> : data.status === "outside" ? <Outside city={data.city} label={data.label} unincorporated={data.unincorporated} /> : <NotFound q={data.query} />}
       </main>
       <footer className="border-t border-border">
         <div className="mx-auto max-w-6xl px-5 py-6 text-[15px] text-muted-foreground">
@@ -115,9 +120,18 @@ function Outside({ city, label, unincorporated }: { city: string | null; label: 
 
 function NotFound({ q }: { q: string }) {
   return (
-    <div className="mx-auto max-w-xl rounded-3xl border border-border bg-card p-8 text-center">
-      <h1 className="font-display text-3xl font-bold">We couldn't find that address</h1>
+    <div className="mx-auto max-w-xl text-center">
+      <h1 className="font-display text-3xl font-bold">{q ? "We couldn't find that address" : "Find your corner of LA"}</h1>
       <p className="mt-3 text-muted-foreground">{q ? <>No match for “{q}” in LA County. </> : null}Try a street address with a cross-street or ZIP code.</p>
+      <div className="mx-auto mt-5"><AddressSearch initial={q} compact /></div>
+      <h2 className="mt-8 font-display text-xl font-semibold">Or start with a famous spot</h2>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        {LANDMARKS.map((landmark) => <li key={landmark.name}>
+          <Button asChild variant="outline" className="h-auto min-h-12 w-full justify-start whitespace-normal text-left">
+            <Link to="/explore" search={{ q: landmark.q }}><MapPin className="shrink-0" aria-hidden="true" />{landmark.name}</Link>
+          </Button>
+        </li>)}
+      </ul>
     </div>
   );
 }

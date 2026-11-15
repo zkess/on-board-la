@@ -63,8 +63,7 @@ function Index() {
       <footer className="home-footer">
         <div className="home-wrap home-footer-inner">
           <p className="font-sign text-[32px]">ON BOARD LA</p>
-          <p>{"\n"}</p>
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2"><a href="#spots">{"\n"}</a><a href="#top">Search an address</a><Link to="/about">About</Link></nav>
+           <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2"><a href="#top">Search an address</a><Link to="/explore/checklist" search={{ q: "" }}>Newcomer checklist</Link><Link to="/about">About</Link></nav>
         </div>
       </footer>
     </main>
