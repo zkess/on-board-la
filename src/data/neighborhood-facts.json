@@ -26,6 +26,19 @@
     "created_at": "2026-11-13T22:22:22.841914+00:00"
   },
   {
+    "id": "echo-park1",
+    "region": "East",
+    "neighborhood": "Echo Park",
+    "fact": "City parks superintendent Joseph Henry Tomlinson chose the name because of echoes he heard during the construction of Echo Park Lake in 1892.",
+    "source_title": "Where did the name Echo Park come from? Should we hear echoes?",
+    "source_publisher": "Los Angeles Magazine",
+    "source_author": "Chris Nichols",
+    "source_date": "2011-03-01",
+    "source_url": "https://lamag.com/news/where-did-the-name-echo-park-come-from-should/",
+    "source_note": null,
+    "created_at": "2026-11-17"
+  },
+  {
     "id": "cfb53c5f-2aba-41a2-9e01-a24f1da463cd",
     "region": "East",
     "neighborhood": "Boyle Heights",

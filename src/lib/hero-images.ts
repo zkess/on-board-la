@@ -12,6 +12,8 @@ export const HERO_IMAGES = {
   unionStation: { file: "Los Angeles (California, USA), Union Station -- 2012 -- 4938.jpg", subject: "Union Station", author: "Dietmar Rabich", license: "CC BY-SA 4.0" },
   leimert: { file: "Leimert Plaza Park 2026 March 02.jpg", subject: "Leimert Plaza Park", author: "Jengod", license: "CC BY-SA 4.0" },
   olvera: { file: "Olvera Street P1000569.jpg", subject: "Olvera Street", author: "NewtonCourt", license: "CC BY-SA 4.0" },
+  echopark: { file: "Echo_Park_Lake_Fountain.jpg", subject: "Echo Park Fountain", author: "By Accord14 - Own work", license: "CC BY-SA 4.0" },
+  wilmington: {file: "Drum_Barracks,_Wilmington,_California.jpg", subject: "Drum Barracks", author: "By Los Angeles", license: "CC BY-SA 3.0"}, artsdistrict: { file: "Art District in Los Angeles 2.jpg", subject: "Arts District Mural", author: "Johnnydeezwax", license: "CC BY-SA 3.0"},boyleheights: { file: "Boyle Heights Sign.jpg", subject: "Boyle Heights Sign", author: "MiztuhX", license: "CC BY-SA 4.0"},chinatown: { file: "Los Angeles China town 1.jpg", subject: "Chinatown", author: "Curlyrnd", license: "CC BY-SA 4.0"},civiccenter: { file: "Grand Park Los Angeles view toward City Hall.jpg", subject: "Grand Park", author: "PKM", license: "CC BY-SA 3.0"},downtown: { file: "Los Angeles Central Library 02.jpg", subject: "LA Central Library", author: "Visitor7", license: "CC BY-SA 3.0"},
 } satisfies Record<string, HeroImage>;
 
 /** Famous spots from the home page get their own landmark photo, matched by the searched text. */
@@ -23,8 +25,9 @@ export const landmarkHero = (query: string): HeroImage | undefined => HERO_BY_LA
 
 /** Neighborhood-specific matches first (by NC name), then by service region. */
 export const HERO_BY_NC: [RegExp, HeroImage][] = [
-  [/ANGELINO HEIGHTS/i, HERO_IMAGES.angelinoHeights], [/LOS FELIZ/i, HERO_IMAGES.griffith], [/VENICE/i, HERO_IMAGES.venice], [/WATTS/i, HERO_IMAGES.watts],
-  [/SAN PEDRO|HARBOR|WILMINGTON/i, HERO_IMAGES.bridge], [/STUDIO CITY/i, HERO_IMAGES.ventura], [/DOWNTOWN|HISTORIC CULTURAL/i, HERO_IMAGES.cityHall],
+  [/ECHO PARK/i, HERO_IMAGES.echopark], [/ANGELINO HEIGHTS/i, HERO_IMAGES.angelinoHeights], [/LOS FELIZ/i, HERO_IMAGES.griffith], [/VENICE/i, HERO_IMAGES.venice], [/WATTS/i, HERO_IMAGES.watts],
+  [/SAN PEDRO|HARBOR/i, HERO_IMAGES.bridge], [/WILMINGTON/i, HERO_IMAGES.wilmington],[/STUDIO CITY/i, HERO_IMAGES.ventura], [/DOWNTOWN|HISTORIC CULTURAL/i, HERO_IMAGES.cityHall],
+[/ARTS DISTRICT/i, HERO_IMAGES.artsdistrict],[/BOYLE HEIGHTS/i, HERO_IMAGES.boyleheights],[/CHINATOWN/i, HERO_IMAGES.chinatown],[/CIVIC CENTER/i, HERO_IMAGES.civiccenter],[/DOWNTOWN/i, HERO_IMAGES.downtown],
 ];
 export const HERO_BY_REGION: [RegExp, HeroImage][] = [
   [/VALLEY/i, HERO_IMAGES.ventura], [/HARBOR/i, HERO_IMAGES.bridge], [/SOUTH LA/i, HERO_IMAGES.watts],

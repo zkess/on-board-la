@@ -15,7 +15,6 @@ import { Route as AuditRouteImport } from './routes/audit'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as ExploreChecklistRouteImport } from './routes/explore.checklist'
-import { Route as ExploreGuideRouteImport } from './routes/explore.guide'
 import { Route as ExploreMapRouteImport } from './routes/explore.map'
 
 const IndexRoute = IndexRouteImport.update({
@@ -48,11 +47,6 @@ const ExploreChecklistRoute = ExploreChecklistRouteImport.update({
   path: '/checklist',
   getParentRoute: () => ExploreRoute,
 } as any)
-const ExploreGuideRoute = ExploreGuideRouteImport.update({
-  id: '/guide',
-  path: '/guide',
-  getParentRoute: () => ExploreRoute,
-} as any)
 const ExploreMapRoute = ExploreMapRouteImport.update({
   id: '/map',
   path: '/map',
@@ -65,7 +59,6 @@ export interface FileRoutesByFullPath {
   '/audit': typeof AuditRoute
   '/explore': typeof ExploreRouteWithChildren
   '/explore/checklist': typeof ExploreChecklistRoute
-  '/explore/guide': typeof ExploreGuideRoute
   '/explore/map': typeof ExploreMapRoute
   '/explore/': typeof ExploreIndexRoute
 }
@@ -74,7 +67,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/audit': typeof AuditRoute
   '/explore/checklist': typeof ExploreChecklistRoute
-  '/explore/guide': typeof ExploreGuideRoute
   '/explore/map': typeof ExploreMapRoute
   '/explore': typeof ExploreIndexRoute
 }
@@ -85,7 +77,6 @@ export interface FileRoutesById {
   '/audit': typeof AuditRoute
   '/explore': typeof ExploreRouteWithChildren
   '/explore/checklist': typeof ExploreChecklistRoute
-  '/explore/guide': typeof ExploreGuideRoute
   '/explore/map': typeof ExploreMapRoute
   '/explore/': typeof ExploreIndexRoute
 }
@@ -97,7 +88,6 @@ export interface FileRouteTypes {
     | '/audit'
     | '/explore'
     | '/explore/checklist'
-    | '/explore/guide'
     | '/explore/map'
     | '/explore/'
   fileRoutesByTo: FileRoutesByTo
@@ -106,7 +96,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/audit'
     | '/explore/checklist'
-    | '/explore/guide'
     | '/explore/map'
     | '/explore'
   id:
@@ -116,7 +105,6 @@ export interface FileRouteTypes {
     | '/audit'
     | '/explore'
     | '/explore/checklist'
-    | '/explore/guide'
     | '/explore/map'
     | '/explore/'
   fileRoutesById: FileRoutesById
@@ -172,13 +160,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreChecklistRouteImport
       parentRoute: typeof ExploreRoute
     }
-    '/explore/guide': {
-      id: '/explore/guide'
-      path: '/guide'
-      fullPath: '/explore/guide'
-      preLoaderRoute: typeof ExploreGuideRouteImport
-      parentRoute: typeof ExploreRoute
-    }
     '/explore/map': {
       id: '/explore/map'
       path: '/map'
@@ -191,14 +172,12 @@ declare module '@tanstack/react-router' {
 
 interface ExploreRouteChildren {
   ExploreChecklistRoute: typeof ExploreChecklistRoute
-  ExploreGuideRoute: typeof ExploreGuideRoute
   ExploreMapRoute: typeof ExploreMapRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
 }
 
 const ExploreRouteChildren: ExploreRouteChildren = {
   ExploreChecklistRoute: ExploreChecklistRoute,
-  ExploreGuideRoute: ExploreGuideRoute,
   ExploreMapRoute: ExploreMapRoute,
   ExploreIndexRoute: ExploreIndexRoute,
 }
