@@ -144,9 +144,13 @@ function NotFound({ q }: { q: string }) {
 
 function Hero({ query, approximate, label, neighborhood, nc, region }: { query: string; approximate: boolean; label: string; neighborhood: string | null; nc: string; region: string }) {
   const hood = neighborhood ?? (nc.replace(/ Neighborhood Council$/i, "").replace(/ NC$/i, "") || "the City of Los Angeles");
+  // HERO PHOTO UNDER REVIEW: the Wikimedia photo and its credit are commented out below.
+  // To restore: uncomment the block and put `-mt-6` back on the headline panel's className
+  // (that negative margin is what pulls the panel up over the photo).
   const h = landmarkHero(query) ?? heroFor(hood, region);
   return (
     <figure className="relative mb-10">
+      {/* HERO PHOTO UNDER REVIEW
       <div className="relative overflow-hidden rounded-[20px]">
         <img src={heroSrc(h)} alt={h.subject} width={1600} height={640} className="h-[320px] w-full object-cover" />
         <div className="hero-warm-tint pointer-events-none absolute inset-0" />
@@ -154,7 +158,8 @@ function Hero({ query, approximate, label, neighborhood, nc, region }: { query: 
           <a href={heroPage(h)} target="_blank" rel="noreferrer" className="hover:underline"><span className="inline-block">{h.subject} · {h.author}</span>{" · "}<span className="inline-block">{h.license} · Wikimedia Commons</span></a>
         </figcaption>
       </div>
-      <div className="hero-headline relative z-10 mx-3 -mt-6 rounded-[20px] bg-tile-light p-6 text-foreground shadow-soft md:mx-6 md:p-8">
+      */}
+      <div className="hero-headline relative z-10 mx-3 rounded-[20px] bg-tile-light p-6 text-foreground shadow-soft md:mx-6 md:p-8">
         <p className="text-xs uppercase tracking-widest">{label}</p>
         <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">We're in <mark className="rounded-sm bg-accent px-1 text-accent-foreground">{hood}</mark>.</h1>
         {approximate && <p role="note" className="mt-3 rounded-lg border border-border bg-muted px-3 py-2 text-[15px] leading-normal text-foreground">Approximate: we couldn't verify that exact building number, so this shows the general area for the street. Districts can change along a long street, so double-check with <a href="https://lacity.gov/neighborhoodinfo" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">the City's Neighborhood Info lookup</a>.</p>}
