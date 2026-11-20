@@ -23,15 +23,7 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
   const [i, setI] = useState(0);
   if (d.status !== "ok") return null;
   const region = d.nc?.region ?? "";
-  if (id === "trash") return (<>
-    <p className="text-xs uppercase tracking-wider text-muted-foreground">Trash day</p><p className="font-display text-2xl font-bold text-primary">{hasTrashSchedule(d.trashDay) ? d.trashDay : "Not available"}</p>
-    {!hasTrashSchedule(d.trashDay) && <p className="resource-description mt-2">No city pickup schedule was found. Apartments may use a private <a href="https://www.recycla.com/" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">recycLA hauler</a>—check with your property manager or collection provider.</p>}
-    <ul className="resource-list mt-4">
-      <li><A href="https://ladotlivestreetsweeping.lacity.org">Street sweeping route lookup</A></li>
-      <li><A href="https://myla311.lacity.gov">Bulky item pickup (MyLA311)</A></li>
-    </ul>
-    <SanitationDetails />
-    </>);
+ 
   if (id === "reps") {
     const Row = ({ label, children }: { label: string; children: ReactNode }) => (
       <li><p className="text-xs uppercase tracking-wider text-muted-foreground">{label}</p><p className="mt-0.5 font-medium">{children}</p></li>
@@ -44,6 +36,17 @@ export function Panel({ id, localOnly = false }: { id: Id; localOnly?: boolean }
       <li className="text-xs text-muted-foreground">Constituent help: call <strong className="text-foreground">3-1-1</strong></li>
     </ul>);
   }
+
+   if (id === "trash") return (<>
+    <p className="text-xs uppercase tracking-wider text-muted-foreground">Trash day</p><p className="font-display text-2xl font-bold text-primary">{hasTrashSchedule(d.trashDay) ? d.trashDay : "Not available"}</p>
+    {!hasTrashSchedule(d.trashDay) && <p className="resource-description mt-2">No city pickup schedule was found. Apartments may use a private <a href="https://www.recycla.com/" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">recycLA hauler</a>—check with your property manager or collection provider.</p>}
+    <ul className="resource-list mt-4">
+      <li><A href="https://ladotlivestreetsweeping.lacity.org">Street sweeping route lookup</A></li>
+      <li><A href="https://myla311.lacity.gov">Bulky item pickup (MyLA311)</A></li>
+    </ul>
+    <SanitationDetails />
+    </>);
+    
   if (id === "history") {
     const lore = pickFacts(facts, d.nc?.name ?? "", region, 100);
     const l = lore.length ? lore[i % lore.length] : null;

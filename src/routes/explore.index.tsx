@@ -7,8 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NeighborhoodInstitutions } from "@/components/NeighborhoodInstitutions";
 
 const SECTIONS = [
-  { id: "trash", label: "Streets and Sanitation", icon: Trash2 },
   { id: "reps", label: "Representatives", icon: Landmark },
+  { id: "trash", label: "Streets and Sanitation", icon: Trash2 },
   { id: "history", label: "History & Culture", icon: ScrollText },
   { id: "press", label: "Neighborhood News", icon: Newspaper },
 ] as const satisfies readonly { id: Id; label: string; icon: unknown }[];
