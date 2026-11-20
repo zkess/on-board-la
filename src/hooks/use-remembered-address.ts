@@ -16,7 +16,7 @@ export function useRememberedAddress(q: string) {
       }
       const remembered = sessionStorage.getItem(KEY);
       if (!remembered || remembered.trim().length < 2) return;
-      if (pathname !== "/explore" && pathname !== "/explore/" && pathname !== "/explore/checklist" && pathname !== "/explore/map" && pathname !== "/explore/guide") return;
+      if (pathname !== "/explore" && pathname !== "/explore/" && pathname !== "/explore/checklist" && pathname !== "/explore/map") return;
       void navigate({
         to: pathname === "/explore/" ? "/explore" : pathname,
         search: (previous) => ({ ...previous, q: remembered }),

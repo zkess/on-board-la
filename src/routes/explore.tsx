@@ -3,12 +3,12 @@ import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { lookupAddress } from "@/lib/la.functions";
 import { AddressSearch } from "@/components/AddressSearch";
-import { INDEPENDENT_CITIES, LANDMARKS } from "@/lib/la-data";
+import { CHECKLIST, INDEPENDENT_CITIES, LANDMARKS } from "@/lib/la-data";
 import { heroFor, heroSrc, heroPage, landmarkHero } from "@/lib/hero-images";
 import { useEffect, useRef } from "react";
 import { useRememberedAddress } from "@/hooks/use-remembered-address";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, ListChecks, MapPin } from "lucide-react";
+import { ArrowRight, LayoutDashboard, ListChecks, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/explore")({
   validateSearch: zodValidator(z.object({ q: fallback(z.string(), "").default("") })),
@@ -79,18 +79,7 @@ function ExploreLayout() {
                 </div>
               </div>
             ) : data.status === "ok" ? <Hero query={q} approximate={!!data.approximate} label={data.label} neighborhood={data.neighborhood} nc={data.nc?.name ?? ""} region={data.nc?.region ?? ""} /> : null}
-            <nav aria-label="Neighborhood pages" className="mb-6 flex flex-wrap gap-2 border-b border-border pb-4">
-              <Button asChild variant="ghost" className="h-10 text-[15px]">
-                <Link to="/explore" search={{ q }} activeOptions={{ exact: true }} activeProps={{ className: "bg-accent text-accent-foreground" }}>
-                  <LayoutDashboard aria-hidden="true" /> Dashboard
-                </Link>
-              </Button>
-              <Button asChild variant="ghost" className="h-10 text-[15px]">
-                <Link to="/explore/checklist" search={{ q }} activeProps={{ className: "bg-accent text-accent-foreground" }}>
-                  <ListChecks aria-hidden="true" /> Newcomer checklist
-                </Link>
-              </Button>
-            </nav>
+            <ViewSwitcher q={q} checklist={isChecklist} />
             <Outlet />
           </>
          ) : data.status === "outside" ? <><Outside city={data.city} label={data.label} unincorporated={data.unincorporated} /><div className="mt-6 text-center"><Button asChild variant="outline"><Link to="/explore/checklist" search={{ q }}><ListChecks aria-hidden="true" /> Regional newcomer checklist</Link></Button></div></> : <NotFound q={data.query} />}
@@ -102,6 +91,30 @@ function ExploreLayout() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function ViewSwitcher({ q, checklist }: { q: string; checklist: boolean }) {
+  const steps = CHECKLIST.reduce((n, p) => n + p.items.length, 0);
+  const views = [
+    { to: "/explore" as const, active: !checklist, icon: LayoutDashboard, title: "Neighborhood Dashboard", blurb: "Representatives, trash collection schedule, and local news", badge: null as string | null },
+    { to: "/explore/checklist" as const, active: checklist, icon: ListChecks, title: "Newcomer Checklist", blurb: "Your 30-day civic action plan, saved on this device", badge: `${steps} steps` },
+  ];
+  return (
+    <nav aria-label="Neighborhood pages" className="mb-6 grid gap-3 sm:grid-cols-2">
+      {views.map((v) => (
+        <Link key={v.title} to={v.to} search={{ q }} activeOptions={{ exact: v.to === "/explore" }}
+          aria-current={v.active ? "page" : undefined}
+          className={`group flex items-start gap-3 rounded-[20px] border p-4 transition-colors ${v.active ? "border-primary bg-accent text-accent-foreground shadow-soft" : "border-border bg-card hover:border-primary/50 hover:bg-accent/40"}`}>
+          <span className={`mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${v.active ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"}`}><v.icon className="h-4 w-4" aria-hidden="true" /></span>
+          <span className="min-w-0">
+            <span className="flex flex-wrap items-baseline gap-x-2 font-semibold">{v.title}{v.badge && <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-normal text-muted-foreground">{v.badge}</span>}</span>
+            <span className="mt-0.5 block text-sm text-muted-foreground">{v.blurb}</span>
+          </span>
+          {!v.active && <ArrowRight aria-hidden="true" className="ml-auto mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />}
+        </Link>
+      ))}
+    </nav>
   );
 }
 
@@ -144,9 +157,13 @@ function NotFound({ q }: { q: string }) {
 
 function Hero({ query, approximate, label, neighborhood, nc, region }: { query: string; approximate: boolean; label: string; neighborhood: string | null; nc: string; region: string }) {
   const hood = neighborhood ?? (nc.replace(/ Neighborhood Council$/i, "").replace(/ NC$/i, "") || "the City of Los Angeles");
+  // HERO PHOTO UNDER REVIEW: the Wikimedia photo and its credit are commented out below.
+  // To restore: uncomment the block and put `-mt-6` back on the headline panel's className
+  // (that negative margin is what pulls the panel up over the photo).
   const h = landmarkHero(query) ?? heroFor(hood, region);
   return (
     <figure className="relative mb-10">
+      {/* HERO PHOTO UNDER REVIEW
       <div className="relative overflow-hidden rounded-[20px]">
         <img src={heroSrc(h)} alt={h.subject} width={1600} height={640} className="h-[320px] w-full object-cover" />
         <div className="hero-warm-tint pointer-events-none absolute inset-0" />
@@ -154,11 +171,12 @@ function Hero({ query, approximate, label, neighborhood, nc, region }: { query: 
           <a href={heroPage(h)} target="_blank" rel="noreferrer" className="hover:underline"><span className="inline-block">{h.subject} · {h.author}</span>{" · "}<span className="inline-block">{h.license} · Wikimedia Commons</span></a>
         </figcaption>
       </div>
-      <div className="hero-headline relative z-10 mx-3 -mt-6 rounded-[20px] bg-tile-light p-6 text-foreground shadow-soft md:mx-6 md:p-8">
+      */}
+      <div className="hero-headline relative z-10 mx-3 rounded-[20px] bg-tile-light p-6 text-foreground shadow-soft md:mx-6 md:p-8">
         <p className="text-xs uppercase tracking-widest">{label}</p>
         <h1 className="mt-1 font-display text-3xl font-bold md:text-5xl">We're in <mark className="rounded-sm bg-accent px-1 text-accent-foreground">{hood}</mark>.</h1>
         {approximate && <p role="note" className="mt-3 rounded-lg border border-border bg-muted px-3 py-2 text-[15px] leading-normal text-foreground">Approximate: we couldn't verify that exact building number, so this shows the general area for the street. Districts can change along a long street, so double-check with <a href="https://lacity.gov/neighborhoodinfo" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">the City's Neighborhood Info lookup</a>.</p>}
-        {neighborhood && <a href="https://maps.latimes.com/about/" target="_blank" rel="noreferrer" className="mt-2 inline-block text-[15px] leading-normal text-primary underline underline-offset-4">Neighborhood boundaries: <span className="inline-block">Mapping L.A.</span></a>}
+        {neighborhood && <p className="mt-3 text-xs text-muted-foreground"><Link to="/about" className="underline underline-offset-4 hover:text-foreground">More information on neighborhood mapping</Link></p>}
       </div>
     </figure>
   );
