@@ -179,6 +179,7 @@
 @utility text-xs { font-size: 0.9375rem; line-height: 1.5; }
 @utility text-sm { font-size: 1.125rem; line-height: 1.7; }
 
+.about-list {   padding-left: 80px; /* Increases the default ~40px indent */}
 .dashboard-page { --header-height: 88px; }
 .dashboard-page section[id] { scroll-margin-top: var(--header-height); }
 .dashboard-page .text-xs { font-size: 15px; line-height: 1.5; }
